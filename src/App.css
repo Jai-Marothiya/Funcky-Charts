@@ -1,0 +1,55 @@
+/* BarChartForm styles */
+
+.container {
+  margin: 20px;
+  background: linear-gradient(to bottom right, #5f76e8, #8d92fb);
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
