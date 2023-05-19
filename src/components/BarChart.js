@@ -36,7 +36,6 @@ function BarChart({ chartData }) {
           display: true,
           text: 'Users'
         },
-        min: 0,
         max: 100,
         ticks: {
           // forces step size to be 50 units

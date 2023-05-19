@@ -2,67 +2,84 @@ import React, { useState, useEffect } from 'react';
 
 const BarChartForm = ({ onLiveDataChange }) => {
   const [data, setData] = useState([]);
-  const [previewData, setPreviewData] = useState([]);
 
   useEffect(() => {
-    onLiveDataChange(previewData);
-  }, [previewData, onLiveDataChange]);
+    onLiveDataChange(data);
+  }, [data, onLiveDataChange]);
 
   const handleDataChange = (e, index) => {
     const newData = [...data];
-    newData[index] = e.target.value;
+    newData[index].value = e.target.value;
     setData(newData);
-    generatePreviewData(newData);
+  };
+  const handleBarDataChange = (e, index) => {
+    const newData = [...data];
+    newData[index].label = e.target.value;
+    setData(newData);
   };
 
-  const handleAddField = () => {
-    const newData = [...data, ''];
+  const handleAddField = (e) => {
+    e.preventDefault();
+    console.log(e.target.children[0].value);
+    let label=e.target.children[0].value;
+    let value=e.target.children[1].value;
+    Number(value);
+    const newData = [...data];
+    newData.push({
+      label:label,
+      value:value,
+    });
     setData(newData);
+    e.target.children[0].value="";
+    e.target.children[1].value="";
   };
 
   const handleRemoveField = (index) => {
     const newData = [...data];
     newData.splice(index, 1);
     setData(newData);
-    generatePreviewData(newData);
-  };
-
-  const generatePreviewData = (newData) => {
-    const preview = newData.map((value, index) => ({
-      label: `Bar ${index + 1}`,
-      value: parseFloat(value) || 0,
-    }));
-    setPreviewData(preview);
   };
 
   return (
     <div>
       <h2>Bar Chart Data Input</h2>
-      <button onClick={handleAddField}>Add Field</button>
-      {data.map((value, index) => (
-        <div key={index}>
-          <input
-            type="number"
-            value={value}
-            onChange={(e) => handleDataChange(e, index)}
-            placeholder={`Value ${index + 1}`}
-          />
-          <button onClick={() => handleRemoveField(index)}>Remove</button>
-        </div>
-      ))}
+        <form onSubmit={handleAddField}>
+          <input type="text" placeholder="Enter Label"/>
+          <input type="number" step="0.01" placeholder="Enter Data"/>
+          <input type="submit" value="Submit"/>
+        </form>
+
       <h2>Preview</h2>
       <table>
         <thead>
           <tr>
             <th>Bar</th>
             <th>Value</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          {previewData.map((item, index) => (
+          {data.map((item, index) => (
             <tr key={index}>
-              <td>{item.label}</td>
-              <td>{item.value}</td>
+              <td>
+                <input
+                    type="string"
+                    value={item.label}
+                    onChange={(e) => handleBarDataChange(e, index)}
+                    placeholder={`Value ${index + 1}`}
+                />
+              </td>
+              <td>
+                <input
+                    type="number"
+                    value={item.value}
+                    onChange={(e) => handleDataChange(e, index)}
+                    placeholder={`Value ${index + 1}`}
+                />
+              </td>
+              <td>
+                <button onClick={() => handleRemoveField(index)}>Remove</button>
+              </td>
             </tr>
           ))}
         </tbody>

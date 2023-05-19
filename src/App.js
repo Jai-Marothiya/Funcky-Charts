@@ -62,8 +62,8 @@ function App() {
     ],
   });
 
-  console.log(UserData);
-  console.log(userData);
+  // console.log(UserData);
+  // console.log(userData);
 
   return (
     <div>
