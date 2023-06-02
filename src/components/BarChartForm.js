@@ -46,13 +46,14 @@ const BarChartForm = ({ onLiveDataChange }) => {
         <form onSubmit={handleAddField}>
           <input type="text" placeholder="Enter Label"/>
           <input type="number" step="0.01" placeholder="Enter Data"/>
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Add Data"/>
         </form>
 
       <h2>Preview</h2>
       <table>
         <thead>
           <tr>
+            <th>Index</th>
             <th>Bar</th>
             <th>Value</th>
             <th>Delete</th>
@@ -61,6 +62,9 @@ const BarChartForm = ({ onLiveDataChange }) => {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
+              <td>
+                {index+1}
+              </td>
               <td>
                 <input
                     type="string"

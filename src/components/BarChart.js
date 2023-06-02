@@ -5,7 +5,17 @@ import { Chart as ChartJS } from "chart.js/auto";
 function BarChart({ chartData }) {
   const options= {
     responsive: true,
+    animations: {
+        duration: 1000,
+        easing: 'linear',
+        from: 1,
+        to: 0,
+        loop: true
+    },
     plugins: {
+      colorschemes: {
+        scheme: 'brewer.RdYlGn3'
+      },
       tooltip: {
         mode: 'index',
         intersect: false,
@@ -36,10 +46,10 @@ function BarChart({ chartData }) {
           display: true,
           text: 'Users'
         },
-        max: 100,
+        // max: 100,
         ticks: {
           // forces step size to be 50 units
-          stepSize: 5
+          // stepSize: 5
         }
       }
     }
