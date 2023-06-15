@@ -260,7 +260,7 @@ border-color: transparent;
 .setting {
   width: 30%;
   overflow-x: scroll;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 form {
@@ -311,4 +311,156 @@ th {
 
 .setting .color-section {
   margin-bottom: 10rem;
+}
+
+/**** topbar of side bar***/
+.tabs-box {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  border-bottom: 1px solid lightgray;
+}
+
+.tabs-box .tab {
+  width: 50%;
+}
+
+.tab button {
+  font-size: 20px;
+  line-height: 16px;
+  color: rgb(149, 144, 144);
+  padding: 25px;
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  background-color: white;
+  border: none;
+}
+
+.tabs-box .tab button:hover {
+  color: black;
+}
+
+.tabs-box .tab button:visited {
+  background: rgb(47, 145, 145);
+  color: black;
+}
+
+/********* Chat GPT ****/
+/* Color Section */
+.color-section {
+  margin-top: 20px;
+}
+
+.color-section h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.color-section label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #555;
+}
+
+.color-section input[type="color"] {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.color-section button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.color-section button:hover {
+  background-color: #0056b3;
+}
+
+.color-section ul {
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.color-section li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.color-section li span {
+  margin-left: 5px;
+}
+
+.color-section span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.color-section button {
+  margin-left: 10px;
+}
+
+/* Animation */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.tabContent {
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.tabContent.enter {
+  animation-name: slideInFromRight;
+}
+
+.tabContent.leave {
+  animation-name: slideOutToLeft;
 }
