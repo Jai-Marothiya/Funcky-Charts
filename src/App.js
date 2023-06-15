@@ -6,56 +6,71 @@ import BarChart from './components/BarChart';
 // import PieChart from './components/PieChart';
 // import {UserData} from './Data'
 import BarChartForm from './components/BarChartForm';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [UserData, setUserData] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [newColor, setNewColor] = useState('');
+
+  const [chartType,setChartType]=useState();
 
   const handleLiveDataChange = (data) => {
     // console.log(data);
     setUserData(data);
   };
 
+  // console.log(colors);
+  // console.log(newColor);
+
+  useEffect(() => {
+    // Load data from local storage on component mount
+    const storedData = localStorage.getItem('myColor');
+    if (storedData) {
+      setColors(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage whenever data changes
+    if(colors.length>0)
+    localStorage.setItem('myColor', JSON.stringify(colors));
+  }, [colors]);
+
   useEffect(() => {
     setuserData({
       labels: UserData.map((data)=> data.label),
       datasets: [{
-            label: "Users Gained",
+            label: "Age Vs name",
             data: UserData.map((data) => data.value),
-            backgroundColor: [
-              "rgba(75,192,192,1)",
-              "rgba(255, 99, 132, 0.2)",
-              "#50AF95",
-              "#f3ba2f",
-              "#2a71d0",
-            ],
-            color:"white",
+            backgroundColor: colors,
+            color:"yellow",
             borderColor: "grey",
             borderWidth: 2,
             responsive:true,
             hitRadius:30,
-            pointHoverRadius: 20,
+            pointHoverRadius: 5,
             barPercentage: 0.9,
             // barThickness: default,
             maxBarThickness: 60,
             minBarLength: 50,
             // backgroundColor: "blue",
             borderSkipped: "bottom",
-            borderRadius: 3,
+            borderRadius: 2,
             hoverBackgroundColor: "rgba(270, 240, 32, 0.2)",
             hoverBorderWidth:4,
-            duration:1000,
-            pointStyle:'triangle',
+            pointStyle:'circle',
             // clip: {left: 5, top: false, right: -2, bottom: 0}
         },
       ],
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [UserData]);
+  }, [UserData,colors]);
 
   const [userData,setuserData] =useState({
     labels: UserData.map((data)=> data.label),
     datasets: [{
-          label: "Users Gained",
+          label: "Age vs Name",
           data: UserData.map((data) => data.value),
           backgroundColor: [
             "rgba(75,192,192,1)",
@@ -64,11 +79,11 @@ function App() {
             "#f3ba2f",
             "#2a71d0",
           ],
-          color:"white",
+          color:"yellow",
           borderColor: "black",
           borderWidth: 2,
           responsive:true,
-          hitRadius:30,
+          hitRadius:0,
           pointHoverRadius: 20,
       },
     ],
@@ -77,14 +92,13 @@ function App() {
   // console.log(UserData);
   // console.log(userData);
 
+  
   return (
-    <div>
-      <h1>My Bar Chart App</h1>
-      <BarChartForm onLiveDataChange={handleLiveDataChange} />
-      {/* <h2>Live Data</h2>
-      <pre>{JSON.stringify(UserData, null, 2)}</pre> */}
-      <div style={{ width: 700 }}>
-        <BarChart chartData={userData} />
+    <div style={{display:'flex',height:"100%"}}>
+      <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor}/>
+      
+      <div style={{ width: "70%", border:"2px solid black",height:"100%", backgroundColor:"#dadada"}}>
+        <BarChart chartType={chartType} chartData={userData}/>
       </div>
     </div>
   );
@@ -146,8 +160,54 @@ const [userData,setUserData] =useState({
       </div>
     </div>
   );
+*/
 
 
+
+/*****************Working prototype ************/
+
+/***Start*****/
+/*
+<div>
+    <h1>My Bar Chart App</h1>
+    <div>
+        <h1>Chart with Custom Background Colors</h1>
+    <div>
+    <label htmlFor="colorInput">Enter a color:</label>
+    <input type="color" id="colorInput" value={newColor} onChange={handleColorChange}/>
+    <button onClick={handleAddColor}>Add Color</button>
+</div>
+
+<div>
+    <h3>Selected Colors:</h3>
+    <ul>
+      {colors.map((color, index) => (
+        <li key={index}>
+          <span
+            style={{
+              backgroundColor: color,
+              width: '20px',
+              height: '20px',
+              display: 'inline-block',
+              marginRight: '5px',
+            }}
+          ></span>
+          {color}
+          <button onClick={() => handleRemoveColor(index)}>Remove</button>
+        </li>
+      ))}
+    </ul>
+    <button onClick={generateChart}>Generate Chart</button> 
+</div>
+
+<canvas id="myChart"></canvas>
+</div>
+  <BarChartForm onLiveDataChange={handleLiveDataChange} />
+</div>
+
+<div style={{ width: 700 }}>
+  <BarChart chartData={userData} />
+</div>
 
 
 

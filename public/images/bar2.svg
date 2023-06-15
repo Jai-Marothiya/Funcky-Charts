@@ -1,0 +1,17 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M100 14H0V15H100V14ZM0 28H100V29H0V28ZM100 42H0V43H100V42ZM0 56H100V57H0V56ZM100 70H0V71H100V70ZM100 84H0V85H100V84Z" fill="white" fill-opacity="0.1"/>
+<path d="M83 16C83 14.8954 83.8954 14 85 14H96C97.1046 14 98 14.8954 98 16V25H83V16Z" fill="#2A7AAE"/>
+<rect x="83" y="25" width="15" height="29" fill="#2F9DC6"/>
+<rect x="83" y="54" width="15" height="31" fill="#6CE5E8"/>
+<rect x="63" y="60" width="15" height="25" fill="#6CE5E8"/>
+<rect x="43" y="66" width="15" height="19" fill="#6CE5E8"/>
+<rect x="23" y="75" width="15" height="10" fill="#6CE5E8"/>
+<rect x="63" y="44" width="15" height="16" fill="#2F9DC6"/>
+<rect x="43" y="53" width="15" height="13" fill="#2F9DC6"/>
+<rect x="23" y="62" width="15" height="13" fill="#2F9DC6"/>
+<rect x="3" y="79" width="15" height="6" fill="#2F9DC6"/>
+<path d="M63 30C63 28.8954 63.8954 28 65 28H76C77.1046 28 78 28.8954 78 30V44H63V30Z" fill="#2A7AAE"/>
+<path d="M43 44C43 42.8954 43.8954 42 45 42H56C57.1046 42 58 42.8954 58 44V53H43V44Z" fill="#2A7AAE"/>
+<path d="M23 58C23 56.8954 23.8954 56 25 56H36C37.1046 56 38 56.8954 38 58V62H23V58Z" fill="#2A7AAE"/>
+<path d="M3 72C3 70.8954 3.89543 70 5 70H16C17.1046 70 18 70.8954 18 72V79H3V72Z" fill="#2A7AAE"/>
+</svg>

@@ -1,8 +1,11 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar,Pie,Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-function BarChart({ chartData }) {
+
+
+function BarChart({ chartType,chartData }) {
+  
   const options= {
     responsive: true,
     animations: {
@@ -11,6 +14,9 @@ function BarChart({ chartData }) {
         from: 1,
         to: 0,
         loop: true
+    },
+    layout: {
+      padding: 20
     },
     plugins: {
       colorschemes: {
@@ -55,7 +61,14 @@ function BarChart({ chartData }) {
     }
   };
   // console.log(chartData);
-  return <Bar data={chartData} options={options}/>;
+  
+  if(chartType==="line"){
+    return <Line data={chartData} options={options}/>;
+  }else if(chartType==="bar"){
+    return <Bar data={chartData} options={options}/>;
+  }else if(chartType==="pie"){
+    return <Pie data={chartData} options={options}/>;
+  }
 }
 
 export default BarChart;

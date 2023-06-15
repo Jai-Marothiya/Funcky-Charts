@@ -4,34 +4,61 @@ const BarChartForm = ({ onLiveDataChange }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    // Load data from local storage on component mount
+    const storedData = localStorage.getItem('myData');
+    console.log(storedData);
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+  // console.log(localStorage.getItem('myData'));
+
+  useEffect(() => {
+    // Update local storage whenever data changes
+    if(data.length>0)
+    localStorage.setItem('myData', JSON.stringify(data));
+  }, [data]);
+
+  useEffect(() => {
     onLiveDataChange(data);
   }, [data, onLiveDataChange]);
 
-  const handleDataChange = (e, index) => {
+  const handleDataLabel = (e, index) => {
     const newData = [...data];
-    newData[index].value = e.target.value;
+    // console.log(newData[index]);
+    // console.log(typeof(e.target.value));
+
+    // if(typeof(e.target.value)==='string'){
+      newData[index].label = e.target.value;
+    // }else{
+    //   newData[index].value = e.target.value;
+    // }
+    // console.log(data);
+
     setData(newData);
   };
-  const handleBarDataChange = (e, index) => {
+  const handleDataValue = (e, index) => {
     const newData = [...data];
-    newData[index].label = e.target.value;
+    newData[index].value = e.target.value;
+
     setData(newData);
   };
 
   const handleAddField = (e) => {
     e.preventDefault();
-    console.log(e.target.children[0].value);
-    let label=e.target.children[0].value;
-    let value=e.target.children[1].value;
-    Number(value);
-    const newData = [...data];
-    newData.push({
-      label:label,
-      value:value,
-    });
+    const label = e.target.children[0].value;
+    const value = e.target.children[1].value;
+    const newData = [
+      ...data,
+      {
+        label: label,
+        value: value,
+      },
+    ];
+    console.log(newData);
     setData(newData);
-    e.target.children[0].value="";
-    e.target.children[1].value="";
+    e.target.children[0].value = '';
+    e.target.children[1].value = '';
   };
 
   const handleRemoveField = (index) => {
@@ -43,11 +70,11 @@ const BarChartForm = ({ onLiveDataChange }) => {
   return (
     <div>
       <h2>Bar Chart Data Input</h2>
-        <form onSubmit={handleAddField}>
-          <input type="text" placeholder="Enter Label"/>
-          <input type="number" step="0.01" placeholder="Enter Data"/>
-          <input type="submit" value="Add Data"/>
-        </form>
+      <form onSubmit={handleAddField}>
+        <input type="text" placeholder="Enter Label" />
+        <input type="number" step="0.01" placeholder="Enter Data" />
+        <input type="submit" value="Add Data" />
+      </form>
 
       <h2>Preview</h2>
       <table>
@@ -62,23 +89,21 @@ const BarChartForm = ({ onLiveDataChange }) => {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td>
-                {index+1}
-              </td>
+              <td>{index + 1}</td>
               <td>
                 <input
-                    type="string"
-                    value={item.label}
-                    onChange={(e) => handleBarDataChange(e, index)}
-                    placeholder={`Value ${index + 1}`}
+                  type="string"
+                  value={item.label}
+                  onChange={(e) => handleDataLabel(e, index)}
+                  placeholder={`Value ${index + 1}`}
                 />
               </td>
               <td>
                 <input
-                    type="number"
-                    value={item.value}
-                    onChange={(e) => handleDataChange(e, index)}
-                    placeholder={`Value ${index + 1}`}
+                  type="number"
+                  value={item.value}
+                  onChange={(e) => handleDataValue(e, index)}
+                  placeholder={`Value ${index + 1}`}
                 />
               </td>
               <td>
