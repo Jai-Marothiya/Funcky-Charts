@@ -97,8 +97,12 @@ function App() {
     <div style={{display:'flex',height:"100%"}}>
       <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor}/>
       
-      <div style={{ width: "70%", border:"2px solid black",height:"100%", backgroundColor:"#dadada"}}>
-        <BarChart chartType={chartType} chartData={userData}/>
+      <div className="barBackground">
+        <div className="graphBackground">
+          <div className="barChartWrapper">
+            <BarChart chartType={chartType} chartData={userData}/>
+          </div>
+        </div>
       </div>
     </div>
   );

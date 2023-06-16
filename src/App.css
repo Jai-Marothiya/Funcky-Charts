@@ -464,3 +464,33 @@ th {
 .tabContent.leave {
   animation-name: slideOutToLeft;
 }
+
+/**************** tanishk barchart css ***************/
+
+.barBackground{
+  width: 70%;
+  border:2px solid black;
+  height:100%;
+  background-color: #d8dfe8;
+  display:flex ;
+  align-items: center;
+  justify-content: center;
+}
+
+.graphBackground{
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graphBackground:hover{
+  border: 2px solid blue;
+  border-radius: 4px;
+}
+
+.barChartWrapper{
+  width: 70%;
+}

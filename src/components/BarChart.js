@@ -18,24 +18,25 @@ function BarChart({ chartType,chartData }) {
     layout: {
       padding: 20
     },
-    plugins: {
-      colorschemes: {
-        scheme: 'brewer.RdYlGn3'
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-      },
-      title: {
-        display: true,
-      },
-      beforeEvent(chart, args, pluginOptions) {
-        const event = args.event;
-        if (event.type === 'mouseout') {
-          // process the event
-        }
-      },
-    },
+    // plugins: {
+    //   colorschemes: {
+    //     scheme: 'brewer.RdYlGn3'
+    //   },
+    //   tooltip: {
+    //     mode: 'index',
+    //     intersect: false,
+    //   },
+    //   title: {
+    //     display: true,
+    //   },
+    //   beforeEvent(chart, args, pluginOptions) {
+    //     const event = args.event;
+    //     if (event.type === 'mouseout') {
+    //       // process the event
+    //     }
+    //   },
+    // },
+    aspectRatio:1,
     hover: {
       mode: 'point',
       intersec: false,
