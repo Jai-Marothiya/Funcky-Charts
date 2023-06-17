@@ -286,7 +286,7 @@ const Sidebar = ({
 
   /******************* setting section part ***************/
   const [sideSet,setSideset]=useState({
-    xTitle:false,
+    xTitle:true,
     xText:"x-axis",
     yTitle:true,
     yText:"y-axis", 
