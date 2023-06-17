@@ -263,13 +263,13 @@ border-color: transparent;
   /* overflow-y: scroll; */
 }
 
-form {
+.data-section form {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
-input {
+.data-section input {
   margin-right: 10px;
   margin-bottom: 10px;
   padding: 8px;
@@ -288,28 +288,28 @@ button {
   cursor: pointer;
 }
 
-.setting .table {
+.setting .data-section .table {
   overflow: scroll;
 }
 
-.table table {
+.data-section .table table {
   border-collapse: collapse;
 
   margin-bottom: 20px;
 }
 
-th,
+.data-section th,
 td {
   border: 1px solid #ccc;
   padding: 8px;
   width: fit-content;
 }
 
-th {
+.data-section th {
   background-color: #f2f2f2;
 }
 
-.setting .color-section {
+.setting .data-section .color-section {
   margin-bottom: 10rem;
 }
 
@@ -467,17 +467,17 @@ th {
 
 /**************** tanishk barchart css ***************/
 
-.barBackground{
+.barBackground {
   width: 70%;
-  border:2px solid black;
-  height:100%;
+  border: 2px solid black;
+  height: 100%;
   background-color: #d8dfe8;
-  display:flex ;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.graphBackground{
+.graphBackground {
   width: 80%;
   height: 80%;
   background-color: white;
@@ -486,11 +486,93 @@ th {
   align-items: center;
 }
 
-.graphBackground:hover{
+.graphBackground:hover {
   border: 2px solid blue;
   border-radius: 4px;
 }
 
-.barChartWrapper{
+.barChartWrapper {
   width: 70%;
+}
+
+/*************** Chart setting  styling******************/
+.settings {
+  padding-top: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 20px;
+}
+
+.settings .setting-input {
+  /* padding: 8px; */
+  border-radius: 4px;
+  border: 1px solid black;
+}
+
+.customs {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  left: 0px;
+  bottom: 5px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

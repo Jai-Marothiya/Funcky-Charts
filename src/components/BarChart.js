@@ -4,7 +4,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 
 
-function BarChart({ chartType,chartData }) {
+function BarChart({ chartType,chartData,settings }) {
   
   const options= {
     responsive: true,
@@ -18,24 +18,30 @@ function BarChart({ chartType,chartData }) {
     layout: {
       padding: 20
     },
-    // plugins: {
-    //   colorschemes: {
-    //     scheme: 'brewer.RdYlGn3'
-    //   },
-    //   tooltip: {
-    //     mode: 'index',
-    //     intersect: false,
-    //   },
-    //   title: {
-    //     display: true,
-    //   },
-    //   beforeEvent(chart, args, pluginOptions) {
-    //     const event = args.event;
-    //     if (event.type === 'mouseout') {
-    //       // process the event
-    //     }
-    //   },
-    // },
+    plugins: {
+      colorschemes: {
+        scheme: 'brewer.RdYlGn3'
+      },
+      legend:{
+          display:settings.legend,
+          labels: {
+            // usePointStyle: true,
+          },
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+      },
+      title: {
+        display: true,
+      },
+      beforeEvent(chart, args, pluginOptions) {
+        const event = args.event;
+        if (event.type === 'mouseout') {
+          // process the event
+        }
+      },
+    },
     aspectRatio:1,
     hover: {
       mode: 'point',
@@ -44,20 +50,19 @@ function BarChart({ chartType,chartData }) {
     scales: {
       x: {
         title: {
-          display: true,
-          text: 'Bars'
+          display: settings.xTitle,
+          text: settings.xText
         }
       },
       y: {
         title: {
-          display: true,
-          text: 'Users'
+          display: settings.yTitle,
+          text: settings.yText,
         },
         // max: 100,
         ticks: {
-          // forces step size to be 50 units
-          // stepSize: 5
-        }
+          beginAtZero: true,
+        },
       }
     }
   };

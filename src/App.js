@@ -14,6 +14,18 @@ function App() {
   const [newColor, setNewColor] = useState('');
 
   const [chartType,setChartType]=useState();
+  /************************* Side bar settings section **************/
+  const [settings,setSettings]=useState({
+    xTitle:true,
+    xText:"x-axis",
+    yTitle:true,
+    yText:"y-axis", 
+    legend: true,
+    borderWidth: 2,
+    hitRadius:5,
+    barThickness: 30,
+    pointStyle:"rect",
+  });
 
   const handleLiveDataChange = (data) => {
     // console.log(data);
@@ -37,6 +49,7 @@ function App() {
     localStorage.setItem('myColor', JSON.stringify(colors));
   }, [colors]);
 
+  // console.log(settings);
   useEffect(() => {
     setuserData({
       labels: UserData.map((data)=> data.label),
@@ -46,26 +59,26 @@ function App() {
             backgroundColor: colors,
             color:"yellow",
             borderColor: "grey",
-            borderWidth: 2,
+            borderWidth: settings.borderWidth,
             responsive:true,
-            hitRadius:30,
+            hitRadius: settings.hitRadius,
             pointHoverRadius: 5,
             barPercentage: 0.9,
-            // barThickness: default,
+            barThickness: settings.barThickness,
             maxBarThickness: 60,
-            minBarLength: 50,
+            // minBarLength: 50,
             // backgroundColor: "blue",
             borderSkipped: "bottom",
             borderRadius: 2,
             hoverBackgroundColor: "rgba(270, 240, 32, 0.2)",
             hoverBorderWidth:4,
-            pointStyle:'circle',
+            pointStyle: settings.pointStyle,
             // clip: {left: 5, top: false, right: -2, bottom: 0}
         },
       ],
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [UserData,colors]);
+  }, [UserData,colors,settings]);
 
   const [userData,setuserData] =useState({
     labels: UserData.map((data)=> data.label),
@@ -95,12 +108,12 @@ function App() {
   
   return (
     <div style={{display:'flex',height:"100%"}}>
-      <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor}/>
+      <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor} settings={settings} setSettings={setSettings}/>
       
       <div className="barBackground">
         <div className="graphBackground">
           <div className="barChartWrapper">
-            <BarChart chartType={chartType} chartData={userData}/>
+            <BarChart chartType={chartType} chartData={userData} settings={settings}/>
           </div>
         </div>
       </div>
