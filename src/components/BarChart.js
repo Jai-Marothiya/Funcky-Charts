@@ -2,8 +2,6 @@ import React from "react";
 import { Bar,Pie,Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-
-
 function BarChart({ chartType,chartData,settings }) {
   
   const options= {
@@ -45,7 +43,7 @@ function BarChart({ chartType,chartData,settings }) {
     aspectRatio:1,
     hover: {
       mode: 'point',
-      intersec: false,
+      intersect: false,
     },
     scales: {
       x: {

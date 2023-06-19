@@ -5,7 +5,7 @@ import BarChart from './components/BarChart';
 // import LineChart from './components/LineChart';
 // import PieChart from './components/PieChart';
 // import {UserData} from './Data'
-import BarChartForm from './components/BarChartForm';
+// import BarChartForm from './components/BarChartForm';
 import Sidebar from './components/Sidebar';
 
 function App() {

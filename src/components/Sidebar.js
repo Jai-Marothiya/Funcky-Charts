@@ -46,7 +46,7 @@ const Item = ({
                       type="string"
                       value={item.label}
                       onChange={(e) => handleDataLabel(e, index)}
-                      placeholder={`Value ${index + 1}`}
+                      placeholder={`Label ${index + 1}`}
                     />
                   </td>
                   <td>
@@ -102,11 +102,11 @@ const Item = ({
           ))}
         </ul>
       </div> */}
-      <div className="settings">
+      <div className="customize">
                 <form className="form">
                     <div className="customs">
                         <label htmlFor="x-axis" style={{width: "12%"}}>x-axis : </label>
-                        <input className='setting-input' value={sideSet.xText}  type="text" id="x-axis" name="xText" style={{width: "40%"}} onChange={handleSettingChange}/>
+                        <input className='customize-input' value={sideSet.xText}  type="text" id="x-axis" name="xText" style={{width: "40%"}} onChange={handleSettingChange}/>
                         <div style={{width: "50%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" name="xTitle" onClick={handleSettingChange} defaultChecked />
@@ -286,7 +286,7 @@ const Sidebar = ({
 
   /******************* setting section part ***************/
   const [sideSet,setSideset]=useState({
-    xTitle:false,
+    xTitle:true,
     xText:"x-axis",
     yTitle:true,
     yText:"y-axis", 
@@ -320,7 +320,6 @@ const Sidebar = ({
   if (toggle === "chart") {
     return (
       <div className="main">
-        <div className="mainleft">
           <div className="graphs">
             <div className="graphContainer">
               <div className="graphHeading">
@@ -373,13 +372,12 @@ const Sidebar = ({
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   } else {
     return (
       <div className="setting" style={{ border: "1px solid red" }}>
-        <button onClick={handleBack} style={{width:"100%"}}>⬅ Back</button>
+        <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button>
         <ul className="tabs-box">
           <li className="tab" style={{ borderRight: "1px solid lightgray" }}><button onClick={() => setToggleSetting("data")}><span>table</span></button></li>
           <li className="tab"><button onClick={() => setToggleSetting("setting")}><span>setting</span></button></li>

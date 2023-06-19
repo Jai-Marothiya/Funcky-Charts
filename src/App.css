@@ -1,6 +1,6 @@
 /* BarChartForm styles */
 
-.container {
+/* .container {
   margin: 20px;
   background: linear-gradient(to bottom right, #5f76e8, #8d92fb);
   border-radius: 8px;
@@ -11,7 +11,7 @@
 
 h2 {
   margin-bottom: 10px;
-}
+} */
 
 /****** Side Bar CSS ***************/
 body,
@@ -19,6 +19,8 @@ html {
   margin: 0px;
   padding: 0px;
   height: 100vh;
+  min-height: 100vh;
+  background: white;
 }
 
 #root {
@@ -33,11 +35,9 @@ html {
   box-sizing: border-box;
 }
 
+/** charts page (main) toggle==chart*/
 .main {
   width: 30%;
-}
-
-.mainleft {
   display: flex;
   flex-direction: column;
   /* min-height: 100vh; */
@@ -52,27 +52,24 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: white;
-}
+/**************** Rough End *****************************/
 
-.wrapper {
+/* .wrapper {
   padding: 15px;
   position: relative;
   overflow-x: hidden;
   max-width: 1000px;
   background: #fff;
-  /* border-radius: 7px; */
-}
-.wrapper .icon {
+  border-radius: 7px;
+} */
+/* .wrapper .icon {
   position: absolute;
   top: 0;
   height: 100%;
   width: fit-content;
   display: flex;
   align-items: center;
-  /* background-color: aqua; */
+  background-color: aqua;
 }
 .icon:first-child {
   left: 0;
@@ -86,30 +83,30 @@ body {
 }
 .icon i {
   width: 30px;
-  /* height: 55px; */
+  height: 55px;
   cursor: pointer;
   font-size: 1.2rem;
   text-align: center;
   line-height: 55px;
-  /* border-radius: 50%; */
+  border-radius: 50%;
 }
 .icon i:hover {
   background: #efedfb;
 }
-/* .icon:first-child i {
-margin-left: 15px;
-} 
+.icon:first-child i {
+  margin-left: 15px;
+}
 .icon:last-child i {
-margin-right: 15px;
-}  */
-.wrapper .tabs-box {
+  margin-right: 15px;
+} */
+/* .wrapper .tabs-box {
   display: flex;
   gap: 12px;
   list-style: none;
   overflow-x: hidden;
   scroll-behavior: smooth;
-}
-.tabs-box.dragging {
+} */
+/* .tabs-box.dragging {
   scroll-behavior: auto;
   cursor: grab;
 }
@@ -121,8 +118,8 @@ margin-right: 15px;
   padding: 7px 14px;
   border-radius: 20px;
   border: 1px solid #d8d5f2;
-}
-.tabs-box .tab:hover {
+} */
+/* .tabs-box .tab:hover {
   background: #efedfb;
 }
 .tabs-box.dragging .tab {
@@ -133,21 +130,68 @@ margin-right: 15px;
   color: #fff;
   background: #5372f0;
   border-color: transparent;
+} */
+
+/* .tabs-box {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  //border-bottom: 1px solid lightgray; 
+} */
+/* 
+.tabs-box .tab {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+} */
+/* 
+.tab button {
+  font-size: 20px;
+  line-height: 16px;
+  color: rgb(13 18 22 / 70%);
+  // padding: 25px; 
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  width: 70%;
+  background-color: white;
+  border: none;
+  padding: 10px;
+} */
+
+/* .tabs-box .tab button:hover {
+  color: black;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* graph */
+.tabs-box .tab button:visited {
+  background: rgb(47, 145, 145);
+  color: black;
+} */
+
+/* .tab-border {
+  background-color: #8b3dff;
+  width: 140px;
+  height: 1.2px;
+  margin-left: 55px;
+  transform: scale(1.2) translateX(25px);
+} */
+
+/**************** Rough End *****************************/
+
+/************************* graph(toggle===chart) ******************************/
 .graphs {
   background: rgba(37, 38, 39, 0.7);
 }
-.graphContainer {
+.graphs .graphContainer {
   display: flex;
   flex-direction: column;
 }
-.graphHeading {
+.graphs .graphContainer .graphHeading {
   display: flex;
 }
 
-.graphHeading p {
+.graphs .graphContainer .graphHeading p {
   font-size: 16px;
   color: white;
   line-height: 16px;
@@ -155,7 +199,7 @@ margin-right: 15px;
   margin: 10px;
 }
 
-.graphHeading span {
+.graphs .graphContainer .graphHeading span {
   font-size: 12px;
   color: white;
   line-height: 12px;
@@ -164,14 +208,14 @@ margin-right: 15px;
   align-self: center;
   margin: 10px;
 }
-.graphWrapper {
+.graphs .graphContainer .graphWrapper {
   padding: 15px;
   position: relative;
   overflow-x: hidden;
   max-width: 1000px;
   /* border-radius: 7px; */
 }
-.graphWrapper .graphicon {
+.graphs .graphContainer .graphWrapper .graphicon {
   position: absolute;
   top: 0;
   height: 100%;
@@ -203,19 +247,19 @@ margin-right: 15px;
   background: #efedfb;
 }
 
-.graphWrapper .graph-box {
+.graphs .graphContainer .graphWrapper .graph-box {
   display: flex;
   gap: 12px;
   list-style: none;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-.graph-box .dragging {
+.graphs .graphContainer .graphWrapper .graph-box .dragging {
   scroll-behavior: auto;
   cursor: grab;
 }
 
-.graph-box .box img {
+.graphs .graphContainer .graphWrapper .graph-box .box img {
   width: 80px;
   height: 80px;
 }
@@ -242,34 +286,36 @@ background: #5372F0;
 border-color: transparent;
 } */
 
-.mainright {
+/* .mainright {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 70%;
   background-color: bisque;
-}
+} */
 
-.graphBody {
+/* .graphBody {
   width: 600px;
   height: 450px;
   background-color: white;
-}
+} */
 
 /***** Data & Setting Styling ******/
+/************* .setting === (It includes both data-table and setting part) ***************/
 .setting {
   width: 30%;
   overflow-x: scroll;
   /* overflow-y: scroll; */
 }
 
-.data-section form {
+/**********  Data Table Part (toggleSetting==data)  **********/
+.setting .data-section form {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
-.data-section input {
+.setting .data-section input {
   margin-right: 10px;
   margin-bottom: 10px;
   padding: 8px;
@@ -277,7 +323,8 @@ border-color: transparent;
   border: none;
 }
 
-button {
+.setting .data-section button,
+.back {
   margin-right: 10px;
   margin-bottom: 10px;
   padding: 8px 16px;
@@ -292,20 +339,20 @@ button {
   overflow: scroll;
 }
 
-.data-section .table table {
+.setting .data-section .table table {
   border-collapse: collapse;
 
   margin-bottom: 20px;
 }
 
-.data-section th,
+.setting .data-section th,
 td {
   border: 1px solid #ccc;
   padding: 8px;
   width: fit-content;
 }
 
-.data-section th {
+.setting .data-section th {
   background-color: #f2f2f2;
 }
 
@@ -314,18 +361,18 @@ td {
 }
 
 /**** topbar of side bar***/
-.tabs-box {
+.setting .tabs-box {
   display: flex;
   gap: 12px;
   list-style: none;
   border-bottom: 1px solid lightgray;
 }
 
-.tabs-box .tab {
+.setting .tabs-box .tab {
   width: 50%;
 }
 
-.tab button {
+.setting .tab button {
   font-size: 20px;
   line-height: 16px;
   color: rgb(149, 144, 144);
@@ -338,11 +385,11 @@ td {
   border: none;
 }
 
-.tabs-box .tab button:hover {
+.setting .tabs-box .tab button:hover {
   color: black;
 }
 
-.tabs-box .tab button:visited {
+.setting .tabs-box .tab button:visited {
   background: rgb(47, 145, 145);
   color: black;
 }
@@ -465,7 +512,9 @@ td {
   animation-name: slideOutToLeft;
 }
 
-/**************** tanishk barchart css ***************/
+/****************** Chat-gpt color section End **********************/
+
+/**************** Charts Section(Right side) ***************/
 
 .barBackground {
   width: 70%;
@@ -475,9 +524,10 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-.graphBackground {
+.barBackground .graphBackground {
   width: 80%;
   height: 80%;
   background-color: white;
@@ -486,17 +536,29 @@ td {
   align-items: center;
 }
 
-.graphBackground:hover {
+.barBackground .graphBackground:hover {
   border: 2px solid blue;
   border-radius: 4px;
 }
 
-.barChartWrapper {
+.barBackground .graphBackground .barChartWrapper {
   width: 70%;
 }
 
-/*************** Chart setting  styling******************/
-.settings {
+.barBackground button {
+  border: 1px solid green;
+  background-color: #00d700;
+  padding: 5px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 19px;
+  margin: 5px;
+  border-radius: 11px;
+}
+
+/*************** Chart Customization styling(sidebar -> setting section -> setting)******************/
+.customize {
   padding-top: 10px;
 }
 
@@ -506,31 +568,31 @@ td {
   padding: 0px 20px;
 }
 
-.settings .setting-input {
+.customize .customize-input {
   /* padding: 8px; */
   border-radius: 4px;
   border: 1px solid black;
 }
 
-.customs {
+.customize .form .customs {
   display: flex;
   padding-bottom: 15px;
 }
 
-.switch {
+.customize .form .switch {
   position: relative;
   display: inline-block;
   width: 40px;
   height: 20px;
 }
 
-.switch input {
+.customize .form .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.slider {
+.customize .form .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -542,7 +604,7 @@ td {
   transition: 0.4s;
 }
 
-.slider:before {
+.customize .form .slider:before {
   position: absolute;
   content: "";
   height: 10px;
@@ -554,25 +616,27 @@ td {
   transition: 0.4s;
 }
 
-input:checked + .slider {
+.customize .form input:checked + .slider {
   background-color: #2196f3;
 }
 
-input:focus + .slider {
+.customize .form input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider:before {
+.customize .form input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
-.slider.round {
+.customize .form .slider,
+.round {
   border-radius: 34px;
 }
 
-.slider.round:before {
+.customize .form .slider:before,
+.round:before {
   border-radius: 50%;
 }
