@@ -1,8 +1,6 @@
-import React, {useRef} from 'react'
+import React from 'react'
 
 const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
-    let InputField = useRef();
-    InputField = JSON.parse(JSON.stringify(dataSet));
 
     const handleAddDataset=(e)=>{
         e.preventDefault();
