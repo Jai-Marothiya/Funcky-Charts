@@ -221,9 +221,11 @@ const Sidebar = ({
   legends,
   setLegends,
   dataSet,
-  setDataSet
+  setDataSet,
+  toggle,
+  setToggle
 }) => {
-  const [toggle, setToggle] = useState("chart");
+  // const [toggle, setToggle] = useState("chart");
 
   const handleChartClick = (e) => {
     const target = e.target.alt;
@@ -231,9 +233,9 @@ const Sidebar = ({
     setToggle("settings");
   };
 
-  const handleBack = () => {
-    setToggle("chart");
-  };
+  // const handleBack = () => {
+  //   setToggle("chart");
+  // };
 
   // const [data, setData] = useState([]);
 
@@ -423,7 +425,7 @@ const Sidebar = ({
   } else {
     return (
       <div className="setting" style={{ border: "1px solid red" }}>
-        <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button>
+        {/* <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button> */}
         <ul className="tabs-box">
           <li className="tab" style={{ borderRight: "1px solid lightgray" }}><button onClick={() => setToggleSetting("data")}><span>table</span></button></li>
           <li className="tab"><button onClick={() => setToggleSetting("setting")}><span>setting</span></button></li>

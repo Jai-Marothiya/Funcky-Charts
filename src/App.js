@@ -12,7 +12,7 @@ function App() {
   const [UserData, setUserData] = useState([]);
   const [colors, setColors] = useState([]);
   const [newColor, setNewColor] = useState('');
-
+  const [toggle, setToggle] = useState("chart");
   const [chartType,setChartType]=useState();
   /************************* Side bar settings section **************/
   const [settings,setSettings]=useState({
@@ -134,14 +134,19 @@ function App() {
   // console.log(UserData);
   // console.log(userData);
 
+  const handleEdit = () => {
+    let temp=(toggle==="chart"?"setting":"chart");
+    setToggle(temp);
+  };
+
   
   return (
     <div style={{display:'flex',height:"100%"}}>
       <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor} settings={settings} setSettings={setSettings}
-      legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
+      legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle}/>
       
       <div className="barBackground">
-        <button>EDIT</button>
+        <button onClick={handleEdit}>EDIT</button>
         <div className="graphBackground">
           <div className="barChartWrapper">
             <BarChart chartType={chartType} chartData={userData} settings={settings}/>
