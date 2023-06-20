@@ -365,6 +365,19 @@ const Sidebar = ({
         console.log(sideSet);
   }
 
+  useEffect(() => {
+    // Load data from local storage on component mount
+    const storedData = localStorage.getItem('mySettings');
+    if (storedData) {
+      setSideset(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage whenever data changes
+    localStorage.setItem('mySettings', JSON.stringify(sideSet));
+  }, [sideSet]);
+
   if (toggle === "chart") {
     return (
       <div className="main">
