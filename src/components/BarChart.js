@@ -65,7 +65,7 @@ function BarChart({ chartType,chartData,settings }) {
     }
   };
   // console.log(chartData);
-  console.log(chartData);
+  // console.log(chartData);
   
   if(chartType==="line"){
     return <Line data={chartData} options={options}/>;
