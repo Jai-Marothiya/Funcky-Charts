@@ -42,17 +42,16 @@ function App() {
 
   useEffect(() => {
     // Load data from local storage on component mount
-    const storedData = localStorage.getItem('myColor');
+    const storedData = localStorage.getItem('mySettings');
     if (storedData) {
-      setColors(JSON.parse(storedData));
+      setSettings(JSON.parse(storedData));
     }
   }, []);
 
   useEffect(() => {
     // Update local storage whenever data changes
-    if(colors.length>0)
-    localStorage.setItem('myColor', JSON.stringify(colors));
-  }, [colors]);
+    localStorage.setItem('mySettings', JSON.stringify(settings));
+  }, [settings]);
 
   // console.log(settings);
   useEffect(() => {
@@ -86,6 +85,7 @@ function App() {
           pointStyle: settings.pointStyle,
         }
         tempDataSets.push(set);
+        return null ;
       })
     }
     setuserData({
@@ -123,6 +123,7 @@ function App() {
         hoverBorderColor:data.hoverBorderColor,
       }
       tempDataSets.push(set);
+      return null ;
     })
   }
   console.log("chart ka dataSet -> ",tempDataSets);
