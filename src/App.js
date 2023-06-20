@@ -27,6 +27,11 @@ function App() {
     pointStyle:"rect",
   });
 
+
+  /************************ For AddDataSet Component **************************/
+  const [legends,setLegends] = useState([]);
+  const [dataSet,setDataSet] = useState([]);
+
   const handleLiveDataChange = (data) => {
     // console.log(data);
     setUserData(data);
@@ -51,55 +56,79 @@ function App() {
 
   // console.log(settings);
   useEffect(() => {
+    let dataLabels = [];
+    if(dataSet.length>0){
+      dataLabels=dataSet[0].labels;
+    }
+
+    let tempDataSets = [];
+
+    if(dataSet.length>0){
+      dataSet.map((data)=>{
+        let set={
+          label: data.legend,
+          data: data.data,
+          backgroundColor: [data.backgroundColor],
+          borderColor: data.borderColor,
+          hoverBackgroundColor: data.hoverBackgroundColor,
+          hoverBorderColor:data.hoverBorderColor,
+          hoverBorderWidth:4,
+          color:"yellow",
+          borderWidth: settings.borderWidth,
+          responsive:true,
+          hitRadius: settings.hitRadius,
+          pointHoverRadius: 5,
+          barPercentage: 0.9,
+          barThickness: settings.barThickness,
+          borderSkipped: "bottom",
+          borderRadius: 2,
+          maxBarThickness: 60,
+          pointStyle: settings.pointStyle,
+        }
+        tempDataSets.push(set);
+      })
+    }
     setuserData({
-      labels: UserData.map((data)=> data.label),
-      datasets: [{
-            label: "Age Vs name",
-            data: UserData.map((data) => data.value),
-            backgroundColor: colors,
-            color:"yellow",
-            borderColor: "grey",
-            borderWidth: settings.borderWidth,
-            responsive:true,
-            hitRadius: settings.hitRadius,
-            pointHoverRadius: 5,
-            barPercentage: 0.9,
-            barThickness: settings.barThickness,
-            maxBarThickness: 60,
-            // minBarLength: 50,
-            // backgroundColor: "blue",
-            borderSkipped: "bottom",
-            borderRadius: 2,
-            hoverBackgroundColor: "rgba(270, 240, 32, 0.2)",
-            hoverBorderWidth:4,
-            pointStyle: settings.pointStyle,
-            // clip: {left: 5, top: false, right: -2, bottom: 0}
-        },
-      ],
+      labels: dataLabels,
+      datasets: tempDataSets,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [UserData,colors,settings]);
+  }, [UserData,colors,settings,dataSet]);
 
+  let dataLabels = [];
+  if(dataSet.length>0){
+    dataLabels=dataSet[0].labels;
+  }
+
+  console.log("App ka dataSet -> ",dataSet);
+  console.log("App ka dataLabels -> ",dataLabels);
+
+  let tempDataSets = [];
+
+  if(dataSet.length>0){
+    dataSet.map((data)=>{
+      let set={
+        label: data.legend,
+        data: data.data,
+        backgroundColor: [
+          data.backgroundColor
+        ],
+        color:"yellow",
+        borderColor: data.borderColor,
+        borderWidth: 2,
+        responsive:true,
+        hitRadius:0,
+        pointHoverRadius: 20,
+        hoverBackgroundColor: data.hoverBackgroundColor,
+        hoverBorderColor:data.hoverBorderColor,
+      }
+      tempDataSets.push(set);
+    })
+  }
+  console.log("chart ka dataSet -> ",tempDataSets);
   const [userData,setuserData] =useState({
-    labels: UserData.map((data)=> data.label),
-    datasets: [{
-          label: "Age vs Name",
-          data: UserData.map((data) => data.value),
-          backgroundColor: [
-            "rgba(75,192,192,1)",
-            "#ecf0f1",
-            "#50AF95",
-            "#f3ba2f",
-            "#2a71d0",
-          ],
-          color:"yellow",
-          borderColor: "black",
-          borderWidth: 2,
-          responsive:true,
-          hitRadius:0,
-          pointHoverRadius: 20,
-      },
-    ],
+    labels: dataLabels,
+    datasets: tempDataSets,
   });
 
   // console.log(UserData);
@@ -108,9 +137,11 @@ function App() {
   
   return (
     <div style={{display:'flex',height:"100%"}}>
-      <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor} settings={settings} setSettings={setSettings}/>
+      <Sidebar chartType={chartType} setChartType={setChartType} onLiveDataChange={handleLiveDataChange} colors={colors} newColor={newColor} setColors={setColors} setNewColor={setNewColor} settings={settings} setSettings={setSettings}
+      legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
       
       <div className="barBackground">
+        <button>EDIT</button>
         <div className="graphBackground">
           <div className="barChartWrapper">
             <BarChart chartType={chartType} chartData={userData} settings={settings}/>

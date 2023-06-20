@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AddDataSet from './AddDataSet';
 
 const Item = ({
   toggleSetting,
@@ -14,15 +15,20 @@ const Item = ({
   handleColorChange,
   colors,
   sideSet,
-  handleSettingChange
+  handleSettingChange,
+  legends,
+  setLegends,
+  dataSet,
+  setDataSet
 }) => {
   if (toggleSetting === "data") {
     return (
       <div className="data-section">
         <h2>Bar Chart Data Input</h2>
+        <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
         <form onSubmit={handleAddField}>
-          <input type="text" placeholder="Enter Label" />
-          <input type="number" step="0.01" placeholder="Enter Data" />
+          <input type="text" placeholder="Enter Label" required/>
+          {/* <input type="number" step="0.01" placeholder="Enter Data" required/> */}
           <input type="submit" value="Add Data" />
         </form>
 
@@ -33,35 +39,46 @@ const Item = ({
               <tr>
                 <th>Index</th>
                 <th>Bar</th>
-                <th>Value</th>
+                {dataSet.map((data)=>{
+                  return(
+                    <th key={data.legend}>{data.legend}</th>
+                  )
+                })}
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
+              {
+              dataSet.length>0 ?(dataSet[0].labels).map((label, index) => {
+    
+                return (<tr key={index}>
                   <td>{index + 1}</td>
                   <td>
                     <input
                       type="string"
-                      value={item.label}
+                      value={label}
                       onChange={(e) => handleDataLabel(e, index)}
                       placeholder={`Label ${index + 1}`}
                     />
                   </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={item.value}
-                      onChange={(e) => handleDataValue(e, index)}
-                      placeholder={`Value ${index + 1}`}
-                    />
-                  </td>
+                  {dataSet.map((data)=>{
+                        return(
+                        <td key={data.legend}>
+                          <input
+                            type="number"
+                            value={data.data[index]}
+                            onChange={(e) => handleDataValue(e,data.legend, index)}
+                            placeholder={`Value ${index + 1}`}
+                          />
+                        </td>)
+                  })}
                   <td>
                     <button onClick={() => handleRemoveField(index)}>Remove</button>
                   </td>
                 </tr>
-              ))}
+                )}
+              ):null
+            }
             </tbody>
           </table>
         </div>
@@ -201,6 +218,10 @@ const Sidebar = ({
   setNewColor,
   // settings,
   setSettings,
+  legends,
+  setLegends,
+  dataSet,
+  setDataSet
 }) => {
   const [toggle, setToggle] = useState("chart");
 
@@ -214,59 +235,83 @@ const Sidebar = ({
     setToggle("chart");
   };
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   useEffect(() => {
     const storedData = localStorage.getItem('myData');
     if (storedData) {
-      setData(JSON.parse(storedData));
+      setDataSet(JSON.parse(storedData));
     }
   }, []);
 
   useEffect(() => {
-    if (data.length > 0) {
-      localStorage.setItem('myData', JSON.stringify(data));
+    if (dataSet.length > 0) {
+      localStorage.setItem('myData', JSON.stringify(dataSet));
     }
-  }, [data]);
+  }, [dataSet]);
 
-  useEffect(() => {
-    onLiveDataChange(data);
-  }, [data, onLiveDataChange]);
-
+  // useEffect(() => {
+  //   onLiveDataChange(dataSet);
+  // }, [dataSet, onLiveDataChange]);
+  //Done
   const handleDataLabel = (e, index) => {
-    const newData = [...data];
-    newData[index].label = e.target.value;
-    setData(newData);
+    const newData = [...dataSet];
+    newData.forEach((element) => {
+      element.labels[index]=e.target.value;
+    });
+    // newData[index].label = e.target.value;
+    setDataSet(newData);
   };
 
-  const handleDataValue = (e, index) => {
-    const newData = [...data];
-    newData[index].value = e.target.value;
-    setData(newData);
+  
+  const handleDataValue = (e,legend, index) => {
+    let newData = [...dataSet];
+    console.log(newData);
+    let newDataSet = newData.find((data)=> data.legend===legend)
+    newDataSet.data[index] = e.target.value;
+    newData.every((data,idx)=>{
+      if(data.legend===legend){
+        newData[idx]=newDataSet;
+        return false;
+      }else{
+        return true;
+      }
+    });
+    console.log(newDataSet);
+    setDataSet(newData);
+    console.log(dataSet);
   };
-
+  //Done
   const handleAddField = (e) => {
     e.preventDefault();
     const label = e.target.children[0].value;
-    const value = e.target.children[1].value;
-    const newData = [
-      ...data,
-      {
-        label: label,
-        value: value,
-      },
-    ];
-    setData(newData);
+    // const value = e.target.children[1].value;
+    const newData = [...dataSet];
+    console.log(dataSet);
+    newData.forEach((element) => {
+      console.log(element);
+      console.log(element.labels);
+      element.labels.push(label);
+      element.data.push(0);
+    });
+    console.log(newData);
+    setDataSet(newData);
     e.target.children[0].value = '';
-    e.target.children[1].value = '';
+    // e.target.children[1].value = '';
   };
 
+  //Done(partially)
   const handleRemoveField = (index) => {
-    const newData = [...data];
-    newData.splice(index, 1);
-    setData(newData);
+    const newData = [...dataSet];
+    newData.forEach((element) => {
+      element.labels.splice(index, 1);
+      element.data.splice(index, 1);
+    });
+    // setData(newData);
+    setDataSet(newData);
   };
 
+  /******** Color Section Start ********/
   const handleColorChange = (event) => {
     setNewColor(event.target.value);
   };
@@ -281,6 +326,7 @@ const Sidebar = ({
     updatedColors.splice(index, 1);
     setColors(updatedColors);
   };
+  /******** Color Section End ********/
 
   const [toggleSetting, setToggleSetting] = useState("data");
 
@@ -386,7 +432,7 @@ const Sidebar = ({
           toggleSetting={toggleSetting}
           setToggleSetting={setToggleSetting}
           handleAddField={handleAddField}
-          data={data}
+          // data={data}
           handleDataLabel={handleDataLabel}
           handleDataValue={handleDataValue}
           handleRemoveField={handleRemoveField}
@@ -397,6 +443,10 @@ const Sidebar = ({
           colors={colors}
           sideSet={sideSet}
           handleSettingChange={handleSettingChange}
+          legends={legends}
+          setLegends={setLegends}
+          dataSet={dataSet} 
+          setDataSet={setDataSet}
         />
       </div>
     );
