@@ -1,8 +1,8 @@
 import React from "react";
-import { Bar,Pie,Line } from "react-chartjs-2";
+import { Bar,Pie,Line, Doughnut,Bubble } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-function BarChart({ chartType,chartData,settings }) {
+function BarChart({ chartType,chartData,settings,chartProps }) {
   
   const options= {
     responsive: true,
@@ -13,6 +13,7 @@ function BarChart({ chartType,chartData,settings }) {
         to: 0,
         loop: true
     },
+    indexAxis: chartProps.indexAxis,
     layout: {
       padding: 20
     },
@@ -50,14 +51,15 @@ function BarChart({ chartType,chartData,settings }) {
         title: {
           display: settings.xTitle,
           text: settings.xText
-        }
+        },
+        stacked: chartProps.stacked,
       },
       y: {
         title: {
           display: settings.yTitle,
           text: settings.yText,
         },
-        // max: 100,
+        stacked: chartProps.stacked,
         ticks: {
           beginAtZero: true,
         },
@@ -73,6 +75,10 @@ function BarChart({ chartType,chartData,settings }) {
     return <Bar data={chartData} options={options}/>;
   }else if(chartType==="pie"){
     return <Pie data={chartData} options={options}/>;
+  }else if(chartType==="doughnut"){
+    return <Doughnut data={chartData} options={options}/>;
+  }else if(chartType==="bubble"){
+    return <Bubble data={chartData} options={options}/>;
   }
 }
 

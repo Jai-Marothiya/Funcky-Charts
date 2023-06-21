@@ -10,14 +10,26 @@ const Sidebar = ({
   dataSet,
   setDataSet,
   toggle,
-  setToggle
+  setToggle,
+  chartProps,
+  setChartProps
 }) => {
+  const [toggleSetting, setToggleSetting] = useState("data");
 
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
     const target = e.target.alt;
     setChartType(target);
     setToggle("settings");
+
+    if(target==="bar"){
+      console.log(e.target.attributes.stacked.value);
+      let temp = Object.assign({}, chartProps);
+      temp.indexAxis = e.target.attributes.direction.value;
+      temp.stacked = e.target.attributes.stacked.value==="true"?true:false;
+
+      setChartProps(temp);
+    }
   };
 
   /* When we submit Add Label form then it will call(here it is call from Item.js)*/
@@ -71,7 +83,10 @@ const Sidebar = ({
     setDataSet(newData);
   };
 
-  const [toggleSetting, setToggleSetting] = useState("data");
+  /* Set props when we click on particular chart */
+  
+
+
 
   if (toggle === "chart") {
     return (
@@ -85,10 +100,10 @@ const Sidebar = ({
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
-                  <li className="box"><img src="../images/bar1.svg" alt="bar" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/bar2.svg" alt="bar" /></li>
-                  <li className="box"><img src="../images/bar3.svg" alt="bar" /></li>
-                  <li className="box"><img src="../images/bar4.svg" alt="bar" /></li>
+                  <li className="box"><img src="../images/bar1.svg" alt="bar" direction="x" stacked="false"  onClick={handleChartClick} /></li>
+                  <li className="box"><img src="../images/bar2.svg" alt="bar" direction="x" stacked="true" onClick={handleChartClick}/></li>
+                  <li className="box"><img src="../images/bar3.svg" alt="bar" direction="y" stacked="false" onClick={handleChartClick}/></li>
+                  <li className="box"><img src="../images/bar4.svg" alt="bar" direction="y" stacked="true" onClick={handleChartClick}/></li>
                 </ul>
                 <div className="icon"></div>
               </div>
@@ -104,7 +119,7 @@ const Sidebar = ({
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/line1.svg" alt="line" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/line2.svg" alt="line" /></li>
+                  <li className="box"><img src="../images/line2.svg" alt="bubble" onClick={handleChartClick}/></li>
                   <li className="box"><img src="../images/line3.svg" alt="line" /></li>
                   <li className="box"><img src="../images/line4.svg" alt="line" /></li>
                 </ul>
@@ -122,7 +137,7 @@ const Sidebar = ({
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/pie1.svg" alt="pie" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/pie2.svg" alt="pie" /></li>
+                  <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li>
                 </ul>
                 <div className="icon"></div>
               </div>

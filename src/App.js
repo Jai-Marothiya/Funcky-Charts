@@ -92,6 +92,9 @@ function App() {
         borderWidth: 2,
         responsive:true,
         hitRadius:0,
+        barPercentage: 0.9,
+        categoryPercentage: 1,
+        fill:false,
         pointHoverRadius: 20,
         hoverBackgroundColor: data.hoverBackgroundColor,
         hoverBorderColor:data.hoverBorderColor,
@@ -131,9 +134,11 @@ function App() {
           hitRadius: settings.hitRadius,
           pointHoverRadius: 5,
           barPercentage: 0.9,
+          categoryPercentage: 1,
           barThickness: settings.barThickness,
-          borderSkipped: "bottom",
+          // borderSkipped: "bottom",
           borderRadius: 2,
+          fill:false,
           maxBarThickness: 60,
           pointStyle: settings.pointStyle,
         }
@@ -153,16 +158,22 @@ function App() {
     setToggle(temp);
   };
 
+  /* Different Bar charts Input like indexAxis, stacked */
+  const [chartProps,setChartProps] = useState({
+    indexAxis:'x',
+    stacked: false,
+  })
+
   
   return (
     <div style={{display:'flex',height:"100%"}}>
-      <Sidebar setChartType={setChartType} settings={settings} setSettings={setSettings}  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange}/>
+      <Sidebar setChartType={setChartType} settings={settings} setSettings={setSettings}  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} />
       
       <div className="barBackground">
         <button onClick={handleEdit}>EDIT</button>
         <div className="graphBackground">
           <div className="barChartWrapper">
-            <BarChart chartType={chartType} chartData={userData} settings={settings}/>
+            <BarChart chartType={chartType} chartData={userData} settings={settings} chartProps={chartProps}/>
           </div>
         </div>
       </div>
