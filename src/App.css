@@ -304,7 +304,7 @@ border-color: transparent;
 /************* .setting === (It includes both data-table and setting part) ***************/
 .setting {
   width: 30%;
-  /* overflow-x: scroll; */
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 

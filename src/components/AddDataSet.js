@@ -1,4 +1,7 @@
-import React from 'react'
+import React , {useRef} from 'react';
+import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import SortableItem from './SortableItem';
 
 const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
 
@@ -75,7 +78,45 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
 
     //     setDataSet(newDataset);
     // }
+    const handleDragEnd=(event,idx)=>{
+        console.log("Drag end called");
+        const {active,over}=event;
+        if(active.id === over.id){
+            console.log("toggle called");
+            let newData = JSON.parse(JSON.stringify(dataSet));
+            console.log(newData);
+            console.log(newData[idx]);
+            // newData[idx].display = (newData[idx].display==="none"?"block":"none");
+            // setDataSet(newData);
+            return;
+        }
+        console.log(event);
+        console.log("Active : ", active.id);
+        console.log("Over : ", over.id);
+    
+        setDataSet((dataSet)=>{
+            let oldDataSet = dataSet.find((data)=> data.legend===active.id);
+            let newDataSet = dataSet.find((data)=> data.legend===over.id);
+            const activeIndex=dataSet.indexOf(oldDataSet);
+            const overIndex=dataSet.indexOf(newDataSet);
+            console.log(activeIndex," ",overIndex);
+            console.log(arrayMove(dataSet,activeIndex,overIndex))
+            return arrayMove(dataSet,activeIndex,overIndex);
+        })
+    }
+    const ref = useRef(null);
 
+
+    /********* Stackoverflow  start *********/
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+          distance: 10, // Enable sort function when dragging 10px   💡 here!!!
+        },
+      })
+    const keyboardSensor = useSensor(KeyboardSensor)
+    const sensors = useSensors(mouseSensor, keyboardSensor) ;
+
+    /****** End **************/
     return (
         <div className="AddDataSet">
             <form onSubmit={handleAddDataset} required autoComplete="on">
@@ -83,53 +124,21 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
                 <input type="submit" value="Add Dataset" />
             </form>
 
-            {dataSet.map((dataSet,index)=>{
-                return(
-                    <div className="dataSetSection" key={index}>
-                        <div className='dataSetButton'>
-                            <button style={{width:'90%'}} onClick={()=>handleDataSetToggle(index)}>{dataSet.legend}</button>
-                            <button style={{width:'10%'}} onClick={()=>handleRemoveDataset(dataSet.legend)}>X</button>
-                        </div>
-                        <div className="dataSetCustomize" key={dataSet.legend} style={{display:dataSet.display}}>
-        
-                            <div className="dataSetConfig dataSetText">
-                                <label htmlFor="dataSet-Name">Name:</label>
-                                <input type="text" id="dataSet-Name" name="legend" value={dataSet.legend} onChange={(e)=>handleInputChange(e,index)} autoFocus/>
-                            </div>
-                            <div className="dataSetConfig dataSetColor">
-                                <label htmlFor="dataSet-background">Background Color :</label>
-                                <div className="dataSetInput">
-                                    <input type="color" id="dataSet-background" name="backgroundColor" value={dataSet.backgroundColor}
-                                    onChange={(e)=>handleInputChange(e,index)} />
-                                </div>
-                            </div>
-                            <div className="dataSetConfig dataSetColor">
-                                <label htmlFor="dataSet-border">border Color :</label>
-                                <div className="dataSetInput">
-                                    <input type="color" id="dataSet-border" name="borderColor" value={dataSet.borderColor}
-                                    onChange={(e)=>handleInputChange(e,index)} />
-                                </div>
-                            </div>
-                            <div className="dataSetConfig dataSetColor">
-                                <label htmlFor="dataSet-hover-background">Hover Background Color :</label>
-                                <div className="dataSetInput">
-                                    <input type="color" id="dataSet-hover-background" name="hoverBackgroundColor" value={dataSet.hoverBackgroundColor}
-                                    onChange={(e)=>handleInputChange(e,index)}/>
-                                </div>
-                            </div>
-                            <div className="dataSetConfig dataSetColor">
-                                <label htmlFor="dataSet-hover-border">Hover Border Color :</label>
-                                <div className="dataSetInput">
-                                    <input type="color" id="dataSet-hover-border" name="hoverBorderColor" value={dataSet.hoverBorderColor}
-                                    onChange={(e)=>handleInputChange(e,index)} />
-                                </div>
-                            </div>
-                            <div className="dataSetConfig" style={{justifyContent:'end'}}>
-                                <button style={{color:'white' , background:'#4caf50'}} onClick={()=>handleDataSetToggle(index)}>Save</button>
-                            </div>
-                        </div>
-                    </div>)
-            })}
+            <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
+                <SortableContext 
+                items={dataSet.map((value) => {
+                    return value.legend;
+                  })}
+                strategy={verticalListSortingStrategy}
+                >
+                    {dataSet.map((dataSet,index)=>{
+                        return(
+                            <>
+                                <SortableItem ref={ref} key={dataSet.legend} id={dataSet.legend} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} />
+                            </>)
+                    })}
+                </SortableContext>
+            </DndContext>
 
         </div>
     )
