@@ -95,7 +95,7 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Bar-Charts</p>
-                <span>See All</span>
+                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
@@ -113,14 +113,14 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Line and Dot Charts</p>
-                <span>See All</span>
+                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/line1.svg" alt="line" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/line2.svg" alt="bubble" onClick={handleChartClick}/></li>
-                  <li className="box"><img src="../images/line3.svg" alt="line" /></li>
+                  <li className="box"><img src="../images/line2.svg" alt="scatter" onClick={handleChartClick}/></li>
+                  {/* <li className="box"><img src="../images/line3.svg" alt="line" /></li> */}
                   <li className="box"><img src="../images/line4.svg" alt="line" /></li>
                 </ul>
                 <div className="icon"></div>
@@ -131,13 +131,45 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Pie-Charts</p>
-                <span>See All</span>
+                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/pie1.svg" alt="pie" onClick={handleChartClick} /></li>
                   <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li>
+                </ul>
+                <div className="icon"></div>
+              </div>
+            </div>
+          </div>
+          <div className="graphs">
+            <div className="graphContainer">
+              <div className="graphHeading">
+                <p>Polar-Area-Charts</p>
+                {/* <span>See All</span> */}
+              </div>
+              <div className="graphWrapper">
+                <div className="graphIcon"></div>
+                <ul className="graph-box">
+                  <li className="box"><img src="../images/polar_area2.png" alt="polar" onClick={handleChartClick} /></li>
+                  {/* <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li> */}
+                </ul>
+                <div className="icon"></div>
+              </div>
+            </div>
+          </div>
+          <div className="graphs">
+            <div className="graphContainer">
+              <div className="graphHeading">
+                <p>Radar-Charts</p>
+                {/* <span>See All</span> */}
+              </div>
+              <div className="graphWrapper">
+                <div className="graphIcon"></div>
+                <ul className="graph-box">
+                  <li className="box"><img src="../images/radar_chart.png" alt="radar" onClick={handleChartClick} /></li>
+                  {/* <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li> */}
                 </ul>
                 <div className="icon"></div>
               </div>

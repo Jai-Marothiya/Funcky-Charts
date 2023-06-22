@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar,Pie,Line, Doughnut,Bubble } from "react-chartjs-2";
+import { Bar,Pie,Line, Doughnut,Scatter,PolarArea,Radar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 function BarChart({ chartType,chartData,settings,chartProps }) {
@@ -77,8 +77,12 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
     return <Pie data={chartData} options={options}/>;
   }else if(chartType==="doughnut"){
     return <Doughnut data={chartData} options={options}/>;
-  }else if(chartType==="bubble"){
-    return <Bubble data={chartData} options={options}/>;
+  }else if(chartType==="scatter"){
+    return <Scatter data={chartData} options={options}/>;
+  }else if(chartType==="polar"){
+    return <PolarArea data={chartData} options={options}/>;
+  }else if(chartType==="radar"){
+    return <Radar data={chartData} options={options}/>;
   }
 }
 
