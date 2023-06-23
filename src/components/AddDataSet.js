@@ -1,17 +1,14 @@
-import React , {useRef} from 'react';
+import React , {useRef, useState} from 'react';
 import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import SortableItem from './SortableItem';
 
 const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
-
-    const handleAddDataset=(e)=>{
-        e.preventDefault();
-        const temp = e.target.children[0].value;
-
-        //legends
+    const index=dataSet.length;
+    const handleAddDataset=()=>{
+        // legends
         let newLegends = [...legends];
-        newLegends.push(temp);
+        newLegends.push(`New-DataSet-${index+1}`);
         setLegends(newLegends);
 
         //dataSet
@@ -22,7 +19,7 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         }
         let tempData =Array(tempLabels.length).fill(0);
         const defaultValue = {
-            legend:temp,
+            legend: `New-DataSet-${index+1}`,
             backgroundColor:"#2a71d0",
             borderColor: "#2a71d0",
             hoverBackgroundColor: "#2a71d0",
@@ -31,7 +28,6 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
             data:tempData,
             labels:tempLabels,
         }
-        e.target.children[0].value = '';
 
         let tempDataSet = JSON.parse(JSON.stringify(dataSet));
         tempDataSet.push(defaultValue);
@@ -57,7 +53,8 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     }
 
     const handleInputChange = (e,index)=>{
-        let newData = JSON.parse(JSON.stringify(dataSet));
+        let newData = JSON.parse(JSON.stringify(dataSet)); 
+        console.log(newData);
         newData[index][e.target.name]=e.target.value;
         setDataSet(newData);
     }
@@ -81,26 +78,13 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     const handleDragEnd=(event,idx)=>{
         console.log("Drag end called");
         const {active,over}=event;
-        if(active.id === over.id){
-            console.log("toggle called");
-            let newData = JSON.parse(JSON.stringify(dataSet));
-            console.log(newData);
-            console.log(newData[idx]);
-            // newData[idx].display = (newData[idx].display==="none"?"block":"none");
-            // setDataSet(newData);
-            return;
-        }
-        console.log(event);
-        console.log("Active : ", active.id);
-        console.log("Over : ", over.id);
+        if(active.id === over.id) return;
     
         setDataSet((dataSet)=>{
             let oldDataSet = dataSet.find((data)=> data.legend===active.id);
             let newDataSet = dataSet.find((data)=> data.legend===over.id);
             const activeIndex=dataSet.indexOf(oldDataSet);
             const overIndex=dataSet.indexOf(newDataSet);
-            console.log(activeIndex," ",overIndex);
-            console.log(arrayMove(dataSet,activeIndex,overIndex))
             return arrayMove(dataSet,activeIndex,overIndex);
         })
     }
@@ -117,12 +101,14 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     const sensors = useSensors(mouseSensor, keyboardSensor) ;
 
     /****** End **************/
+
+    const [toggleDataset,setToggleDataset]=useState("none");
     return (
         <div className="AddDataSet">
-            {/* <form onSubmit={handleAddDataset} required autoComplete="on">
+            <form onSubmit={handleAddDataset} required autoComplete="on">
                 <input type="text" placeholder="Enter Legend" required autoFocus/>
                 <input type="submit" value="Add Dataset" />
-            </form> */}
+            </form>
 
             <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                 <SortableContext 
