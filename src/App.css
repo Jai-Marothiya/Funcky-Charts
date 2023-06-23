@@ -44,12 +44,12 @@ html {
   background-color: rgba(37, 38, 39, 0.7);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"); */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 /**************** Rough End *****************************/
@@ -306,6 +306,7 @@ border-color: transparent;
   width: 30%;
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color: #E0F7FA;
 }
 
 /**********  Data Table Part (toggleSetting==data)  **********/
@@ -363,8 +364,10 @@ td {
 /**** topbar of side bar***/
 .setting .tabs-box {
   display: flex;
-  gap: 12px;
+  /* gap: 12px; */
   list-style: none;
+  border: 1px solid #ccc;
+  /* background-color: #f1f1f1; */
   border-bottom: 1px solid lightgray;
 }
 
@@ -375,18 +378,19 @@ td {
 .setting .tab button {
   font-size: 20px;
   line-height: 16px;
-  color: rgb(149, 144, 144);
-  padding: 25px;
+  color: black;
   text-transform: capitalize;
   text-align: center;
   cursor: pointer;
   width: 100%;
-  background-color: white;
+  background-color: #ccc;
   border: none;
+  padding: 14px 16px;
+  transition: 0.3s;
 }
 
 .setting .tabs-box .tab button:hover {
-  color: black;
+  background-color: #ddd;
 }
 
 .setting .tabs-box .tab button:visited {
@@ -559,7 +563,7 @@ td {
 
 /*************** Chart Customization styling(sidebar -> setting section -> setting)******************/
 .customize {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .form {
@@ -568,16 +572,28 @@ td {
   padding: 0px 20px;
 }
 
-.customize .customize-input {
-  /* padding: 8px; */
-  border-radius: 4px;
-  border: 1px solid black;
-}
-
 .customize .form .customs {
   display: flex;
   padding-bottom: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: capitalize;
 }
+
+.customize .form .customs label{
+  padding: 8px 0px 8px 0px;
+}
+
+
+.customize .form .customs input{
+  padding: 8px;
+}
+
+/* .customize .customs .customize-input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid black;
+} */
 
 .customize .form .switch {
   position: relative;

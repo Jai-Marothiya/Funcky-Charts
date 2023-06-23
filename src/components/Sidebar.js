@@ -15,6 +15,46 @@ const Sidebar = ({
   setChartProps
 }) => {
   const [toggleSetting, setToggleSetting] = useState("data");
+  // const [tabBackground1,SetTabBackground1]= useState("#ccc");
+  // const [tabBackground2,SetTabBackground2]= useState("#f1f1f1");
+  // const [tabHover1,SetTabHover1]=useState(true);
+  // const [tabHover2,SetTabHover2]=useState(false);
+
+  //************ */ set tab of side bar customize tabs and onclick event*************//
+  const handleMouseEnter=(e)=>{
+      const temp=e.currentTarget.id;
+      if(toggleSetting!==temp){
+        e.target.style.background="#ddd";
+      }
+  }
+
+  const handleMouseLeave=(e)=>{
+      const temp=e.currentTarget.id;
+      if(temp!==toggleSetting){
+        e.target.style.background="#f1f1f1";
+      }
+  }
+
+  // const ModifySection=(value) =>{
+  //   if(value==="data" && tabHover2===true){
+  //     SetTabBackground1("#ddd");
+  //   }
+    
+  //   if(value="setting" && tabHover1===true){
+  //     SetTabBackground2("#ddd");
+  //   }
+  // }
+
+  // const BasicSection=(value) =>{
+  //   if(value==="data" && tabHover2==true){
+  //     SetTabBackground1("#f1f1f1");
+  //   }
+
+  //   if(value="setting" && tabHover1===true){
+  //     SetTabBackground2("#f1f1f1");
+  //   }
+  // }
+
 
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
@@ -179,11 +219,11 @@ const Sidebar = ({
     );
   } else {
     return (
-      <div className="setting" style={{ border: "1px solid red" }}>
+      <div className="setting">
         {/* <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button> */}
         <ul className="tabs-box">
-          <li className="tab" style={{ borderRight: "1px solid lightgray" }}><button onClick={() => setToggleSetting("data")}><span>table</span></button></li>
-          <li className="tab"><button onClick={() => setToggleSetting("setting")}><span>setting</span></button></li>
+          <li className="tab" ><button id="data" onClick={() => setToggleSetting("data")} style={{background: toggleSetting==="data" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} ><span style={{background:"transparent"}}>table</span></button></li>
+          <li className="tab"><button id="setting" onClick={() => setToggleSetting("setting")} style={{background: toggleSetting==="setting" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><span style={{background:"transparent"}}>setting</span></button></li>
         </ul>
         <Item
           toggleSetting={toggleSetting}

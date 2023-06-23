@@ -20,7 +20,7 @@ const Item = (
     if (toggleSetting === "data") {
         return (
           <div className="data-section">
-            <h2>Bar Chart Data Input</h2>
+            {/* <h2>Bar Chart Data Input</h2> */}
             <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
             <form onSubmit={handleAddField}>
               <input type="text" placeholder="Enter Label" required/>
@@ -86,68 +86,58 @@ const Item = (
           <div className="customize">
                 <form className="form">
                     <div className="customs">
-                        <label htmlFor="x-axis" style={{width: "12%"}}>x-axis : </label>
-                        <input className='customize-input' value={settings.xText}  type="text" id="x-axis" name="xText" style={{width: "40%"}} onChange={handleSettingChange}/>
-                        <div style={{width: "50%",textAlign:"end"}}>
+                        <label htmlFor="x-axis" style={{width: "40%"}}>x-axis : </label>
+                        <input className='customize-input' value={settings.xText}  type="text" id="x-axis" name="xText" style={{width: "60%"}} onChange={handleSettingChange}/>
+                        {/* <div style={{width: "50%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" name="xTitle" onClick={handleSettingChange} defaultChecked />
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="customs">
-                        <label htmlFor="y-axis" style={{width: "12%"}}>y-axis : </label>
-                        <input className='setting-input'  value={settings.yText} type="text" id="y-axis" name="yText" style={{width: "40%"}} onChange={handleSettingChange}/>
-                        <div style={{width: "50%",textAlign:"end"}}>
+                        <label htmlFor="y-axis" style={{width: "40%"}}>y-axis : </label>
+                        <input className='setting-input'  value={settings.yText} type="text" id="y-axis" name="yText" style={{width: "60%"}} onChange={handleSettingChange}/>
+                        {/* <div style={{width: "50%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" name="yTitle" onClick={handleSettingChange} defaultChecked/>
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="customs">
-                        <label   style={{width: "20%"}}>Show Legend </label>
-                        {/* <input type="text" id="y-axis" name="y-axis" style="width: 40%;">  */}
-                        <div style={{width: "80%", textAlign: "end"}}>
-                            <label className="switch">
-                            <input type="checkbox" name="legend" onClick={handleSettingChange} defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div>
-                    </div>
-                    <div className="customs">
-                        <label htmlFor="width" style={{width: "30%"}}>Border Width :</label>
-                        <input className='setting-input'  value={settings.borderWidth} type="number" id="width" name="borderWidth" onChange={handleSettingChange} /*style={{width: "8%"}}*//>
-                        <div style={{width: "67%",textAlign:"end"}}>
+                        <label htmlFor="width" style={{width: "40%"}}>Border Width :</label>
+                        <input className='setting-input'  value={settings.borderWidth} type="number" id="width" name="borderWidth" onChange={handleSettingChange} style={{width: "60%"}}/>
+                        {/* <div style={{width: "60%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" defaultChecked/>
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="customs">
-                        <label htmlFor="hit_radius"  style={{width: "30%"}}>Hit Radius :</label>
-                        <input className='setting-input'  value={settings.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}  /*style={{width: "8%"}}*//>
-                        <div style={{width: "67%",textAlign:"end"}}>
+                        <label htmlFor="hit_radius"  style={{width: "40%"}}>Hit Radius :</label>
+                        <input className='setting-input'  value={settings.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}   style={{width: "60%"}}/>
+                        {/* <div style={{width: "67%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" defaultChecked/>
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="customs">
-                        <label htmlFor="bar_thickness" style={{width: "30%"}}>Bar Thickness :</label>
-                        <input className='setting-input' value={settings.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange} /*style={{width: "8%"}}*//>
-                        <div style={{width: "67%",textAlign:"end"}}>
+                        <label htmlFor="bar_thickness" style={{width: "40%"}}>Bar Thickness :</label>
+                        <input className='setting-input' value={settings.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange}  style={{width: "60%"}}/>
+                        {/* <div style={{width: "67%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" defaultChecked/>
                             <span className="slider round"></span>
                         </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="customs">
-                        <label htmlFor="point_style" style={{width: "25%"}}>Point style :</label>
-                        <select id="point_style"  value={settings.pointStyle} style={{width: "15%"}} name="pointStyle" onChange={handleSettingChange}>
+                        <label htmlFor="point_style" style={{width: "40%"}}>Point style :</label>
+                        <select id="point_style"  value={settings.pointStyle} style={{width: "60%"}} name="pointStyle" onChange={handleSettingChange}>
                             <option>circle</option>
                             <option>triangle</option>
                             <option>cross</option>
@@ -159,9 +149,19 @@ const Item = (
                             <option>rectRot</option>
                             <option>star</option>             
                         </select>
-                        <div style={{width: "60%",textAlign:"end"}}>
+                        {/* <div style={{width: "60%",textAlign:"end"}}>
                             <label className="switch">
                             <input type="checkbox" defaultChecked/>
+                            <span className="slider round"></span>
+                        </label>
+                        </div> */}
+                    </div>
+                    <div className="customs">
+                        <label   style={{width: "40%"}}>Show Legend </label>
+                        {/* <input type="text" id="y-axis" name="y-axis" style="width: 40%;">  */}
+                        <div style={{width: "60%", textAlign: "end",padding:"8px"}}>
+                            <label className="switch">
+                            <input type="checkbox" name="legend" onClick={handleSettingChange} defaultChecked/>
                             <span className="slider round"></span>
                         </label>
                         </div>

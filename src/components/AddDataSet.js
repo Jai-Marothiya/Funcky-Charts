@@ -119,10 +119,10 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     /****** End **************/
     return (
         <div className="AddDataSet">
-            <form onSubmit={handleAddDataset} required autoComplete="on">
+            {/* <form onSubmit={handleAddDataset} required autoComplete="on">
                 <input type="text" placeholder="Enter Legend" required autoFocus/>
                 <input type="submit" value="Add Dataset" />
-            </form>
+            </form> */}
 
             <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                 <SortableContext 
