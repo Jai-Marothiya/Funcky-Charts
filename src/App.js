@@ -169,7 +169,7 @@ function App() {
     <div style={{display:'flex',height:"100%"}}>
       <Sidebar setChartType={setChartType} settings={settings} setSettings={setSettings}  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} />
       
-      <div className="barBackground">
+      <div className="barBackground bg-red-300">
         <button onClick={handleEdit}>EDIT</button>
         <div className="graphBackground">
           <div className="barChartWrapper">

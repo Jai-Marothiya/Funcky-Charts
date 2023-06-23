@@ -19,7 +19,7 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
     return (
         <div className="dataSetSection" ref={setNodeRef} key={dataSet.legend} style={style} {...attributes} {...listeners}>
             <div className='dataSetButton'>
-                <button style={{width:'90%'}} onClick={()=>{ handleDataSetToggle(index)}}>{dataSet.legend}</button>
+                <button style={{width:'90%'}} onClick={(e)=>{ handleDataSetToggle(e,index)}}>{dataSet.legend}</button>
                 <button style={{width:'10%'}} onClick={()=>handleRemoveDataset(dataSet.legend)}>X</button>
             </div>
             <div className="dataSetCustomize" key={dataSet.legend} style={{display:dataSet.display}}>
@@ -31,7 +31,7 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
                 <div className="dataSetConfig dataSetColor">
                     <label htmlFor="dataSet-background">Background Color :</label>
                     <div className="dataSetInput">
-                        <input type="color" id="dataSet-background" name="backgroundColor" value={dataSet.backgroundColor}
+                        <input type="color" id="dataSet-background" opacity name="backgroundColor" value={dataSet.backgroundColor}
                         onChange={(e)=>handleInputChange(e,index)} />
                     </div>
                 </div>

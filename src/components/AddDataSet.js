@@ -34,10 +34,10 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         setDataSet(tempDataSet);
     }
 
-    const handleDataSetToggle=(index)=>{
+    const handleDataSetToggle=(e,index)=>{
         let newData = JSON.parse(JSON.stringify(dataSet));
         newData[index].display = (newData[index].display==="none"?"block":"none");
-        setDataSet(newData);
+        setTimeout(setDataSet(newData), 10000);
     }
 
     const handleRemoveDataset=(removableData)=>{
@@ -54,7 +54,8 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
 
     const handleInputChange = (e,index)=>{
         let newData = JSON.parse(JSON.stringify(dataSet)); 
-        console.log(newData);
+        console.log(e);
+
         newData[index][e.target.name]=e.target.value;
         setDataSet(newData);
     }
@@ -105,27 +106,27 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     const [toggleDataset,setToggleDataset]=useState("none");
     return (
         <div className="AddDataSet">
-            <form onSubmit={handleAddDataset} required autoComplete="on">
-                <input type="text" placeholder="Enter Legend" required autoFocus/>
-                <input type="submit" value="Add Dataset" />
-            </form>
-
-            <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
-                <SortableContext 
-                items={dataSet.map((value) => {
-                    return value.legend;
-                  })}
-                strategy={verticalListSortingStrategy}
-                >
-                    {dataSet.map((dataSet,index)=>{
-                        return(
-                            <>
-                                <SortableItem ref={ref} key={dataSet.legend} id={dataSet.legend} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} />
-                            </>)
-                    })}
-                </SortableContext>
-            </DndContext>
-
+            <div>
+                <button onClick={()=>toggleDataset==="none"?setToggleDataset("block"):setToggleDataset("none")} style={{transition: "0.4s"}}>DataSets</button>
+                <div style={{display:toggleDataset}}>
+                    <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
+                        <SortableContext 
+                        items={dataSet.map((value) => {
+                            return value.legend;
+                        })}
+                        strategy={verticalListSortingStrategy}
+                        >
+                            {dataSet.map((dataSet,index)=>{
+                                return(
+                                    <>
+                                        <SortableItem ref={ref} key={dataSet.legend} id={dataSet.legend} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} />
+                                    </>)
+                            })}
+                        </SortableContext>
+                    </DndContext>
+                    <button onClick={handleAddDataset} >Add DataSet</button>
+                </div>
+            </div>
         </div>
     )
 }

@@ -15,11 +15,7 @@ const Sidebar = ({
   setChartProps
 }) => {
   const [toggleSetting, setToggleSetting] = useState("data");
-  // const [tabBackground1,SetTabBackground1]= useState("#ccc");
-  // const [tabBackground2,SetTabBackground2]= useState("#f1f1f1");
-  // const [tabHover1,SetTabHover1]=useState(true);
-  // const [tabHover2,SetTabHover2]=useState(false);
-
+  
   //************ */ set tab of side bar customize tabs and onclick event*************//
   const handleMouseEnter=(e)=>{
       const temp=e.currentTarget.id;
@@ -35,41 +31,20 @@ const Sidebar = ({
       }
   }
 
-  // const ModifySection=(value) =>{
-  //   if(value==="data" && tabHover2===true){
-  //     SetTabBackground1("#ddd");
-  //   }
-    
-  //   if(value="setting" && tabHover1===true){
-  //     SetTabBackground2("#ddd");
-  //   }
-  // }
-
-  // const BasicSection=(value) =>{
-  //   if(value==="data" && tabHover2==true){
-  //     SetTabBackground1("#f1f1f1");
-  //   }
-
-  //   if(value="setting" && tabHover1===true){
-  //     SetTabBackground2("#f1f1f1");
-  //   }
-  // }
-
-
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
     const target = e.target.alt;
     setChartType(target);
     setToggle("settings");
-
-    if(target==="bar"){
+    console.log("clicked");
+    if(target==="bar" || target==="line"){
       console.log(e.target.attributes.stacked.value);
       let temp = Object.assign({}, chartProps);
       temp.indexAxis = e.target.attributes.direction.value;
       temp.stacked = e.target.attributes.stacked.value==="true"?true:false;
-
       setChartProps(temp);
     }
+
   };
 
   /* When we submit Add Label form then it will call(here it is call from Item.js)*/
@@ -86,7 +61,6 @@ const Sidebar = ({
 
     setDataSet(newData);
   };
-
 
   /* When we edit any label from table then it will called(It is also call from Item.js) */
   const handleDataLabel = (e, index) => {
@@ -153,15 +127,13 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Line and Dot Charts</p>
-                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
-                  <li className="box"><img src="../images/line1.svg" alt="line" onClick={handleChartClick} /></li>
+                  <li className="box"><img src="../images/line1.svg" alt="line" direction="x" stacked="false" onClick={handleChartClick} /></li>
                   <li className="box"><img src="../images/line2.svg" alt="scatter" onClick={handleChartClick}/></li>
-                  {/* <li className="box"><img src="../images/line3.svg" alt="line" /></li> */}
-                  <li className="box"><img src="../images/line4.svg" alt="line" /></li>
+                  <li className="box"><img src="../images/line4.svg" alt="line" direction="y" stacked="false" onClick={handleChartClick} /></li>
                 </ul>
                 <div className="icon"></div>
               </div>
@@ -171,7 +143,6 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Pie-Charts</p>
-                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
@@ -187,13 +158,11 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Polar-Area-Charts</p>
-                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/polar_area2.png" alt="polar" onClick={handleChartClick} /></li>
-                  {/* <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li> */}
                 </ul>
                 <div className="icon"></div>
               </div>
@@ -203,13 +172,11 @@ const Sidebar = ({
             <div className="graphContainer">
               <div className="graphHeading">
                 <p>Radar-Charts</p>
-                {/* <span>See All</span> */}
               </div>
               <div className="graphWrapper">
                 <div className="graphIcon"></div>
                 <ul className="graph-box">
                   <li className="box"><img src="../images/radar_chart.png" alt="radar" onClick={handleChartClick} /></li>
-                  {/* <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li> */}
                 </ul>
                 <div className="icon"></div>
               </div>
@@ -222,7 +189,7 @@ const Sidebar = ({
       <div className="setting">
         {/* <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button> */}
         <ul className="tabs-box">
-          <li className="tab" ><button id="data" onClick={() => setToggleSetting("data")} style={{background: toggleSetting==="data" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} ><span style={{background:"transparent"}}>table</span></button></li>
+          <li className="tab" ><button className="bg-slate-500 hover:bg-slate-600" id="data" onClick={() => setToggleSetting("data")} style={{background: toggleSetting==="data" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} ><span style={{background:"transparent"}}>table</span></button></li>
           <li className="tab"><button id="setting" onClick={() => setToggleSetting("setting")} style={{background: toggleSetting==="setting" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><span style={{background:"transparent"}}>setting</span></button></li>
         </ul>
         <Item

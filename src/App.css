@@ -19,7 +19,7 @@ html {
   margin: 0px;
   padding: 0px;
   height: 100vh;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: white;
 }
 
@@ -41,7 +41,8 @@ html {
   display: flex;
   flex-direction: column;
   /* min-height: 100vh; */
-  background-color: rgba(37, 38, 39, 0.7);
+  background-color: rgb(16 16 16 / 86%);
+  overflow-x: scroll;
 }
 
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"); */
@@ -181,7 +182,7 @@ html {
 
 /************************* graph(toggle===chart) ******************************/
 .graphs {
-  background: rgba(37, 38, 39, 0.7);
+  /* background: rgba(37, 38, 39, 0.7); */
 }
 .graphs .graphContainer {
   display: flex;
@@ -211,7 +212,7 @@ html {
 .graphs .graphContainer .graphWrapper {
   padding: 15px;
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   max-width: 1000px;
   /* border-radius: 7px; */
 }
@@ -251,7 +252,7 @@ html {
   display: flex;
   gap: 12px;
   list-style: none;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   scroll-behavior: smooth;
 }
 .graphs .graphContainer .graphWrapper .graph-box .dragging {
@@ -306,7 +307,7 @@ border-color: transparent;
   width: 30%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #E0F7FA;
+  background-color: #e0f7fa;
 }
 
 /**********  Data Table Part (toggleSetting==data)  **********/
@@ -580,12 +581,11 @@ td {
   text-transform: capitalize;
 }
 
-.customize .form .customs label{
+.customize .form .customs label {
   padding: 8px 0px 8px 0px;
 }
 
-
-.customize .form .customs input{
+.customize .form .customs input {
   padding: 8px;
 }
 
