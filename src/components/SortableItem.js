@@ -17,7 +17,7 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
     }
 
     return (
-        <div className="dataSetSection" ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <div className="dataSetSection" ref={setNodeRef} key={dataSet.legend} style={style} {...attributes} {...listeners}>
             <div className='dataSetButton'>
                 <button style={{width:'90%'}} onClick={()=>{ handleDataSetToggle(index)}}>{dataSet.legend}</button>
                 <button style={{width:'10%'}} onClick={()=>handleRemoveDataset(dataSet.legend)}>X</button>

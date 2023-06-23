@@ -1,0 +1,11 @@
+Some useful websites:
+
+1. https://coreui.io/demos/bootstrap/4.3/light-v3/charts.html
+
+2. https://tailwindui.com/components/application-ui/lists/tables#component-cc6b046f8b3180ace676ce4847f3826f
+
+3. https://www.mockplus.com/blog/post/table-ui-design-examples
+
+4. https://ant.design/ (Important)
+
+5. https://trello.com/b/yQlKLyoH/funkycharts

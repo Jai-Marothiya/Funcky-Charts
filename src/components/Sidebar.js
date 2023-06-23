@@ -34,17 +34,17 @@ const Sidebar = ({
 
   /* When we submit Add Label form then it will call(here it is call from Item.js)*/
   const handleAddField = (e) => {
-    e.preventDefault();
-    const label = e.target.children[0].value;
     const newData = JSON.parse(JSON.stringify(dataSet));
-
+    let index=0;
+    if(newData.length>0){
+        index=newData[0].labels.length;
+    }
     newData.forEach((element) => {
-      element.labels.push(label);
+      element.labels.push(`label-${index+1}`);
       element.data.push(0);
     });
 
     setDataSet(newData);
-    e.target.children[0].value = '';
   };
 
 

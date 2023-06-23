@@ -1,5 +1,9 @@
-import React from 'react';
+import React , {useRef} from 'react';
+import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy,useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import AddDataSet from './AddDataSet';
+import SortableTableRow from './SortableTableRow';
 
 const Item = (
     {
@@ -17,16 +21,46 @@ const Item = (
     setDataSet
     }
 ) => {
+    const handleDragEnd=(event,idx)=>{
+      console.log("Drag end called");
+      const {active,over}=event;
+      if(active.id === over.id) return;
+
+      setDataSet((dataSet)=>{
+          let oldDataSet = dataSet[0].labels.find((data)=> data===active.id);
+          let newDataSet = dataSet[0].labels.find((data)=> data===over.id);
+          const activeIndex=dataSet[0].labels.indexOf(oldDataSet);
+          const overIndex=dataSet[0].labels.indexOf(newDataSet);
+
+          console.log(oldDataSet," ",newDataSet);
+          console.log(activeIndex," ",overIndex);
+
+          let newData = JSON.parse(JSON.stringify(dataSet));
+          newData.map((dataset)=>{
+            dataset.data = [...arrayMove(dataset.data,activeIndex,overIndex)];
+            dataset.labels = [...arrayMove(dataset.labels,activeIndex,overIndex)];
+            return true;
+          })
+          return newData;
+      })
+    }
+    const ref = useRef(null);
+
+    /********* Stackoverflow  start *********/
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+          distance: 10, // Enable sort function when dragging 10px   💡 here!!!
+        },
+      })
+    const keyboardSensor = useSensor(KeyboardSensor)
+    const sensors = useSensors(mouseSensor, keyboardSensor) ;
+
+    /****** End **************/
     if (toggleSetting === "data") {
         return (
           <div className="data-section">
             <h2>Bar Chart Data Input</h2>
             <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
-            <form onSubmit={handleAddField}>
-              <input type="text" placeholder="Enter Label" required/>
-              {/* <input type="number" step="0.01" placeholder="Enter Data" required/> */}
-              <input type="submit" value="Add Data" />
-            </form>
     
             <h2>Preview</h2>
             <div className='table'>
@@ -43,41 +77,24 @@ const Item = (
                     <th>Delete</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {
-                  dataSet.length>0 ?(dataSet[0].labels).map((label, index) => {
-        
-                    return (<tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <input
-                          type="string"
-                          value={label}
-                          onChange={(e) => handleDataLabel(e, index)}
-                          placeholder={`Label ${index + 1}`}
-                        />
-                      </td>
-                      {dataSet.map((data)=>{
-                            return(
-                            <td key={data.legend}>
-                              <input
-                                type="number"
-                                value={data.data[index]}
-                                onChange={(e) => handleDataValue(e,data.legend, index)}
-                                placeholder={`Value ${index + 1}`}
-                              />
-                            </td>)
-                      })}
-                      <td>
-                        <button onClick={() => handleRemoveField(index)}>Remove</button>
-                      </td>
-                    </tr>
-                    )}
-                  ):null
-                }
+                <tbody>  
+                  <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
+                    <SortableContext 
+                    items={dataSet.length>0?dataSet[0].labels.map((value) => {
+                        return value;
+                      }):[]}
+                    strategy={verticalListSortingStrategy}
+                    >   {(dataSet.length>0)?(dataSet[0].labels).map((label, index) => {
+                      return (
+                            <SortableTableRow ref={ref} key={label} id={label} dataSet={dataSet} handleDataLabel={handleDataLabel} handleRemoveField={handleRemoveField} handleDataValue={handleDataValue} index={index} label={label} />)
+                          }):null}
+                    </SortableContext>
+                  </DndContext>
                 </tbody>
               </table>
             </div>
+            
+            <button onClick={handleAddField}>Add Data</button>
           </div>
         );
       }
