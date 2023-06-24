@@ -106,9 +106,8 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     const [toggleDataset,setToggleDataset]=useState("none");
     return (
         <div className="AddDataSet">
-            <div>
-                <button onClick={()=>toggleDataset==="none"?setToggleDataset("block"):setToggleDataset("none")} style={{transition: "0.4s"}}>DataSets</button>
-                <div style={{display:toggleDataset}}>
+                <button onClick={()=>toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none")} style={{transition: "0.4s"}}>DataSets</button>
+                <div className="dataSet-wrapper" style={{display:toggleDataset}}>
                     <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                         <SortableContext 
                         items={dataSet.map((value) => {
@@ -126,7 +125,6 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
                     </DndContext>
                     <button onClick={handleAddDataset} >Add DataSet</button>
                 </div>
-            </div>
         </div>
     )
 }

@@ -19,8 +19,12 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
     return (
         <div className="dataSetSection" ref={setNodeRef} key={dataSet.legend} style={style} {...attributes} {...listeners}>
             <div className='dataSetButton'>
-                <button style={{width:'90%'}} onClick={(e)=>{ handleDataSetToggle(e,index)}}>{dataSet.legend}</button>
-                <button style={{width:'10%'}} onClick={()=>handleRemoveDataset(dataSet.legend)}>X</button>
+                <div className='Image_wrapper'><img src='../images/dragging_icon.svg'/></div>
+                <button style={{width:'70%'}} onClick={(e)=>{ handleDataSetToggle(e,index)}}>{dataSet.legend}</button>
+                {/* <svg path='../images/copy_icon.svg'/>
+                <svg src='../images/delete_icon.svg' onClick={handleRemoveDataset}/> */}
+                <div className='Image_wrapper'><img  src='../images/copy_icon.svg'/></div>
+                <div className='Image_wrapper'><img  src='../images/delete_icon.svg' onClick={()=>handleRemoveDataset(dataSet.legend)} /></div>
             </div>
             <div className="dataSetCustomize" key={dataSet.legend} style={{display:dataSet.display}}>
 
@@ -56,9 +60,9 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
                         onChange={(e)=>handleInputChange(e,index)} />
                     </div>
                 </div>
-                <div className="dataSetConfig" style={{justifyContent:'end'}}>
+                {/* <div className="dataSetConfig" style={{justifyContent:'end'}}>
                     <button style={{color:'white' , background:'#4caf50'}} onClick={()=>handleDataSetToggle(index)}>Save</button>
-                </div>
+                </div> */}
             </div>
         </div>
   )

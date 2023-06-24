@@ -35,9 +35,9 @@ const SortableTableRow = ({
             placeholder={`Label ${index + 1}`}
         />
         </td>
-        {dataSet.map((data)=>{
+        {dataSet.map((data,index)=>{
             return(
-            <td key={data.legend}>
+            <td key={index}>
                 <input
                 type="number"
                 value={data.data[index]}

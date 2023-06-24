@@ -181,9 +181,9 @@ html {
 /**************** Rough End *****************************/
 
 /************************* graph(toggle===chart) ******************************/
-.graphs {
-  /* background: rgba(37, 38, 39, 0.7); */
-}
+/* .graphs {
+   background: rgba(37, 38, 39, 0.7); 
+} */
 .graphs .graphContainer {
   display: flex;
   flex-direction: column;
@@ -307,10 +307,15 @@ border-color: transparent;
   width: 30%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #e0f7fa;
+  background-color: #1F2A40;
 }
 
 /**********  Data Table Part (toggleSetting==data)  **********/
+.setting .data-section{
+  display: flex;
+  flex-direction: column;
+}
+
 .setting .data-section form {
   display: flex;
   flex-wrap: wrap;
@@ -323,6 +328,7 @@ border-color: transparent;
   padding: 8px;
   border-radius: 4px;
   border: none;
+  outline: none;
 }
 
 .setting .data-section button,
@@ -332,30 +338,32 @@ border-color: transparent;
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
-  background-color: #4caf50;
+  background-color: rgb(186, 203, 237);
   color: #fff;
   cursor: pointer;
 }
 
 .setting .data-section .table {
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .setting .data-section .table table {
   border-collapse: collapse;
-
-  margin-bottom: 20px;
+  background-color: #7984ce;
+  /* margin-bottom: 20px; */
+  color: white;
+  font-size: 14px;
 }
 
 .setting .data-section th,
 td {
-  border: 1px solid #ccc;
+  border: 1px solid #515ca3;
   padding: 8px;
   width: fit-content;
 }
 
 .setting .data-section th {
-  background-color: #f2f2f2;
+  background-color: #7984ce;
 }
 
 .setting .data-section .color-section {
@@ -367,9 +375,9 @@ td {
   display: flex;
   /* gap: 12px; */
   list-style: none;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   /* background-color: #f1f1f1; */
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
 }
 
 .setting .tabs-box .tab {
@@ -379,8 +387,8 @@ td {
 .setting .tab button {
   font-size: 20px;
   line-height: 16px;
-  color: black;
-  text-transform: capitalize;
+  /* color: black; */
+  text-transform: uppercase;
   text-align: center;
   cursor: pointer;
   width: 100%;
@@ -525,7 +533,7 @@ td {
   width: 70%;
   border: 2px solid black;
   height: 100%;
-  background-color: #d8dfe8;
+  background-color: rgb(186, 203, 237);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -564,29 +572,36 @@ td {
 
 /*************** Chart Customization styling(sidebar -> setting section -> setting)******************/
 .customize {
-  padding-top: 20px;
+  padding-top: 4rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  padding: 0px 20px;
 }
 
 .customize .form .customs {
   display: flex;
   padding-bottom: 15px;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 16px;
   text-transform: capitalize;
+  color: white;
+  justify-content: center;
 }
 
 .customize .form .customs label {
   padding: 8px 0px 8px 0px;
+  width: 30%;
 }
 
 .customize .form .customs input {
   padding: 8px;
+  outline: none;
+  color: #1F2A40;
+  width: 55%;
+  border-radius: 5px;
+  background-color: #BACBED;
 }
 
 /* .customize .customs .customize-input {
@@ -595,14 +610,14 @@ td {
   border: 1px solid black;
 } */
 
-.customize .form .switch {
+.customize .form .customs .switch {
   position: relative;
   display: inline-block;
   width: 40px;
   height: 20px;
 }
 
-.customize .form .switch input {
+.customize .form .customs .switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -633,7 +648,7 @@ td {
 }
 
 .customize .form input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #BACBED;
 }
 
 .customize .form input:focus + .slider {
@@ -659,37 +674,106 @@ td {
 
 /**** dataSet input section ***/
 
-.data-section .dataSetSection {
-  padding: 20px 40px;
+.AddDataSet{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.setting .data-section .AddDataSet button:first-child{
+  width: 90%;
+  margin: 0px;
+  padding: 8px 0px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-radius: 0px;
+  background-color: #7984ce;
+}
+
+
+.AddDataSet .dataSet-wrapper{
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(186, 203, 237);
+  width: 90%;
+  padding: 0% 5%;
+  transition: all 0.5s;
+}
+
+.setting .data-section .AddDataSet .dataSet-wrapper button:last-child{
+  font-size: 16px;
+  align-self: flex-end;
+  text-transform: capitalize;
+  margin: 4px 0px;
+  background-color: #7984ce;
+  transition: all 0.5s;
+}
+
+.setting .data-section .AddDataSet .dataSet-wrapper button:last-child:hover{
+  background-color: rgb(75 97 143);
+}
+
+.data-section{
+  padding-top: 4rem;
+}
+
+.data-section .dataSetSection {
+  /* padding: 20px 40px; */
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0px;
 }
 
 .dataSetSection .dataSetButton button {
   padding: 8px 0px;
   border-radius: 0px;
   border: none;
-  background-color: #4caf50;
+  background-color: #7984ce;
   color: #fff;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 16px;
   margin: 0px;
+  transition: all 0.5s;
 }
 
 .dataSetSection .dataSetButton button:hover {
-  background-color: lightgreen;
-  color: black;
+  background-color: rgb(75 97 143);
+  /* color: black; */
 }
 
 .dataSetSection .dataSetButton {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #7984ce;
 }
 
+.dataSetSection .dataSetButton .Image_wrapper{
+  width: 10%;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.dataSetSection .dataSetButton .Image_wrapper:hover{
+  background-color:rgb(75 97 143) ;
+}
+
+.dataSetSection .dataSetButton  img {
+  width: 50%;
+  padding: 6px 0px;
+   /* to white */
+  filter: invert(1);
+}
+
+/* .dataSetSection .dataSetButton  img:hover{
+  background-color:rgb(31, 42, 64) ;
+} */
+
 .data-section .dataSetSection .dataSetCustomize {
-  background-color: #d4cfd6;
+  background-color: #d8dfe8;
   padding-top: 15px;
   display: block;
 }

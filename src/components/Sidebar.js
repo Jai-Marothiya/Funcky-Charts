@@ -189,8 +189,8 @@ const Sidebar = ({
       <div className="setting">
         {/* <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button> */}
         <ul className="tabs-box">
-          <li className="tab" ><button className="bg-slate-500 hover:bg-slate-600" id="data" onClick={() => setToggleSetting("data")} style={{background: toggleSetting==="data" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} ><span style={{background:"transparent"}}>table</span></button></li>
-          <li className="tab"><button id="setting" onClick={() => setToggleSetting("setting")} style={{background: toggleSetting==="setting" ? "#cccccc" : "#f1f1f1"}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><span style={{background:"transparent"}}>setting</span></button></li>
+          <li className="tab" ><button className="bg-slate-500 hover:bg-slate-600" id="data" onClick={() => setToggleSetting("data")} style={{background: toggleSetting==="data" ? "#1F2A40" : "#BACBED",color:toggleSetting==="data" ? "white" : "#1F2A40"}}><span>table</span></button></li>
+          <li className="tab"><button id="setting" onClick={() => setToggleSetting("setting")} style={{background: toggleSetting==="setting" ? "#1F2A40" : "#BACBED",color:toggleSetting==="setting" ? "white" : "#1F2A40"}}><span>setting</span></button></li>
         </ul>
         <Item
           toggleSetting={toggleSetting}
