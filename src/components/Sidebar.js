@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Item from './Item';
-
+import { v4 as uuidv4 } from 'uuid';
 const Sidebar = ({
   setChartType,
   settings,
@@ -16,46 +16,46 @@ const Sidebar = ({
 }) => {
   const [toggleSetting, setToggleSetting] = useState("data");
   
-  //************ */ set tab of side bar customize tabs and onclick event*************//
-  const handleMouseEnter=(e)=>{
-      const temp=e.currentTarget.id;
-      if(toggleSetting!==temp){
-        e.target.style.background="#ddd";
-      }
-  }
+  /**** set tab of side bar customize tabs and onclick event****/
+  /** It will may be remove **/
+  // const handleMouseEnter=(e)=>{
+  //     const temp=e.currentTarget.id;
+  //     if(toggleSetting!==temp){
+  //       e.target.style.background="#ddd";
+  //     }
+  // }
 
-  const handleMouseLeave=(e)=>{
-      const temp=e.currentTarget.id;
-      if(temp!==toggleSetting){
-        e.target.style.background="#f1f1f1";
-      }
-  }
+  // const handleMouseLeave=(e)=>{
+  //     const temp=e.currentTarget.id;
+  //     if(temp!==toggleSetting){
+  //       e.target.style.background="#f1f1f1";
+  //     }
+  // }
 
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
     const target = e.target.alt;
     setChartType(target);
     setToggle("settings");
-    console.log("clicked");
     if(target==="bar" || target==="line"){
-      console.log(e.target.attributes.stacked.value);
       let temp = Object.assign({}, chartProps);
       temp.indexAxis = e.target.attributes.direction.value;
       temp.stacked = e.target.attributes.stacked.value==="true"?true:false;
       setChartProps(temp);
     }
-
   };
 
   /* When we submit Add Label form then it will call(here it is call from Item.js)*/
-  const handleAddField = (e) => {
+  const handleAddField = () => {
     const newData = JSON.parse(JSON.stringify(dataSet));
     let index=0;
-    if(newData.length>0){
-        index=newData[0].labels.length;
+    if(dataSet.length>0){
+      index=dataSet[0].labels.length;
     }
     newData.forEach((element) => {
       element.labels.push(`label-${index+1}`);
+      console.log(element);
+      element.labelsId.push(uuidv4());
       element.data.push(0);
     });
 
@@ -73,6 +73,7 @@ const Sidebar = ({
 
   /* When we edit any data of any legend from table then it will called. (It is also call from Item.js) */
   const handleDataValue = (e,legend,index) => {
+    // console.log(index," -> ", legend);
     let newData = JSON.parse(JSON.stringify(dataSet));
     let newDataSet = newData.find((data)=> data.legend===legend)
     newDataSet.data[index] = e.target.value;
@@ -92,6 +93,7 @@ const Sidebar = ({
     const newData = JSON.parse(JSON.stringify(dataSet));
     newData.forEach((element) => {
       element.labels.splice(index, 1);
+      element.labelsId.splice(index, 1);
       element.data.splice(index, 1);
     });
     setDataSet(newData);

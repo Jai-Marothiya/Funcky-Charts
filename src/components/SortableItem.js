@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, handleDragEnd,handleTODataset,handleRemoveDataset ,setDataSet, legends,setLegends}) => {
+const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle,handleRemoveDataset}) => {
     const {
         attributes,
         listeners,
@@ -17,16 +17,16 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle, h
     }
 
     return (
-        <div className="dataSetSection" ref={setNodeRef} key={dataSet.legend} style={style} {...attributes} {...listeners}>
+        <div key={id} className="dataSetSection" ref={setNodeRef} style={style} {...attributes} {...listeners}>
             <div className='dataSetButton'>
-                <div className='Image_wrapper'><img src='../images/dragging_icon.svg'/></div>
-                <button style={{width:'70%'}} onClick={(e)=>{ handleDataSetToggle(e,index)}}>{dataSet.legend}</button>
+                <div className='Image_wrapper'><img src='../images/dragging_icon.svg' alt='icons'/></div>
+                <button style={{width:'70%'}} onClick={()=>{ handleDataSetToggle(index)}}>{dataSet.legend}</button>
                 {/* <svg path='../images/copy_icon.svg'/>
                 <svg src='../images/delete_icon.svg' onClick={handleRemoveDataset}/> */}
-                <div className='Image_wrapper'><img  src='../images/copy_icon.svg'/></div>
-                <div className='Image_wrapper'><img  src='../images/delete_icon.svg' onClick={()=>handleRemoveDataset(dataSet.legend)} /></div>
+                <div className='Image_wrapper'><img  src='../images/copy_icon.svg' alt='icons'/></div>
+                <div className='Image_wrapper'><img  src='../images/delete_icon.svg' alt='icons' onClick={()=>handleRemoveDataset(dataSet.legend)} /></div>
             </div>
-            <div className="dataSetCustomize" key={dataSet.legend} style={{display:dataSet.display}}>
+            <div className="dataSetCustomize"  style={{display:dataSet.display}}>
 
                 <div className="dataSetConfig dataSetText">
                     <label htmlFor="dataSet-Name">Name:</label>

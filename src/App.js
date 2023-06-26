@@ -13,11 +13,9 @@ function App() {
   const [chartType,setChartType]=useState();
 
 
-  /************************* Side bar settings section **************/
+  /********* Side bar settings section ******/
   const [settings,setSettings]=useState({
-    xTitle:true,
     xText:"x-axis",
-    yTitle:true,
     yText:"y-axis", 
     legend: true,
     borderWidth: 2,
@@ -28,7 +26,8 @@ function App() {
 
   useEffect(() => {
     // Load settings-data from local storage on component mount
-    const storedData = localStorage.getItem('mySettings');
+    const storedData = localStorage.getItem('mySettings') ;
+    console.log(storedData);
     if (storedData) {
       setSettings(JSON.parse(storedData));
     }
@@ -52,7 +51,7 @@ function App() {
   }
 
 
-  /************************ For AddDataSet Component **************************/
+  /******** For AddDataSet Component **********/
   const [legends,setLegends] = useState([]);
   const [dataSet,setDataSet] = useState([]);
 
@@ -153,7 +152,7 @@ function App() {
   }, [settings,dataSet]);
 
   /* When we click on Edit button it will alter toggle from "chart" to "data" and vice versa */
-  const handleEdit = () => {
+  const handleEdit = (e) => {
     let temp=(toggle==="chart"?"setting":"chart");
     setToggle(temp);
   };
@@ -170,7 +169,7 @@ function App() {
       <Sidebar setChartType={setChartType} settings={settings} setSettings={setSettings}  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} />
       
       <div className="barBackground bg-red-300">
-        <button onClick={handleEdit}>EDIT</button>
+        <button onClick={handleEdit}>Charts</button>
         <div className="graphBackground">
           <div className="barChartWrapper">
             <BarChart chartType={chartType} chartData={userData} settings={settings} chartProps={chartProps}/>

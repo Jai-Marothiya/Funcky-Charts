@@ -13,7 +13,7 @@ h2 {
   margin-bottom: 10px;
 } */
 
-/****** Side Bar CSS ***************/
+/** Side Bar CSS *****/
 body,
 html {
   margin: 0px;
@@ -35,7 +35,7 @@ html {
   box-sizing: border-box;
 }
 
-/** charts page (main) toggle==chart*/
+/* charts page (main) toggle==chart*/
 .main {
   width: 30%;
   display: flex;
@@ -53,7 +53,7 @@ html {
   /* font-family: "Poppins", sans-serif; */
 }
 
-/**************** Rough End *****************************/
+/****** Rough End ***********/
 
 /* .wrapper {
   padding: 15px;
@@ -178,9 +178,9 @@ html {
   transform: scale(1.2) translateX(25px);
 } */
 
-/**************** Rough End *****************************/
+/****** Rough End ***********/
 
-/************************* graph(toggle===chart) ******************************/
+/********* graph(toggle===chart) **********/
 /* .graphs {
    background: rgba(37, 38, 39, 0.7); 
 } */
@@ -301,17 +301,17 @@ border-color: transparent;
   background-color: white;
 } */
 
-/***** Data & Setting Styling ******/
-/************* .setting === (It includes both data-table and setting part) ***************/
+/** Data & Setting Styling ***/
+/***** .setting === (It includes both data-table and setting part) *****/
 .setting {
   width: 30%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #1F2A40;
+  background-color: #1f2a40;
 }
 
-/**********  Data Table Part (toggleSetting==data)  **********/
-.setting .data-section{
+/****  Data Table Part (toggleSetting==data)  ****/
+.setting .data-section {
   display: flex;
   flex-direction: column;
 }
@@ -370,7 +370,7 @@ td {
   margin-bottom: 10rem;
 }
 
-/**** topbar of side bar***/
+/** topbar of side bar***/
 .setting .tabs-box {
   display: flex;
   /* gap: 12px; */
@@ -407,7 +407,7 @@ td {
   color: black;
 }
 
-/********* Chat GPT ****/
+/*** Chat GPT **/
 /* Color Section */
 .color-section {
   margin-top: 20px;
@@ -525,9 +525,9 @@ td {
   animation-name: slideOutToLeft;
 }
 
-/****************** Chat-gpt color section End **********************/
+/****** Chat-gpt color section End ********/
 
-/**************** Charts Section(Right side) ***************/
+/****** Charts Section(Right side) *****/
 
 .barBackground {
   width: 70%;
@@ -570,7 +570,7 @@ td {
   border-radius: 11px;
 }
 
-/*************** Chart Customization styling(sidebar -> setting section -> setting)******************/
+/***** Chart Customization styling(sidebar -> setting section -> setting)******/
 .customize {
   padding-top: 4rem;
 }
@@ -598,10 +598,10 @@ td {
 .customize .form .customs input {
   padding: 8px;
   outline: none;
-  color: #1F2A40;
+  color: #1f2a40;
   width: 55%;
   border-radius: 5px;
-  background-color: #BACBED;
+  background-color: #bacbed;
 }
 
 /* .customize .customs .customize-input {
@@ -648,7 +648,7 @@ td {
 }
 
 .customize .form input:checked + .slider {
-  background-color: #BACBED;
+  background-color: #bacbed;
 }
 
 .customize .form input:focus + .slider {
@@ -672,16 +672,16 @@ td {
   border-radius: 50%;
 }
 
-/**** dataSet input section ***/
+/** dataSet input section */
 
-.AddDataSet{
+.AddDataSet {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.setting .data-section .AddDataSet button:first-child{
+.setting .data-section .AddDataSet button:first-child {
   width: 90%;
   margin: 0px;
   padding: 8px 0px;
@@ -691,8 +691,7 @@ td {
   background-color: #7984ce;
 }
 
-
-.AddDataSet .dataSet-wrapper{
+.AddDataSet .dataSet-wrapper {
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -702,7 +701,7 @@ td {
   transition: all 0.5s;
 }
 
-.setting .data-section .AddDataSet .dataSet-wrapper button:last-child{
+.setting .data-section .AddDataSet .dataSet-wrapper button:last-child {
   font-size: 16px;
   align-self: flex-end;
   text-transform: capitalize;
@@ -711,11 +710,11 @@ td {
   transition: all 0.5s;
 }
 
-.setting .data-section .AddDataSet .dataSet-wrapper button:last-child:hover{
+.setting .data-section .AddDataSet .dataSet-wrapper button:last-child:hover {
   background-color: rgb(75 97 143);
 }
 
-.data-section{
+.data-section {
   padding-top: 4rem;
 }
 
@@ -751,20 +750,20 @@ td {
   background-color: #7984ce;
 }
 
-.dataSetSection .dataSetButton .Image_wrapper{
+.dataSetSection .dataSetButton .Image_wrapper {
   width: 10%;
   text-align: center;
   transition: all 0.5s;
 }
 
-.dataSetSection .dataSetButton .Image_wrapper:hover{
-  background-color:rgb(75 97 143) ;
+.dataSetSection .dataSetButton .Image_wrapper:hover {
+  background-color: rgb(75 97 143);
 }
 
-.dataSetSection .dataSetButton  img {
+.dataSetSection .dataSetButton img {
   width: 50%;
   padding: 6px 0px;
-   /* to white */
+  /* to white */
   filter: invert(1);
 }
 

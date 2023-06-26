@@ -1,10 +1,9 @@
 import React , {useRef} from 'react';
 import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy,useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import AddDataSet from './AddDataSet';
 import SortableTableRow from './SortableTableRow';
-
+import { v4 as uuidv4 } from 'uuid';
 const Item = (
     {
     toggleSetting,
@@ -12,7 +11,6 @@ const Item = (
     handleDataLabel,
     handleDataValue,
     handleRemoveField,
-    sideSet,
     settings,
     handleSettingChange,
     legends,
@@ -21,24 +19,27 @@ const Item = (
     setDataSet
     }
 ) => {
-    const handleDragEnd=(event,idx)=>{
+    const handleDragEnd=(event)=>{
       console.log("Drag end called");
       const {active,over}=event;
       if(active.id === over.id) return;
+      console.log(active.id," " ,over.id);
 
       setDataSet((dataSet)=>{
-          let oldDataSet = dataSet[0].labels.find((data)=> data===active.id);
-          let newDataSet = dataSet[0].labels.find((data)=> data===over.id);
-          const activeIndex=dataSet[0].labels.indexOf(oldDataSet);
-          const overIndex=dataSet[0].labels.indexOf(newDataSet);
 
-          console.log(oldDataSet," ",newDataSet);
-          console.log(activeIndex," ",overIndex);
+        console.log(active.id," ",over.id);
+          let oldDataSet = dataSet[0].labelsId.find((data)=> data===active.id);
+          let newDataSet = dataSet[0].labelsId.find((data)=> data===over.id);
+          const activeIndex=dataSet[0].labelsId.indexOf(oldDataSet);
+          const overIndex=dataSet[0].labelsId.indexOf(newDataSet);
+
+          // console.log(oldDataSet," ",newDataSet);
 
           let newData = JSON.parse(JSON.stringify(dataSet));
           newData.map((dataset)=>{
             dataset.data = [...arrayMove(dataset.data,activeIndex,overIndex)];
             dataset.labels = [...arrayMove(dataset.labels,activeIndex,overIndex)];
+            dataset.labelsId = [...arrayMove(dataset.labelsId,activeIndex,overIndex)];
             return true;
           })
           return newData;
@@ -46,7 +47,7 @@ const Item = (
     }
     const ref = useRef(null);
 
-    /********* Stackoverflow  start *********/
+    /*** Stackoverflow  start ***/
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
           distance: 10, // Enable sort function when dragging 10px   💡 here!!!
@@ -55,23 +56,22 @@ const Item = (
     const keyboardSensor = useSensor(KeyboardSensor)
     const sensors = useSensors(mouseSensor, keyboardSensor) ;
 
-    /****** End **************/
+    /** End ******/
     if (toggleSetting === "data") {
         return (
           <div className="data-section">
             {/* <h2>Bar Chart Data Input</h2> */}
             <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
     
-            <h2>Preview</h2>
             <div className='table'>
               <table>
                 <thead>
                   <tr>
-                    <th><img src=''/>Index</th>
+                    <th>Index</th>
                     <th>Bar</th>
                     {dataSet.map((data)=>{
                       return(
-                        <th key={data.legend}>{data.legend}</th>
+                        <th key={data.id}>{data.legend}</th>
                       )
                     })}
                     <th>Delete</th>
@@ -85,8 +85,9 @@ const Item = (
                       }):[]}
                     strategy={verticalListSortingStrategy}
                     >   {(dataSet.length>0)?(dataSet[0].labels).map((label, index) => {
+                       const temp=dataSet[0].labelsId[index];
                       return (
-                            <SortableTableRow ref={ref} key={index} id={label} dataSet={dataSet} handleDataLabel={handleDataLabel} handleRemoveField={handleRemoveField} handleDataValue={handleDataValue} index={index} label={label} />)
+                            <SortableTableRow ref={ref} key={temp} id={temp} dataSet={dataSet} handleDataLabel={handleDataLabel} handleRemoveField={handleRemoveField} handleDataValue={handleDataValue} index={index} label={label} />)
                           }):null}
                     </SortableContext>
                   </DndContext>
@@ -104,53 +105,23 @@ const Item = (
                 <form className="form">
                     <div className="customs">
                         <label htmlFor="x-axis">x-axis </label>
-                        <input className='customize-input' value={settings.xText}  type="text" id="x-axis" name="xText"  onChange={handleSettingChange}/>
-                        {/* <div style={{width: "50%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" name="xTitle" onClick={handleSettingChange} defaultChecked />
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
+                        <input className='customize-input' value={settings.xText}  type="text" id="x-axis" name="xText"  onChange={handleSettingChange}/>                
                     </div>
                     <div className="customs">
                         <label htmlFor="y-axis">y-axis  </label>
                         <input className='setting-input'  value={settings.yText} type="text" id="y-axis" name="yText"  onChange={handleSettingChange}/>
-                        {/* <div style={{width: "50%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" name="yTitle" onClick={handleSettingChange} defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
                     </div>
                     <div className="customs">
                         <label htmlFor="width" >Border Width </label>
                         <input className='setting-input'  value={settings.borderWidth} type="number" id="width" name="borderWidth" onChange={handleSettingChange} />
-                        {/* <div style={{width: "60%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
                     </div>
                     <div className="customs">
                         <label htmlFor="hit_radius"  >Hit Radius </label>
                         <input className='setting-input'  value={settings.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}  />
-                        {/* <div style={{width: "67%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
                     </div>
                     <div className="customs">
                         <label htmlFor="bar_thickness" >Bar Thickness </label>
                         <input className='setting-input' value={settings.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange} />
-                        {/* <div style={{width: "67%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
                     </div>
                     <div className="customs">
                         <label htmlFor="point_style" >Point style </label>
@@ -166,16 +137,9 @@ const Item = (
                             <option>rectRot</option>
                             <option>star</option>             
                         </select>
-                        {/* <div style={{width: "60%",textAlign:"end"}}>
-                            <label className="switch">
-                            <input type="checkbox" defaultChecked/>
-                            <span className="slider round"></span>
-                        </label>
-                        </div> */}
                     </div>
                     <div className="customs">
                         <label   >Show Legend </label>
-                        {/* <input type="text" id="y-axis" name="y-axis" style="width: 40%;">  */}
                         <div style={{width:"55%", textAlign: "end",padding:"8px"}}>
                           <label className="switch">
                             <input type="checkbox" name="legend" onClick={handleSettingChange} defaultChecked/>
@@ -191,7 +155,7 @@ const Item = (
 
 export default Item;
 
-/*********************** Pehle sidebar mai jo laga rakha tha Item uska code hai niche *************************/
+/******** Pehle sidebar mai jo laga rakha tha Item uska code hai niche **********/
 // const Items = ({
 //     toggleSetting,
 //     setToggleSetting,
@@ -307,7 +271,7 @@ export default Item;
 //                       </div>
 //                       <div className="customs">
 //                           <label htmlFor="width" style={{width: "30%"}}>Border Width :</label>
-//                           <input className='setting-input'  value={sideSet.borderWidth} type="number" id="width" name="borderWidth" onChange={handleSettingChange} /*style={{width: "8%"}}*//>
+//                           <input className='setting-input'  value={sideSet.borderWidth} type="number" id="width" name="borderWidth" onChange={handleSettingChange} /style={{width: "8%"}}//>
 //                           <div style={{width: "67%",textAlign:"end"}}>
 //                               <label className="switch">
 //                               <input type="checkbox" defaultChecked/>
@@ -317,7 +281,7 @@ export default Item;
 //                       </div>
 //                       <div className="customs">
 //                           <label htmlFor="hit_radius"  style={{width: "30%"}}>Hit Radius :</label>
-//                           <input className='setting-input'  value={sideSet.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}  /*style={{width: "8%"}}*//>
+//                           <input className='setting-input'  value={sideSet.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}  /style={{width: "8%"}}//>
 //                           <div style={{width: "67%",textAlign:"end"}}>
 //                               <label className="switch">
 //                               <input type="checkbox" defaultChecked/>
@@ -327,7 +291,7 @@ export default Item;
 //                       </div>
 //                       <div className="customs">
 //                           <label htmlFor="bar_thickness" style={{width: "30%"}}>Bar Thickness :</label>
-//                           <input className='setting-input' value={sideSet.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange} /*style={{width: "8%"}}*//>
+//                           <input className='setting-input' value={sideSet.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange} /style={{width: "8%"}}//>
 //                           <div style={{width: "67%",textAlign:"end"}}>
 //                               <label className="switch">
 //                               <input type="checkbox" defaultChecked/>

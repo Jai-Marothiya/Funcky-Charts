@@ -59,4 +59,3 @@ function LineChart({ chartData }) {
 }
 
 export default LineChart;
-

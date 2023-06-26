@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar,Pie,Line, Doughnut,Scatter,PolarArea,Radar } from "react-chartjs-2";
+import { Bar,Pie,Line, Doughnut,Scatter,PolarArea,Radar, Bubble } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 function BarChart({ chartType,chartData,settings,chartProps }) {
@@ -49,14 +49,14 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
     scales: {
       x: {
         title: {
-          display: settings.xTitle,
+          display: settings.xText.length>0?true:false,
           text: settings.xText
         },
         stacked: chartProps.stacked,
       },
       y: {
         title: {
-          display: settings.yTitle,
+          display: settings.yText.length>0?true:false,
           text: settings.yText,
         },
         stacked: chartProps.stacked,

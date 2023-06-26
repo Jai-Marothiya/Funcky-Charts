@@ -19,14 +19,15 @@ const SortableTableRow = ({
         transition
     }=useSortable({id:id});
 
+    // console.log("SortableTableRow ki id ->", id);
     const style={
-        transform:CSS.Transform.toString(transform),
-        transition,
+        transform: CSS.Translate.toString(transform),
+        transition
     }
                 
     return (
-    <tr key={index} ref={setNodeRef} style={style} {...attributes} {...listeners}>
-        <td>{index + 1}</td>
+    <tr ref={setNodeRef} key={id} style={style} {...attributes} {...listeners}>
+        <td><img src='../images/dragging_icon.svg' alt='icons'/></td>
         <td>
         <input
             type="string"
@@ -35,9 +36,10 @@ const SortableTableRow = ({
             placeholder={`Label ${index + 1}`}
         />
         </td>
-        {dataSet.map((data,index)=>{
+        {dataSet.map((data,idx)=>{
+            
             return(
-            <td key={index}>
+            <td key={idx}>
                 <input
                 type="number"
                 value={data.data[index]}
@@ -47,7 +49,7 @@ const SortableTableRow = ({
             </td>)
         })}
         <td>
-        <button onClick={() => handleRemoveField(index)}>Remove</button>
+        <button onClick={() => handleRemoveField(id)}>Remove</button>
         </td>
     </tr>
     )
