@@ -323,8 +323,8 @@ border-color: transparent;
 }
 
 .setting .data-section input {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  /* margin-right: 10px;
+  margin-bottom: 10px; */
   padding: 8px;
   border-radius: 4px;
   border: none;
@@ -333,14 +333,15 @@ border-color: transparent;
 
 .setting .data-section button,
 .back {
-  margin-right: 10px;
-  margin-bottom: 10px;
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
-  background-color: rgb(186, 203, 237);
   color: #fff;
   cursor: pointer;
+  margin: 4px;
+  font-size: 16px;
+  background: rgb(186, 203, 237);
+  color: black;
 }
 
 .setting .data-section .table {
@@ -348,22 +349,40 @@ border-color: transparent;
 }
 
 .setting .data-section .table table {
-  border-collapse: collapse;
-  background-color: #7984ce;
-  /* margin-bottom: 20px; */
-  color: white;
-  font-size: 14px;
+  background: rgb(186, 203, 237);
+  width: 95%;
+  margin: 0 auto;
+  /* background-color: #fff1ee; */
+  padding: 5px;
+  border: none;
+  color: #303030;
+  border-spacing: 5px;
+  border-collapse: separate;
+  table-layout: auto;
 }
 
 .setting .data-section th,
 td {
-  border: 1px solid #515ca3;
-  padding: 8px;
+  /* padding: 8px; */
   width: fit-content;
+  text-align: center;
+}
+
+.setting .data-section td img {
+  filter: invert(0);
+  width: 34%;
 }
 
 .setting .data-section th {
-  background-color: #7984ce;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.setting .data-section td {
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 .setting .data-section .color-section {
@@ -688,7 +707,8 @@ td {
   font-size: 18px;
   text-transform: uppercase;
   border-radius: 0px;
-  background-color: #7984ce;
+  background: rgb(186, 203, 237);
+  border-bottom: 3px solid #1f2a40;
 }
 
 .AddDataSet .dataSet-wrapper {

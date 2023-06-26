@@ -49,7 +49,7 @@ const SortableTableRow = ({
             </td>)
         })}
         <td>
-        <button onClick={() => handleRemoveField(id)}>Remove</button>
+            <img  src='../images/delete_icon.svg' alt='icons' onClick={() => handleRemoveField(id)}/>
         </td>
     </tr>
     )

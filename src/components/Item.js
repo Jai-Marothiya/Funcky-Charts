@@ -95,7 +95,7 @@ const Item = (
               </table>
             </div>
             
-            <button onClick={handleAddField}>Add Data</button>
+            <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
           </div>
         );
       }
