@@ -43,7 +43,7 @@ const SortableTableRow = ({
                 <input
                 type="number"
                 value={data.data[index]}
-                onChange={(e) => handleDataValue(e,data.legend, index)}
+                onChange={(e) => handleDataValue(e,data.id, index)}
                 placeholder={`Value ${index + 1}`}
                 />
             </td>)

@@ -54,7 +54,7 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
 
         //dataSet
         let newData = JSON.parse(JSON.stringify(dataSet));
-        newData=newData.filter((data)=> data.legend!==removableData);
+        newData=newData.filter((data)=> data.id!==removableData);
         setDataSet(newData);
     }
 
@@ -69,22 +69,17 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         setLegends(newLegend);
     }
 
-    // const handleDatasetCustomization=(e,index)=>{
-    //     e.preventDefault();
-    //     let newDataset=JSON.parse(JSON.stringify(dataSet));
-        
-    //     const newLegends=[...legends];
-    //     newLegends[index]=e.target[0].value;
-    //     setLegends(newLegends);
+    const handleCopy=(data)=>{
+        let newData=JSON.parse(JSON.stringify(dataSet));
+        let copy = JSON.parse(JSON.stringify(data));
+        console.log(newData);
+        console.log(copy);
+        copy.id=uuidv4();
+        newData.push(copy);
+        setDataSet(newData);
+    }
 
-    //     newDataset[index][e.target[0].name]=e.target[0].value;
-    //     newDataset[index][e.target[1].name]=e.target[1].value;
-    //     newDataset[index][e.target[2].name]=e.target[2].value;
-    //     newDataset[index][e.target[3].name]=e.target[3].value;
-    //     newDataset[index][e.target[4].name]=e.target[4].value;
 
-    //     setDataSet(newDataset);
-    // }
     const handleDragEnd=(event)=>{
         const {active,over}=event;
         if(active.id === over.id) return;
@@ -111,9 +106,22 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
     /** End ******/
 
     const [toggleDataset,setToggleDataset]=useState("none");
+    const handleDropDown=(e)=>{
+        toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");
+        console.log(e.currentTarget.children[0].style.transform);
+        console.log(e);
+        let rot=e.currentTarget.children[0].style.transform;
+        e.currentTarget.children[0].style.transform= rot==="rotate(-90deg)"?"rotate(90deg)":"rotate(-90deg)";
+    }
+
     return (
         <div className="AddDataSet" style={{margin:"2rem 0"}}>
-                <button onClick={()=>toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none")} style={{transition: "1.4s"}}>DataSets</button>
+                <div className='dataSet-dropDown'>
+                    <button  style={{transition: "1.4s"}}>DataSets</button>
+                    <div onClick={handleDropDown}>
+                        <img src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s"}}/> 
+                    </div>
+                </div>
                 <div className="dataSet-wrapper" style={{display:toggleDataset}}>
                     <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                         <SortableContext 
@@ -124,9 +132,9 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
                         >
                             {dataSet.map((dataSet,index)=>{
                                 return(
-                                    <>
-                                        <SortableItem ref={ref} key={dataSet.id} id={dataSet.id} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} />
-                                    </>)
+                                    <div style={{transition:"all 0.4s"}}>
+                                        <SortableItem ref={ref} key={dataSet.id} id={dataSet.id} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} handleCopy={handleCopy} />
+                                    </div>)
                             })}
                         </SortableContext>
                     </DndContext>

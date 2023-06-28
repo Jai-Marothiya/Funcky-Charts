@@ -80,7 +80,7 @@ const Item = (
                 <tbody>  
                   <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                     <SortableContext 
-                    items={dataSet.length>0?dataSet[0].labels.map((value) => {
+                    items={dataSet.length>0?dataSet[0].labelsId.map((value) => {
                         return value;
                       }):[]}
                     strategy={verticalListSortingStrategy}
@@ -125,7 +125,7 @@ const Item = (
                     </div>
                     <div className="customs">
                         <label htmlFor="point_style" >Point style </label>
-                        <select id="point_style" className="rounded-s-md"  value={settings.pointStyle}  name="pointStyle" onChange={handleSettingChange} style={{width: "55%",background:"#BACBED",outline:"none"}}>
+                        <select id="point_style" className="rounded-s-md"  value={settings.pointStyle}  name="pointStyle" onChange={handleSettingChange} style={{width: "55%",background:"#BACBED",outline:"none",border:"none",borderRadius:"5px"}}>
                             <option>circle</option>
                             <option>triangle</option>
                             <option>cross</option>

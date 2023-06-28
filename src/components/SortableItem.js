@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle,handleRemoveDataset}) => {
+const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle,handleRemoveDataset,handleCopy}) => {
     const {
         attributes,
         listeners,
@@ -23,8 +23,8 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle,ha
                 <button style={{width:'70%'}} onClick={()=>{ handleDataSetToggle(index)}}>{dataSet.legend}</button>
                 {/* <svg path='../images/copy_icon.svg'/>
                 <svg src='../images/delete_icon.svg' onClick={handleRemoveDataset}/> */}
-                <div className='Image_wrapper'><img  src='../images/copy_icon.svg' alt='icons'/></div>
-                <div className='Image_wrapper'><img  src='../images/delete_icon.svg' alt='icons' onClick={()=>handleRemoveDataset(dataSet.legend)} /></div>
+                <div className='Image_wrapper'><img  src='../images/copy_icon.svg' alt='icons' onClick={()=>handleCopy(dataSet)}/></div>
+                <div className='Image_wrapper'><img  src='../images/delete_icon.svg' alt='icons' onClick={()=>handleRemoveDataset(dataSet.id)} /></div>
             </div>
             <div className="dataSetCustomize"  style={{display:dataSet.display}}>
 

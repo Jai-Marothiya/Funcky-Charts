@@ -72,13 +72,13 @@ const Sidebar = ({
   };
 
   /* When we edit any data of any legend from table then it will called. (It is also call from Item.js) */
-  const handleDataValue = (e,legend,index) => {
+  const handleDataValue = (e,id,index) => {
     // console.log(index," -> ", legend);
     let newData = JSON.parse(JSON.stringify(dataSet));
-    let newDataSet = newData.find((data)=> data.legend===legend)
+    let newDataSet = newData.find((data)=> data.id===id)
     newDataSet.data[index] = e.target.value;
     newData.every((data,idx)=>{
-      if(data.legend===legend){
+      if(data.id===id){
         newData[idx]=newDataSet;
         return false;
       }else{
@@ -100,94 +100,107 @@ const Sidebar = ({
   };
 
   /* Set props when we click on particular chart */
-  
 
-
+  const handleSlider=(e)=>{
+      console.log(e);
+      console.log(e.target.parentElement.parentElement.style.width);
+      let width = e.target.parentElement.parentElement.style.width;
+      e.target.parentElement.parentElement.style.width=width==="30%"?"4rem":"30%";
+      e.target.parentElement.parentElement.nextElementSibling.style.width=width==="30%"?"99%":"70%";
+      let rot=e.target.style.transform;
+      e.target.style.transform= rot==="rotate(180deg)"?"rotate(0deg)":"rotate(180deg)";
+  }
 
   if (toggle === "chart") {
     return (
-      <div className="main">
-          <div className="graphs">
-            <div className="graphContainer">
-              <div className="graphHeading">
-                <p>Bar-Charts</p>
-                {/* <span>See All</span> */}
-              </div>
-              <div className="graphWrapper">
-                <div className="graphIcon"></div>
-                <ul className="graph-box">
-                  <li className="box"><img src="../images/bar1.svg" alt="bar" direction="x" stacked="false"  onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/bar2.svg" alt="bar" direction="x" stacked="true" onClick={handleChartClick}/></li>
-                  <li className="box"><img src="../images/bar3.svg" alt="bar" direction="y" stacked="false" onClick={handleChartClick}/></li>
-                  <li className="box"><img src="../images/bar4.svg" alt="bar" direction="y" stacked="true" onClick={handleChartClick}/></li>
-                </ul>
-                <div className="icon"></div>
-              </div>
-            </div>
-          </div>
-          <div className="graphs">
-            <div className="graphContainer">
-              <div className="graphHeading">
-                <p>Line and Dot Charts</p>
-              </div>
-              <div className="graphWrapper">
-                <div className="graphIcon"></div>
-                <ul className="graph-box">
-                  <li className="box"><img src="../images/line1.svg" alt="line" direction="x" stacked="false" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/line2.svg" alt="scatter" onClick={handleChartClick}/></li>
-                  <li className="box"><img src="../images/line4.svg" alt="line" direction="y" stacked="false" onClick={handleChartClick} /></li>
-                </ul>
-                <div className="icon"></div>
+      <div style={{display:"flex", width:"30%",transition:"all 0.4s"}}>
+        <div className="main">
+            <div className="graphs">
+              <div className="graphContainer">
+                <div className="graphHeading">
+                  <p>Bar-Charts</p>
+                  {/* <span>See All</span> */}
+                </div>
+                <div className="graphWrapper">
+                  <div className="graphIcon"></div>
+                  <ul className="graph-box">
+                    <li className="box"><img src="../images/bar1.svg" alt="bar" direction="x" stacked="false"  onClick={handleChartClick} /></li>
+                    <li className="box"><img src="../images/bar2.svg" alt="bar" direction="x" stacked="true" onClick={handleChartClick}/></li>
+                    <li className="box"><img src="../images/bar3.svg" alt="bar" direction="y" stacked="false" onClick={handleChartClick}/></li>
+                    <li className="box"><img src="../images/bar4.svg" alt="bar" direction="y" stacked="true" onClick={handleChartClick}/></li>
+                  </ul>
+                  <div className="icon"></div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="graphs">
-            <div className="graphContainer">
-              <div className="graphHeading">
-                <p>Pie-Charts</p>
-              </div>
-              <div className="graphWrapper">
-                <div className="graphIcon"></div>
-                <ul className="graph-box">
-                  <li className="box"><img src="../images/pie1.svg" alt="pie" onClick={handleChartClick} /></li>
-                  <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li>
-                </ul>
-                <div className="icon"></div>
-              </div>
-            </div>
-          </div>
-          <div className="graphs">
-            <div className="graphContainer">
-              <div className="graphHeading">
-                <p>Polar-Area-Charts</p>
-              </div>
-              <div className="graphWrapper">
-                <div className="graphIcon"></div>
-                <ul className="graph-box">
-                  <li className="box"><img src="../images/polar_area2.png" alt="polar" onClick={handleChartClick} /></li>
-                </ul>
-                <div className="icon"></div>
+            <div className="graphs">
+              <div className="graphContainer">
+                <div className="graphHeading">
+                  <p>Line and Dot Charts</p>
+                </div>
+                <div className="graphWrapper">
+                  <div className="graphIcon"></div>
+                  <ul className="graph-box">
+                    <li className="box"><img src="../images/line1.svg" alt="line" direction="x" stacked="false" onClick={handleChartClick} /></li>
+                    <li className="box"><img src="../images/line2.svg" alt="scatter" onClick={handleChartClick}/></li>
+                    <li className="box"><img src="../images/line4.svg" alt="line" direction="y" stacked="false" onClick={handleChartClick} /></li>
+                  </ul>
+                  <div className="icon"></div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="graphs">
-            <div className="graphContainer">
-              <div className="graphHeading">
-                <p>Radar-Charts</p>
-              </div>
-              <div className="graphWrapper">
-                <div className="graphIcon"></div>
-                <ul className="graph-box">
-                  <li className="box"><img src="../images/radar_chart.png" alt="radar" onClick={handleChartClick} /></li>
-                </ul>
-                <div className="icon"></div>
+            <div className="graphs">
+              <div className="graphContainer">
+                <div className="graphHeading">
+                  <p>Pie-Charts</p>
+                </div>
+                <div className="graphWrapper">
+                  <div className="graphIcon"></div>
+                  <ul className="graph-box">
+                    <li className="box"><img src="../images/pie1.svg" alt="pie" onClick={handleChartClick} /></li>
+                    <li className="box"><img src="../images/pie2.svg" alt="doughnut" onClick={handleChartClick} /></li>
+                  </ul>
+                  <div className="icon"></div>
+                </div>
               </div>
             </div>
-          </div>
+            <div className="graphs">
+              <div className="graphContainer">
+                <div className="graphHeading">
+                  <p>Polar-Area-Charts</p>
+                </div>
+                <div className="graphWrapper">
+                  <div className="graphIcon"></div>
+                  <ul className="graph-box">
+                    <li className="box"><img src="../images/polar_area2.png" alt="polar" onClick={handleChartClick} /></li>
+                  </ul>
+                  <div className="icon"></div>
+                </div>
+              </div>
+            </div>
+            <div className="graphs">
+              <div className="graphContainer">
+                <div className="graphHeading">
+                  <p>Radar-Charts</p>
+                </div>
+                <div className="graphWrapper">
+                  <div className="graphIcon"></div>
+                  <ul className="graph-box">
+                    <li className="box"><img src="../images/radar_chart.png" alt="radar" onClick={handleChartClick} /></li>
+                  </ul>
+                  <div className="icon"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div style={{display:'flex', justifyContent:'center', alignItems:"center", background:"rgb(186, 203, 237)"}}>
+          <img src='./images/slider.svg' alt='slider' style={{filter:'invert(0)',width:"2.5rem",height:"8rem",transition: "all 0.5s ease 0s"}} onClick={handleSlider}/>
+        </div>
       </div>
     );
   } else {
     return (
+    <div style={{display:"flex", width:"30%",transition:"all 0.4s"}}>
       <div className="setting">
         {/* <button className='back' onClick={handleBack} style={{width:"100%"}}>⬅ Back</button> */}
         <ul className="tabs-box">
@@ -208,6 +221,10 @@ const Sidebar = ({
           setDataSet={setDataSet}
         />
       </div>
+      <div style={{display:'flex', justifyContent:'center', alignItems:"center", background:"rgb(186, 203, 237)"}}>
+          <img src='./images/slider.svg' alt='slider' style={{filter:'invert(0)',width:"2.5rem",height:"8rem",transition: "all 0.5s ease 0s"}} onClick={handleSlider}/>
+      </div>
+  </div>
     );
   }
 }

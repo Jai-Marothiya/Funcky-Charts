@@ -37,11 +37,11 @@ html {
 
 /* charts page (main) toggle==chart*/
 .main {
-  width: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   /* min-height: 100vh; */
-  background-color: rgb(16 16 16 / 86%);
+  background-color: rgb(31, 42, 64);
   overflow-x: scroll;
 }
 
@@ -228,12 +228,12 @@ html {
 .graphicon:first-child {
   left: 0;
   display: none;
-  background: linear-gradient(90deg, #fff 80%, transparent);
+  /* background: linear-gradient(90deg, #fff 80%, transparent); */
 }
 .graphicon:last-child {
   right: 0;
   justify-content: flex-end;
-  background: linear-gradient(-90deg, #fff 80%, transparent);
+  /* background: linear-gradient(-90deg, #fff 80%, transparent); */
 }
 .graphicon i {
   width: 30px;
@@ -304,10 +304,11 @@ border-color: transparent;
 /** Data & Setting Styling ***/
 /***** .setting === (It includes both data-table and setting part) *****/
 .setting {
-  width: 30%;
+  width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #1f2a40;
+  transition: all 0.5s;
 }
 
 /****  Data Table Part (toggleSetting==data)  ****/
@@ -550,7 +551,7 @@ td {
 
 .barBackground {
   width: 70%;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   height: 100%;
   background-color: rgb(186, 203, 237);
   display: flex;
@@ -578,15 +579,16 @@ td {
 }
 
 .barBackground button {
-  border: 1px solid green;
-  background-color: #00d700;
-  padding: 5px 15px;
+  border: none;
+  background-color: rgb(31, 42, 64);
+  color: white;
+  padding: 6px 16px;
   position: absolute;
   top: 0;
-  left: 0;
-  font-size: 19px;
+  left: -2.5rem;
+  font-size: 18px;
   margin: 5px;
-  border-radius: 11px;
+  border-radius: 5px;
 }
 
 /***** Chart Customization styling(sidebar -> setting section -> setting)******/
@@ -620,6 +622,7 @@ td {
   color: #1f2a40;
   width: 55%;
   border-radius: 5px;
+  border: none;
   background-color: #bacbed;
 }
 
@@ -700,6 +703,15 @@ td {
   align-items: center;
 }
 
+.AddDataSet .dataSet-dropDown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(186, 203, 237);
+  border-bottom: 3px solid #1f2a40;
+  width: 90%;
+}
+
 .setting .data-section .AddDataSet button:first-child {
   width: 90%;
   margin: 0px;
@@ -708,7 +720,6 @@ td {
   text-transform: uppercase;
   border-radius: 0px;
   background: rgb(186, 203, 237);
-  border-bottom: 3px solid #1f2a40;
 }
 
 .AddDataSet .dataSet-wrapper {
@@ -726,7 +737,8 @@ td {
   align-self: flex-end;
   text-transform: capitalize;
   margin: 4px 0px;
-  background-color: #7984ce;
+  background-color: rgb(31, 42, 64);
+  color: white;
   transition: all 0.5s;
 }
 
@@ -749,7 +761,7 @@ td {
   padding: 8px 0px;
   border-radius: 0px;
   border: none;
-  background-color: #7984ce;
+  background-color: rgb(31, 42, 64);
   color: #fff;
   cursor: pointer;
   text-transform: uppercase;
@@ -767,7 +779,7 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #7984ce;
+  background-color: rgb(31, 42, 64);
 }
 
 .dataSetSection .dataSetButton .Image_wrapper {
