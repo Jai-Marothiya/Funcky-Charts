@@ -4,6 +4,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit
 import AddDataSet from './AddDataSet';
 import SortableTableRow from './SortableTableRow';
 import { v4 as uuidv4 } from 'uuid';
+import * as xlsx from 'xlsx';
 const Item = (
     {
     toggleSetting,
@@ -16,7 +17,10 @@ const Item = (
     legends,
     setLegends,
     dataSet,
-    setDataSet
+    setDataSet,
+    //firebase data
+    chartData,
+    setChartData,
     }
 ) => {
     const handleDragEnd=(event)=>{
@@ -44,6 +48,35 @@ const Item = (
           })
           return newData;
       })
+
+
+      //firebase data
+      let newChartData = JSON.parse(JSON.stringify(chartData));
+      let newChartDataSet = newChartData.dataSet;
+      // console.log(newChartData);
+      
+
+      if(newChartDataSet.length>0){
+        // console.log(newChartDataSet[0].labelsId);
+        let oldDataSet = newChartDataSet[0].labelsId.find((data)=> data===active.id);
+        let newDataSet = newChartDataSet[0].labelsId.find((data)=> data===over.id);
+        const activeIndex= newChartDataSet[0].labelsId.indexOf(oldDataSet);
+        const overIndex= newChartDataSet[0].labelsId.indexOf(newDataSet);
+
+        // console.log(oldDataSet,newDataSet);
+        // console.log(activeIndex,"  ",overIndex);
+        let newData = JSON.parse(JSON.stringify(newChartDataSet));
+        newData.map((dataset)=>{
+          dataset.data = [...arrayMove(dataset.data,activeIndex,overIndex)];
+          dataset.labels = [...arrayMove(dataset.labels,activeIndex,overIndex)];
+          dataset.labelsId = [...arrayMove(dataset.labelsId,activeIndex,overIndex)];
+          return true;
+        })
+        newChartDataSet=newData;
+        newChartData.dataSet=newChartDataSet;
+        console.log(newChartData);
+        setChartData(newChartData);
+      }
     }
     const ref = useRef(null);
 
@@ -57,11 +90,44 @@ const Item = (
     const sensors = useSensors(mouseSensor, keyboardSensor) ;
 
     /** End ******/
+
+    /**** Excel Data fetch start */
+    const readUploadFile = (e) => {
+      if (e.target.files) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              const data = e.target.result;
+              const workbook = xlsx.read(data, { type: "array" });
+              const sheetName = workbook.SheetNames[0];
+              // console.log("workbook ->", workbook);
+              // console.log("worksheet->", sheetName);
+              const worksheet = workbook.Sheets[sheetName];
+              const json = xlsx.utils.sheet_to_json(worksheet);
+              console.log(json);
+
+              let data1=[];
+              let data2=[];
+              let labels=[];
+
+              json.map((label)=>{
+                labels.push(label.Label);
+                data1.push(label["Data-1"]);
+                data2.push(label["Date-2"]);
+              });
+              console.log(labels);
+              console.log(data1);
+              console.log(data2);
+
+          };
+          reader.readAsArrayBuffer(e.target.files[0]);
+      }
+    }
+    /**** Excel Data fetch END */
     if (toggleSetting === "data") {
         return (
           <div className="data-section">
             {/* <h2>Bar Chart Data Input</h2> */}
-            <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet}/>
+            <AddDataSet  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} chartData={chartData} setChartData={setChartData}/>
     
             <div className='table'>
               <table>
@@ -96,6 +162,13 @@ const Item = (
             </div>
             
             <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
+            <label htmlFor="upload">Upload File</label>
+            <input
+                type="file"
+                name="upload"
+                id="upload"
+                onChange={readUploadFile}
+            />
           </div>
         );
       }
@@ -142,7 +215,7 @@ const Item = (
                         <label   >Show Legend </label>
                         <div style={{width:"55%", textAlign: "end",padding:"8px"}}>
                           <label className="switch">
-                            <input type="checkbox" name="legend" onClick={handleSettingChange} defaultChecked/>
+                            <input type="checkbox" name="legend" onClick={handleSettingChange} />
                             <span className="slider round"></span>
                           </label>
                         </div>

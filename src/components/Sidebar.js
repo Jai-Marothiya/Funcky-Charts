@@ -2,7 +2,6 @@ import React, { useState} from 'react';
 import Item from './Item';
 import { v4 as uuidv4 } from 'uuid';
 const Sidebar = ({
-  setChartType,
   settings,
   handleSettingChange,
   legends,
@@ -12,7 +11,10 @@ const Sidebar = ({
   toggle,
   setToggle,
   chartProps,
-  setChartProps
+  setChartProps,
+  //Firebase data
+  chartData,
+  setChartData,
 }) => {
   const [toggleSetting, setToggleSetting] = useState("data");
   
@@ -35,7 +37,6 @@ const Sidebar = ({
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
     const target = e.target.alt;
-    setChartType(target);
     setToggle("settings");
     if(target==="bar" || target==="line"){
       let temp = Object.assign({}, chartProps);
@@ -49,17 +50,35 @@ const Sidebar = ({
   const handleAddField = () => {
     const newData = JSON.parse(JSON.stringify(dataSet));
     let index=0;
+    let id=uuidv4();
     if(dataSet.length>0){
       index=dataSet[0].labels.length;
     }
     newData.forEach((element) => {
       element.labels.push(`label-${index+1}`);
       console.log(element);
-      element.labelsId.push(uuidv4());
+      element.labelsId.push(id);
       element.data.push(0);
     });
 
     setDataSet(newData);
+
+    //firebase data
+    let newChartData = JSON.parse(JSON.stringify(chartData));
+    let newChartDataSet = newChartData.dataSet;
+
+    index=0;
+    if(dataSet.length>0){
+      index=dataSet[0].labels.length;
+    }
+    newChartDataSet.forEach((element) => {
+      element.labels.push(`label-${index+1}`);
+      console.log(element);
+      element.labelsId.push(id);
+      element.data.push(0);
+    });
+
+    setChartData(newChartData);
   };
 
   /* When we edit any label from table then it will called(It is also call from Item.js) */
@@ -69,6 +88,15 @@ const Sidebar = ({
       element.labels[index]=e.target.value;
     });
     setDataSet(newData);
+
+    //firebase data
+    let newChartData = JSON.parse(JSON.stringify(chartData));
+    let newChartDataSet = newChartData.dataSet;
+    newChartDataSet.forEach((element) => {
+      element.labels[index]=e.target.value;
+    });
+
+    setChartData(newChartData);
   };
 
   /* When we edit any data of any legend from table then it will called. (It is also call from Item.js) */
@@ -86,10 +114,27 @@ const Sidebar = ({
       }
     });
     setDataSet(newData);
+
+    //firebase data
+    let newChartData = JSON.parse(JSON.stringify(chartData));
+    let newChartDataSet = newChartData.dataSet;
+    let updatedDataSet = newChartDataSet.find((data)=> data.id===id);
+    updatedDataSet.data[index] = e.target.value;
+    newChartDataSet.every((data,idx)=>{
+      if(data.id===id){
+        newChartDataSet[idx]=updatedDataSet;
+        return false;
+      }else{
+        return true;
+      }
+    });
+
+    setChartData(newChartData);
   };
 
   /* When we Click on remove button in the table then it will call.(here it is call from Item.js)*/
   const handleRemoveField = (index) => {
+    console.log("Main delete ho rha hu ",index);
     const newData = JSON.parse(JSON.stringify(dataSet));
     newData.forEach((element) => {
       element.labels.splice(index, 1);
@@ -97,6 +142,17 @@ const Sidebar = ({
       element.data.splice(index, 1);
     });
     setDataSet(newData);
+
+    //firebase data
+    let newChartData = JSON.parse(JSON.stringify(chartData));
+    let newChartDataSet = newChartData.dataSet;
+
+    newChartDataSet.forEach((element) => {
+      element.labels.splice(index, 1);
+      element.labelsId.splice(index, 1);
+      element.data.splice(index, 1);
+    });
+    setChartData(newChartData);
   };
 
   /* Set props when we click on particular chart */
@@ -219,6 +275,9 @@ const Sidebar = ({
           setLegends={setLegends}
           dataSet={dataSet} 
           setDataSet={setDataSet}
+          //firebase data
+          chartData={chartData}
+          setChartData={setChartData}
         />
       </div>
       <div style={{display:'flex', justifyContent:'center', alignItems:"center", background:"rgb(186, 203, 237)"}}>

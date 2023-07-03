@@ -23,6 +23,7 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
       },
       legend:{
           display:settings.legend,
+          // display:"true",
           labels: {
             // usePointStyle: true,
           },
@@ -49,14 +50,16 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
     scales: {
       x: {
         title: {
-          display: settings.xText.length>0?true:false,
+          // display: settings.xText.length>0?true:false,
+          display: true,
           text: settings.xText
         },
         stacked: chartProps.stacked,
       },
       y: {
         title: {
-          display: settings.yText.length>0?true:false,
+          // display: settings.yText.length>0?true:false,
+          display: true,
           text: settings.yText,
         },
         stacked: chartProps.stacked,
@@ -66,10 +69,13 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
       }
     }
   };
+  console.log("bar chart setting" , settings);
+  console.log("bar chart prop" , settings.xText);
   // console.log(chartData);
-  // console.log(chartData);
+  // console.log(chartType);
   
   if(chartType==="line"){
+    // console.log("mai line hu");
     return <Line data={chartData} options={options}/>;
   }else if(chartType==="bar"){
     return <Bar data={chartData} options={options}/>;

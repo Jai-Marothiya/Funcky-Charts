@@ -5,7 +5,7 @@ import SortableItem from './SortableItem';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
+const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartData}) => {
     const index=dataSet.length;
     const handleAddDataset=()=>{
         // legends
@@ -38,12 +38,21 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         let tempDataSet = JSON.parse(JSON.stringify(dataSet));
         tempDataSet.push(defaultValue);
         setDataSet(tempDataSet);
+        
+        //firebase data
+        let tempChartData = JSON.parse(JSON.stringify(chartData));
+        tempChartData.dataSet.push(defaultValue);
+        console.log("data jo add hua ",tempChartData.dataSet);
+        setChartData(tempChartData);
     }
 
     const handleDataSetToggle=(index)=>{
         let newData = JSON.parse(JSON.stringify(dataSet));
         newData[index].display = (newData[index].display==="none"?"block":"none");
         setDataSet(newData)
+        let newChartData = JSON.parse(JSON.stringify(chartData));
+        newChartData.dataSet[index].display = (newChartData.dataSet[index].display==="none"?"block":"none");
+        setChartData(newChartData)
     }
 
     const handleRemoveDataset=(removableData)=>{
@@ -56,6 +65,13 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         let newData = JSON.parse(JSON.stringify(dataSet));
         newData=newData.filter((data)=> data.id!==removableData);
         setDataSet(newData);
+
+        //firebase data
+        let newChartData = JSON.parse(JSON.stringify(chartData));
+        newChartData.dataSet=newChartData.dataSet.filter((data)=> data.id!==removableData);
+        setChartData(newChartData);
+
+        localStorage.setItem('myData', JSON.stringify(newData));
     }
 
     const handleInputChange = (e,index)=>{
@@ -67,16 +83,24 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
         newLegend[index]=e.target.value;
         setDataSet(newData);
         setLegends(newLegend);
+
+        //firebase data
+        let newChartData = JSON.parse(JSON.stringify(chartData));
+        newChartData.dataSet[index][e.target.name]=e.target.value;
+        setChartData(newChartData);
     }
 
     const handleCopy=(data)=>{
         let newData=JSON.parse(JSON.stringify(dataSet));
         let copy = JSON.parse(JSON.stringify(data));
-        console.log(newData);
-        console.log(copy);
         copy.id=uuidv4();
         newData.push(copy);
         setDataSet(newData);
+
+        //firebase data
+        let newChartData = JSON.parse(JSON.stringify(chartData));
+        newChartData.dataSet.push(copy);
+        setChartData(newChartData);
     }
 
 
@@ -90,6 +114,18 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet}) => {
             const overIndex=dataSet.indexOf(newDataSet);
             return arrayMove(dataSet,activeIndex,overIndex);
         })
+
+        //firebase data
+        let newChartData = JSON.parse(JSON.stringify(chartData));
+        let newChartDataSet = newChartData.dataSet;
+
+        let oldDataSet = newChartDataSet.find((data)=> data.id===active.id);
+        let newDataSet = newChartDataSet.find((data)=> data.id===over.id);
+        const activeIndex=newChartDataSet.indexOf(oldDataSet);
+        const overIndex=newChartDataSet.indexOf(newDataSet);
+        newChartDataSet = arrayMove(dataSet,activeIndex,overIndex);
+        newChartData.dataSet=newChartDataSet;
+        setChartData(newChartData);
     }
     const ref = useRef(null);
 

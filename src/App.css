@@ -561,8 +561,8 @@ td {
 }
 
 .barBackground .graphBackground {
-  width: 80%;
-  height: 80%;
+  width: 90%;
+  height: 90%;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -575,7 +575,12 @@ td {
 }
 
 .barBackground .graphBackground .barChartWrapper {
-  width: 70%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .barBackground button {
@@ -848,4 +853,42 @@ td {
   margin-right: 20px;
   padding: 4px;
   width: 30px;
+}
+
+/******************************* dashboard ****************************/
+
+
+.Dashboardtable {
+  background: rgb(186, 203, 237);
+  width: 95%;
+  margin: 0 auto;
+  /* background-color: #fff1ee; */
+  padding: 5px;
+  border: none;
+  color: #303030;
+  border-spacing: 5px;
+  border-collapse: separate;
+  table-layout: auto;
+}
+
+.Dashboardtable th,
+td {
+  /* padding: 8px; */
+  width: fit-content;
+  text-align: center;
+}
+
+
+
+.Dashboardtable th {
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.Dashboardtable td {
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
 }

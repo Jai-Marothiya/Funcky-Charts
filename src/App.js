@@ -2,44 +2,51 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import BarChart from './components/BarChart';
-// import LineChart from './components/LineChart';
-// import PieChart from './components/PieChart';
-// import {UserData} from './Data'
-// import BarChartForm from './components/BarChartForm';
 import Sidebar from './components/Sidebar';
-
+import { app ,database} from './firebaseConfig';
+import {
+  collection,addDoc,getDocs,doc,updateDoc,deleteDoc
+} from 'firebase/firestore';
 function App() {
-  const [toggle, setToggle] = useState("chart");
-  const [chartType,setChartType]=useState();
+  const [chartData,setChartData]=useState({});
 
-
-  /********* Side bar settings section ******/
-  const [settings,setSettings]=useState({
-    xText:"x-axis",
-    yText:"y-axis", 
-    legend: true,
-    borderWidth: 2,
-    hitRadius:5,
-    barThickness: 30,
-    pointStyle:"rect",
-  });
-
+  /* Stored chartData data in localStorage */
   useEffect(() => {
-    // Load settings-data from local storage on component mount
-    const storedData = localStorage.getItem('mySettings') ;
-    console.log(storedData);
+    const storedData = localStorage.getItem('myChartData');
     if (storedData) {
-      setSettings(JSON.parse(storedData));
+      setChartData(JSON.parse(storedData));
     }
   }, []);
 
   useEffect(() => {
-    // Update local storage whenever data changes
-    localStorage.setItem('mySettings', JSON.stringify(settings));
-  }, [settings]);
+      if(Object.keys(chartData).length!==0){
+        localStorage.setItem('myChartData', JSON.stringify(chartData));
+      }
 
+      if(Object.keys(chartData).length!==0){
+        const dataToUpdate = doc(database,chartData.UID,chartData.id);
+        updateDoc(dataToUpdate,{
+          settings:chartData.settings,
+          dataSet:chartData.dataSet,
+        })
+        .then(()=>{
+          console.log("update succesfully");
+        })
+        .catch((err)=>{
+            alert(err.message);
+        })
+      }
+  }, [chartData]);
+
+
+
+  /********************* Chart Data End  *******************/
+ 
+  const [toggle, setToggle] = useState("setting");
+
+  /********* Side bar settings section ******/
   const handleSettingChange=(e)=>{
-    let temp = Object.assign({}, settings);
+    let temp = Object.assign({}, chartData.settings);
 
     if(e.target.type==="text" || e.target.type==="number" || e.target.type==="select-one"){
       temp[e.target.name]= e.target.value;
@@ -47,7 +54,7 @@ function App() {
       temp[e.target.name]= e.target.checked;
     }
 
-    setSettings(Object.assign({}, temp));
+    setChartData({...chartData,settings:temp});
   }
 
 
@@ -59,9 +66,12 @@ function App() {
   useEffect(() => {
     const storedData = localStorage.getItem('myData');
     if (storedData) {
+      // console.log("Data loaded");
       setDataSet(JSON.parse(storedData));
+      // console.log("dataSet",dataSet);
     }
   }, []);
+  // console.log("dataSet outside",dataSet);
 
   useEffect(() => {
       if(dataSet.length>0){
@@ -128,18 +138,18 @@ function App() {
           hoverBorderColor:data.hoverBorderColor,
           hoverBorderWidth:4,
           color:"yellow",
-          borderWidth: settings.borderWidth,
+          borderWidth: chartData.settings.borderWidth,
           responsive:true,
-          hitRadius: settings.hitRadius,
+          hitRadius:chartData.settings.hitRadius,
           pointHoverRadius: 5,
           barPercentage: 0.9,
           categoryPercentage: 1,
-          barThickness: settings.barThickness,
+          barThickness: chartData.settings.barThickness,
           // borderSkipped: "bottom",
           borderRadius: 2,
           fill:false,
           maxBarThickness: 60,
-          pointStyle: settings.pointStyle,
+          pointStyle: chartData.settings.pointStyle,
         }
         tempDataSets.push(set);
         return null ;
@@ -149,7 +159,7 @@ function App() {
       labels: dataLabels,
       datasets: tempDataSets,
     });
-  }, [settings,dataSet]);
+  }, [chartData,dataSet]);
 
   /* When we click on Edit button it will alter toggle from "chart" to "data" and vice versa */
   const handleEdit = (e) => {
@@ -162,17 +172,21 @@ function App() {
     indexAxis:'x',
     stacked: false,
   })
-
   
+  console.log("chartData: ",chartData);
+  // console.log("chartType: ",chartData);
+  console.log("chartType: ",chartData.chartType);
+  console.log("chartsettings: ",chartData.settings);
+
   return (
     <div style={{display:'flex',height:"100%"}}>
-      <Sidebar setChartType={setChartType} settings={settings} setSettings={setSettings}  legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} />
+      <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
       
       <div className="barBackground bg-red-300">
         <button onClick={handleEdit}>Charts</button>
         <div className="graphBackground">
           <div className="barChartWrapper">
-            <BarChart chartType={chartType} chartData={userData} settings={settings} chartProps={chartProps}/>
+           {Object.keys(chartData).length!==0?<BarChart chartType={chartData.chartType} chartData={userData} settings={chartData.settings} chartProps={chartProps}/>:null}
           </div>
         </div>
       </div>
