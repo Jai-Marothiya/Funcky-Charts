@@ -6,8 +6,6 @@ const Sidebar = ({
   handleSettingChange,
   legends,
   setLegends,
-  dataSet,
-  setDataSet,
   toggle,
   setToggle,
   chartProps,
@@ -17,22 +15,6 @@ const Sidebar = ({
   setChartData,
 }) => {
   const [toggleSetting, setToggleSetting] = useState("data");
-  
-  /**** set tab of side bar customize tabs and onclick event****/
-  /** It will may be remove **/
-  // const handleMouseEnter=(e)=>{
-  //     const temp=e.currentTarget.id;
-  //     if(toggleSetting!==temp){
-  //       e.target.style.background="#ddd";
-  //     }
-  // }
-
-  // const handleMouseLeave=(e)=>{
-  //     const temp=e.currentTarget.id;
-  //     if(temp!==toggleSetting){
-  //       e.target.style.background="#f1f1f1";
-  //     }
-  // }
 
   /* When we will click on chart: 1. It will set chartType i.e. which chart user want to see 2. It will change toggle(In App.js) to "settings"  */
   const handleChartClick = (e) => {
@@ -48,28 +30,15 @@ const Sidebar = ({
 
   /* When we submit Add Label form then it will call(here it is call from Item.js)*/
   const handleAddField = () => {
-    const newData = JSON.parse(JSON.stringify(dataSet));
     let index=0;
     let id=uuidv4();
-    if(dataSet.length>0){
-      index=dataSet[0].labels.length;
-    }
-    newData.forEach((element) => {
-      element.labels.push(`label-${index+1}`);
-      console.log(element);
-      element.labelsId.push(id);
-      element.data.push(0);
-    });
-
-    setDataSet(newData);
-
     //firebase data
     let newChartData = JSON.parse(JSON.stringify(chartData));
     let newChartDataSet = newChartData.dataSet;
 
     index=0;
-    if(dataSet.length>0){
-      index=dataSet[0].labels.length;
+    if(chartData.dataSet.length>0){
+      index=chartData.dataSet[0].labels.length;
     }
     newChartDataSet.forEach((element) => {
       element.labels.push(`label-${index+1}`);
@@ -83,12 +52,6 @@ const Sidebar = ({
 
   /* When we edit any label from table then it will called(It is also call from Item.js) */
   const handleDataLabel = (e, index) => {
-    const newData = JSON.parse(JSON.stringify(dataSet));
-    newData.forEach((element) => {
-      element.labels[index]=e.target.value;
-    });
-    setDataSet(newData);
-
     //firebase data
     let newChartData = JSON.parse(JSON.stringify(chartData));
     let newChartDataSet = newChartData.dataSet;
@@ -101,20 +64,6 @@ const Sidebar = ({
 
   /* When we edit any data of any legend from table then it will called. (It is also call from Item.js) */
   const handleDataValue = (e,id,index) => {
-    // console.log(index," -> ", legend);
-    let newData = JSON.parse(JSON.stringify(dataSet));
-    let newDataSet = newData.find((data)=> data.id===id)
-    newDataSet.data[index] = e.target.value;
-    newData.every((data,idx)=>{
-      if(data.id===id){
-        newData[idx]=newDataSet;
-        return false;
-      }else{
-        return true;
-      }
-    });
-    setDataSet(newData);
-
     //firebase data
     let newChartData = JSON.parse(JSON.stringify(chartData));
     let newChartDataSet = newChartData.dataSet;
@@ -134,15 +83,6 @@ const Sidebar = ({
 
   /* When we Click on remove button in the table then it will call.(here it is call from Item.js)*/
   const handleRemoveField = (index) => {
-    console.log("Main delete ho rha hu ",index);
-    const newData = JSON.parse(JSON.stringify(dataSet));
-    newData.forEach((element) => {
-      element.labels.splice(index, 1);
-      element.labelsId.splice(index, 1);
-      element.data.splice(index, 1);
-    });
-    setDataSet(newData);
-
     //firebase data
     let newChartData = JSON.parse(JSON.stringify(chartData));
     let newChartDataSet = newChartData.dataSet;
@@ -273,8 +213,6 @@ const Sidebar = ({
           handleSettingChange={handleSettingChange}
           legends={legends}
           setLegends={setLegends}
-          dataSet={dataSet} 
-          setDataSet={setDataSet}
           //firebase data
           chartData={chartData}
           setChartData={setChartData}

@@ -60,36 +60,17 @@ function App() {
 
   /******** For AddDataSet Component **********/
   const [legends,setLegends] = useState([]);
-  const [dataSet,setDataSet] = useState([]);
-
-  /* Stored dataSet data in localStorage */
-  useEffect(() => {
-    const storedData = localStorage.getItem('myData');
-    if (storedData) {
-      // console.log("Data loaded");
-      setDataSet(JSON.parse(storedData));
-      // console.log("dataSet",dataSet);
-    }
-  }, []);
-  // console.log("dataSet outside",dataSet);
-
-  useEffect(() => {
-      if(dataSet.length>0){
-        localStorage.setItem('myData', JSON.stringify(dataSet));
-      }
-  }, [dataSet]);
-
 
   /* Initializing userData */
   let dataLabels = [];
-  if(dataSet.length>0){
-    dataLabels=[...dataSet[0].labels];
+  if(Object.keys(chartData).length!==0 && chartData.dataSet.length>0){
+    dataLabels=[...chartData.dataSet[0].labels];
   }
 
   let tempDataSets = [];
 
-  if(dataSet.length>0){
-    dataSet.map((data)=>{
+  if(Object.keys(chartData).length!==0 && chartData.dataSet.length>0){
+    chartData.dataSet.map((data)=>{
       let set={
         label: data.legend,
         data: [...data.data],
@@ -121,14 +102,14 @@ function App() {
   /* update userData, whenever either "dataSet" or "settings" will change */
   useEffect(() => {
     let dataLabels = [];
-    if(dataSet.length>0){
-      dataLabels=[...dataSet[0].labels];
+    if(Object.keys(chartData).length!==0 && chartData.dataSet.length>0){
+      dataLabels=[...chartData.dataSet[0].labels];
     }
 
     let tempDataSets = [];
 
-    if(dataSet.length>0){
-      dataSet.map((data)=>{
+    if(Object.keys(chartData).length!==0 && chartData.dataSet.length>0){
+      chartData.dataSet.map((data)=>{
         let set={
           label: data.legend,
           data: [...data.data],
@@ -159,7 +140,7 @@ function App() {
       labels: dataLabels,
       datasets: tempDataSets,
     });
-  }, [chartData,dataSet]);
+  }, [chartData]);
 
   /* When we click on Edit button it will alter toggle from "chart" to "data" and vice versa */
   const handleEdit = (e) => {
@@ -172,15 +153,10 @@ function App() {
     indexAxis:'x',
     stacked: false,
   })
-  
-  console.log("chartData: ",chartData);
-  // console.log("chartType: ",chartData);
-  console.log("chartType: ",chartData.chartType);
-  console.log("chartsettings: ",chartData.settings);
 
   return (
     <div style={{display:'flex',height:"100%"}}>
-      <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} dataSet={dataSet} setDataSet={setDataSet} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
+      <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
       
       <div className="barBackground bg-red-300">
         <button onClick={handleEdit}>Charts</button>

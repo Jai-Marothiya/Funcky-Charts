@@ -5,9 +5,10 @@ import SortableItem from './SortableItem';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartData}) => {
-    const index=dataSet.length;
+const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
+    const index=Object.keys(chartData).length!==0?chartData.dataSet.length:0;
     const handleAddDataset=()=>{
+        if(Object.keys(chartData).length===0) return ;
         // legends
         let newLegends = [...legends];
         newLegends.push(`New-DataSet-${index+1}`);
@@ -17,9 +18,9 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
         let tempLabels =[];
         let tempLabelsId =[];
 
-        if(dataSet.length>0){
-            tempLabels = [...dataSet[0].labels];
-            tempLabelsId = [...dataSet[0].labelsId];
+        if(Object.keys(chartData).length!==0 && chartData.dataSet.length>0){
+            tempLabels = [...chartData.dataSet[0].labels];
+            tempLabelsId = [...chartData.dataSet[0].labelsId];
         }
         let tempData =Array(tempLabels.length).fill(0);
         const defaultValue = {
@@ -34,10 +35,6 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
             labels:tempLabels,
             labelsId:tempLabelsId,
         }
-
-        let tempDataSet = JSON.parse(JSON.stringify(dataSet));
-        tempDataSet.push(defaultValue);
-        setDataSet(tempDataSet);
         
         //firebase data
         let tempChartData = JSON.parse(JSON.stringify(chartData));
@@ -47,41 +44,36 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
     }
 
     const handleDataSetToggle=(index)=>{
-        let newData = JSON.parse(JSON.stringify(dataSet));
-        newData[index].display = (newData[index].display==="none"?"block":"none");
-        setDataSet(newData)
+        if(Object.keys(chartData).length===0) return ;
+
         let newChartData = JSON.parse(JSON.stringify(chartData));
         newChartData.dataSet[index].display = (newChartData.dataSet[index].display==="none"?"block":"none");
         setChartData(newChartData)
     }
 
     const handleRemoveDataset=(removableData)=>{
+        if(Object.keys(chartData).length===0) return ;
+
         //legends
         let newLegends = [...legends];
         newLegends=newLegends.filter((data)=> data!==removableData);
         setLegends(newLegends);
 
-        //dataSet
-        let newData = JSON.parse(JSON.stringify(dataSet));
-        newData=newData.filter((data)=> data.id!==removableData);
-        setDataSet(newData);
-
         //firebase data
         let newChartData = JSON.parse(JSON.stringify(chartData));
-        newChartData.dataSet=newChartData.dataSet.filter((data)=> data.id!==removableData);
+        let newChartDataSet=newChartData.dataSet;
+        newChartDataSet=newChartDataSet.filter((data)=> data.id!==removableData);
+        newChartData.dataSet=newChartDataSet;
         setChartData(newChartData);
 
-        localStorage.setItem('myData', JSON.stringify(newData));
+        localStorage.setItem('myChartData', JSON.stringify(newChartData));
     }
 
     const handleInputChange = (e,index)=>{
-        let newData = JSON.parse(JSON.stringify(dataSet)); 
-        let newLegend = JSON.parse(JSON.stringify(legends)); 
-        console.log(e);
+        if(Object.keys(chartData).length===0) return ;
 
-        newData[index][e.target.name]=e.target.value;
+        let newLegend = JSON.parse(JSON.stringify(legends)); 
         newLegend[index]=e.target.value;
-        setDataSet(newData);
         setLegends(newLegend);
 
         //firebase data
@@ -91,11 +83,10 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
     }
 
     const handleCopy=(data)=>{
-        let newData=JSON.parse(JSON.stringify(dataSet));
+        if(Object.keys(chartData).length===0) return ;
+
         let copy = JSON.parse(JSON.stringify(data));
         copy.id=uuidv4();
-        newData.push(copy);
-        setDataSet(newData);
 
         //firebase data
         let newChartData = JSON.parse(JSON.stringify(chartData));
@@ -105,15 +96,10 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
 
 
     const handleDragEnd=(event)=>{
+        if(Object.keys(chartData).length===0) return ;
+
         const {active,over}=event;
         if(active.id === over.id) return;
-        setDataSet((dataSet)=>{
-            let oldDataSet = dataSet.find((data)=> data.id===active.id);
-            let newDataSet = dataSet.find((data)=> data.id===over.id);
-            const activeIndex=dataSet.indexOf(oldDataSet);
-            const overIndex=dataSet.indexOf(newDataSet);
-            return arrayMove(dataSet,activeIndex,overIndex);
-        })
 
         //firebase data
         let newChartData = JSON.parse(JSON.stringify(chartData));
@@ -123,7 +109,7 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
         let newDataSet = newChartDataSet.find((data)=> data.id===over.id);
         const activeIndex=newChartDataSet.indexOf(oldDataSet);
         const overIndex=newChartDataSet.indexOf(newDataSet);
-        newChartDataSet = arrayMove(dataSet,activeIndex,overIndex);
+        newChartDataSet = arrayMove(newChartDataSet,activeIndex,overIndex);
         newChartData.dataSet=newChartDataSet;
         setChartData(newChartData);
     }
@@ -161,17 +147,17 @@ const AddDataSet = ({legends,setLegends,dataSet,setDataSet,chartData,setChartDat
                 <div className="dataSet-wrapper" style={{display:toggleDataset}}>
                     <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
                         <SortableContext 
-                        items={dataSet.map((value) => {
+                        items={Object.keys(chartData).length!==0 ? chartData.dataSet.map((value) => {
                             return value.id;
-                        })}
+                        }):[]}
                         strategy={verticalListSortingStrategy}
                         >
-                            {dataSet.map((dataSet,index)=>{
+                            {Object.keys(chartData).length!==0 ? chartData.dataSet.map((dataSet,index)=>{
                                 return(
                                     <div style={{transition:"all 0.4s"}}>
-                                        <SortableItem ref={ref} key={dataSet.id} id={dataSet.id} dataSet={dataSet} setDataSet={setDataSet} legend={legends} setLegends={setLegends} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} handleCopy={handleCopy} />
+                                        <SortableItem ref={ref} key={dataSet.id} id={dataSet.id} dataSet={dataSet} index={index} handleDragEnd={handleDragEnd} handleInputChange={handleInputChange} handleRemoveDataset={handleRemoveDataset} handleDataSetToggle={handleDataSetToggle} handleCopy={handleCopy} />
                                     </div>)
-                            })}
+                            }):null}
                         </SortableContext>
                     </DndContext>
                     <button onClick={handleAddDataset} >Add DataSet</button>
