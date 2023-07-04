@@ -5,7 +5,7 @@ import { app ,database} from '../../firebaseConfig';
 import {
   collection,addDoc,getDocs,doc,updateDoc,deleteDoc, onSnapshot
 } from 'firebase/firestore';
-const AdminTable = ({dbInstance,userProject,handleDelete,chartData,setChartData}) => {
+const AdminTable = ({userProject,handleDelete}) => {
     const navigate = useNavigate();
     // console.log("AdminTable",dbInstance);
 
@@ -19,9 +19,10 @@ const AdminTable = ({dbInstance,userProject,handleDelete,chartData,setChartData}
             settings:settings,
             dataSet:dataSet,
         };
+        //for deep copy we use below code
         let tempDataSet= JSON.parse(JSON.stringify(data));
         
-        console.log("chart data store kaise ",tempDataSet);
+        // console.log("chart data store kaise ",tempDataSet);
         localStorage.setItem('myChartData', JSON.stringify(tempDataSet));
         navigate("/app");
     }

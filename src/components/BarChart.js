@@ -76,19 +76,19 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
   
   if(chartType==="line"){
     // console.log("mai line hu");
-    return <Line data={chartData} options={options}/>;
+    return <Line id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="bar"){
-    return <Bar data={chartData} options={options}/>;
+    return <Bar id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="pie"){
-    return <Pie data={chartData} options={options}/>;
+    return <Pie id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="doughnut"){
-    return <Doughnut data={chartData} options={options}/>;
+    return <Doughnut id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="scatter"){
-    return <Scatter data={chartData} options={options}/>;
+    return <Scatter id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="polar"){
-    return <PolarArea data={chartData} options={options}/>;
+    return <PolarArea id="stackD" data={chartData} options={options}/>;
   }else if(chartType==="radar"){
-    return <Radar data={chartData} options={options}/>;
+    return <Radar id="stackD" data={chartData} options={options}/>;
   }
 }
 

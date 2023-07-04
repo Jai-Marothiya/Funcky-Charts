@@ -1,4 +1,5 @@
 // Command use: npm add chart.js react-chartjs-2
+// npm i file-saver(for download image from canva)
 import { useState, useEffect } from 'react';
 import './App.css';
 import BarChart from './components/BarChart';
@@ -7,6 +8,7 @@ import { app ,database} from './firebaseConfig';
 import {
   collection,addDoc,getDocs,doc,updateDoc,deleteDoc
 } from 'firebase/firestore';
+import { saveAs } from 'file-saver'; 
 function App() {
   const [chartData,setChartData]=useState({});
 
@@ -37,8 +39,6 @@ function App() {
         })
       }
   }, [chartData]);
-
-
 
   /********************* Chart Data End  *******************/
  
@@ -154,12 +154,23 @@ function App() {
     stacked: false,
   })
 
+  const saveCanvas=()=> {
+    //save to png
+    const canvasSave = document.getElementById('stackD');
+    canvasSave.toBlob(function (blob) {
+        saveAs(blob, "chart.png")
+    })
+  }
+
   return (
     <div style={{display:'flex',height:"100%"}}>
       <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
       
       <div className="barBackground bg-red-300">
-        <button onClick={handleEdit}>Charts</button>
+        <div>
+          <button onClick={handleEdit}>Charts</button>
+          <button id="download" onClick={saveCanvas}>Download</button>
+        </div>
         <div className="graphBackground">
           <div className="barChartWrapper">
            {Object.keys(chartData).length!==0?<BarChart chartType={chartData.chartType} chartData={userData} settings={chartData.settings} chartProps={chartProps}/>:null}

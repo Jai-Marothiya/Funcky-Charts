@@ -39,7 +39,7 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
         //firebase data
         let tempChartData = JSON.parse(JSON.stringify(chartData));
         tempChartData.dataSet.push(defaultValue);
-        console.log("data jo add hua ",tempChartData.dataSet);
+        // console.log("data jo add hua ",tempChartData.dataSet);
         setChartData(tempChartData);
     }
 

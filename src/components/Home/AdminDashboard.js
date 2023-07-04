@@ -9,7 +9,7 @@ import {getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,onAut
 import AdminTable from './AdminTable';
 import { v4 as uuidv4 } from 'uuid';
 
-const AdminDashboard = ({userDetails,setUserDetails,chartData,setChartData}) => {
+const AdminDashboard = () => {
     const auth = getAuth();
     const userId = useRef(null);
     const [newChart,setNewChart]=useState({
@@ -39,7 +39,7 @@ const AdminDashboard = ({userDetails,setUserDetails,chartData,setChartData}) => 
     }, []);
 
     if(!userId.current){
-        userId.current="UnknownUser"
+        userId.current="UnknownUser";
     }
     const dbInstance = collection(database,userId.current);
 
@@ -50,13 +50,9 @@ const AdminDashboard = ({userDetails,setUserDetails,chartData,setChartData}) => 
     }
 
     const handleCreate=()=>{
-        // setNewChart({...newChart,projectId:uuidv4()});
         addDoc(dbInstance,newChart)
         .then((response)=>{
             alert("Data Saved");
-            console.log(newChart);
-            
-            // getData();
         })
         .catch((err)=>{
           alert(err.message);
@@ -68,7 +64,7 @@ const AdminDashboard = ({userDetails,setUserDetails,chartData,setChartData}) => 
     const getData= ()=>{
         onSnapshot(dbInstance, (data)=>{
             setUserProject(data.docs.map((item)=>{
-                console.log("item",item);
+                // console.log("item",item);
                 return {...item.data(),id:item.id};
             }));
             // console.log("user ka project",userProject);
@@ -113,7 +109,7 @@ const AdminDashboard = ({userDetails,setUserDetails,chartData,setChartData}) => 
                 <button onClick={handleCreate}>Create</button>
             </div>
 
-            <AdminTable dbInstance={dbInstance} userProject={userProject} handleDelete={handleDelete} chartData={chartData} setChartData={setChartData} />
+            <AdminTable userProject={userProject} handleDelete={handleDelete} />
         </div>
   )
 }

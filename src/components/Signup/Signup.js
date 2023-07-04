@@ -43,19 +43,19 @@ function Signup({userDetails,setUserDetails}) {
         .then(async(response)=>{
             setSubmitButtonDisabled(false);
             const user=response.user;
-            console.log(user);
+
             await updateProfile(user, {
                 displayName: userData.name,
             });
             await setUserDetails({userName:user.displayName,userId:user.uid});
-            navigate("/home");
+            navigate("/login");
         })
         .catch((err)=>{
             setSubmitButtonDisabled(false);
-            alert(err.message);
+            setErrorMsg(err.message);
         })
     
-        alert("Signup user");
+        // alert("Signup user");
     };
 
     return (

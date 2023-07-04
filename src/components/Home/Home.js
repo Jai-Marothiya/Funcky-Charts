@@ -4,7 +4,7 @@ import {getAuth,signOut, createUserWithEmailAndPassword,signInWithEmailAndPasswo
 import AdminNavbar from "./AdminNavbar";
 import AdminDashboard from "./AdminDashboard";
 
-function Home({userDetails,setUserDetails,chartData,setChartData}) {
+function Home({userDetails,setUserDetails}) {
 
     const auth = getAuth();
     const navigate = useNavigate();
@@ -13,23 +13,22 @@ function Home({userDetails,setUserDetails,chartData,setChartData}) {
         onAuthStateChanged(auth,async (user) => {
           if (user) {
             const uid = user.uid;
-            await setUserDetails({...userDetails,userName:user.displayName,userId:uid});
+            await setUserDetails({userName:user.displayName,userId:uid});
             // You can use the UID here or set it to the component's state
           }
         });
     }, []);
 
     const handleSignOut = () =>{
-        
         signOut(auth)
         .then(() => {
             // Sign-out successful.
             navigate("/login");
-            setUserDetails({...userDetails,userName:"",userId:""});
+            setUserDetails({userName:"",userId:""});
         })
         .catch((error) => {
             // An error happened.
-            alert("Meri likhi hui error");
+            alert(error.message);
         });
     }
 
@@ -37,7 +36,7 @@ function Home({userDetails,setUserDetails,chartData,setChartData}) {
         <div style={{height:"100vh"}}>
             <AdminNavbar userDetails={userDetails} setUserDetails={setUserDetails} handleSignOut={handleSignOut} />
 
-            <AdminDashboard userDetails={userDetails} setUserDetails={setUserDetails} chartData={chartData} setChartData={setChartData}/>        
+            <AdminDashboard />        
         </div>
     );
 }

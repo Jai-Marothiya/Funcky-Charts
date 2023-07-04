@@ -34,7 +34,7 @@ function Login({userDetails,setUserDetails}) {
         signInWithEmailAndPassword(auth,userData.email,userData.password)
         .then(async (response)=>{
             setSubmitButtonDisabled(false);
-            alert("Login succesfully");
+            // alert("Login succesfully");
             const user=response.user;
             await setUserDetails({userName:user.displayName,userId:user.uid});
             await setuserData({...userData,name:user.displayName,userId:user.uid});
@@ -43,23 +43,8 @@ function Login({userDetails,setUserDetails}) {
         .catch((err)=>{
             setSubmitButtonDisabled(false);
             setErrorMsg(err.message);
-            alert(err.message);
+            // alert(err.message);
         })
-        // signInWithEmailAndPassword(auth, values.email, values.pass)
-        // .then(async (res) => {
-        // setSubmitButtonDisabled(false);
-        // console.log("login ka res",res);
-        // console.log(res.user.displayName);
-        // console.log(res.user.id);
-        // setUserDetails({...userDetails,userName:res.user.displayName,UID:res.user.id});
-        // navigate("/home");
-        // })
-        // .catch((err) => {
-        // setSubmitButtonDisabled(false);
-        // setErrorMsg(err.message);
-        // alert(err.message);
-        // // setErrorMsg("Jai..........");
-        // });
     };
     return (
     <div className={styles.container}>
