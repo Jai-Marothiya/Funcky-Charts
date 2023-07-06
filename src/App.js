@@ -166,7 +166,7 @@ function App() {
     <div style={{display:'flex',height:"100%"}}>
       <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
       
-      <div className="barBackground bg-red-300">
+      <div className="barBackground">
         <div>
           <button onClick={handleEdit}>Charts</button>
           <button id="download" onClick={saveCanvas}>Download</button>
