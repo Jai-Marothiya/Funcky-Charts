@@ -10,6 +10,12 @@ import AdminTable from './AdminTable';
 import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
+    // ***********************modal*************************
+    const [modal,setModal] = useState("none");
+    const handlemodal= () => {
+        modal==='none' ? setModal("block") : setModal("none");
+    }
+
     const auth = getAuth();
     const userId = useRef(null);
     const [newChart,setNewChart]=useState({
@@ -52,6 +58,7 @@ const AdminDashboard = () => {
     const handleCreate=()=>{
         addDoc(dbInstance,newChart)
         .then((response)=>{
+            modal==='none' ? setModal("block") : setModal("none");
             alert("Data Saved");
         })
         .catch((err)=>{
@@ -87,30 +94,33 @@ const AdminDashboard = () => {
           alert(err.message);
         })
     }
+
     
     return (
-
-        <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"90vh"}}>
-            <div className="form" style={{width:"30%",height:"40%",background:"#bacbed", border:"1px solid red" , padding:"4rem"}}>
-                <InputControl
-                    label="Project Name"
-                    name="projectName"
-                    placeholder="Enter Project Name"
-                    type="text"
-                    onChange={event => handleInputs(event)}
-                />
-                <InputControl
-                    label="Chart Type"
-                    name="chartType"
-                    placeholder="Enter chart Type"
-                    type="text"
-                    onChange={event => handleInputs(event)}
-                />
-                <button onClick={handleCreate}>Create</button>
+            <div className='h-full flex flex-col justify-center items-center bg-dashboard'>
+                <button onClick={handlemodal}>click me</button>
+                <div className=" w-full h-full z-4 pt-1/20  bg-modalO fixed top-0 left-0" style={{display: modal}}>
+                    <div className=" animate-[modal_0.5s_ease-in-out]  w-2/5 h-2/5 bg-white p-16  shadow-modal relative top-[33%] left-[33%] " >
+                        <span onClick={handlemodal}>remove</span>
+                        <InputControl
+                            label="Project Name"
+                            name="projectName"
+                            placeholder="Enter Project Name"
+                            type="text"
+                            onChange={event => handleInputs(event)}
+                        />
+                        <InputControl
+                            label="Chart Type"
+                            name="chartType"
+                            placeholder="Enter chart Type"
+                            type="text"
+                            onChange={event => handleInputs(event)}
+                        />
+                        <button onClick={handleCreate}>Create</button>
+                    </div>
+                </div>
+                <AdminTable userProject={userProject} handleDelete={handleDelete} />
             </div>
-
-            <AdminTable userProject={userProject} handleDelete={handleDelete} />
-        </div>
   )
 }
 
