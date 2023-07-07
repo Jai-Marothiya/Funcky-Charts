@@ -1,17 +1,4 @@
-/* BarChartForm styles */
 
-/* .container {
-  margin: 20px;
-  background: linear-gradient(to bottom right, #5f76e8, #8d92fb);
-  border-radius: 8px;
-  padding: 20px;
-  color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-h2 {
-  margin-bottom: 10px;
-} */
 
 /** Side Bar CSS *****/
 body,
@@ -28,7 +15,8 @@ html {
 }
 
 html {
-  font-size: 10px;
+  font-size: 16px;
+  font-family: sans-serif;
 }
 
 * {
@@ -45,12 +33,11 @@ html {
   overflow-x: scroll;
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"); */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: "Poppins", sans-serif; */
 }
 
 /****** Rough End ***********/
