@@ -13,13 +13,14 @@ const Routing=()=>{
   const [userDetails,setUserDetails]=useState({
     userName:"",
     userId:"",
+    email:""
   });
   
   useEffect(() => {
     onAuthStateChanged(auth,async (user) => {
       if (user) {
         const uid = user.uid;
-        await setUserDetails({...userDetails,userName:user.displayName,userId:uid});
+        await setUserDetails({...userDetails,userName:user.displayName,userId:uid,email:user.email});
         // You can use the UID here or set it to the component's state
       }
     });

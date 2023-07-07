@@ -49,7 +49,7 @@ function Login({userDetails,setUserDetails}) {
             setSubmitButtonDisabled(false);
             // alert("Login succesfully");
             const user=response.user;
-            await setUserDetails({userName:user.displayName,userId:user.uid});
+            await setUserDetails({userName:user.displayName,userId:user.uid,email:user.email});
             await setuserData({...userData,name:user.displayName,userId:user.uid});
             navigate("/home");
         })
