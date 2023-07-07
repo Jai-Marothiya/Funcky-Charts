@@ -5,6 +5,9 @@ import AddDataSet from './AddDataSet';
 import SortableTableRow from './SortableTableRow';
 import { v4 as uuidv4 } from 'uuid';
 import * as xlsx from 'xlsx';
+import {
+  restrictToVerticalAxis,
+} from '@dnd-kit/modifiers';
 const Item = (
     {
     toggleSetting,
@@ -119,7 +122,7 @@ const Item = (
                   </tr>
                 </thead>
                 <tbody>  
-                  <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
+                  <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)} modifiers={[restrictToVerticalAxis]}>
                     <SortableContext 
                     items={(Object.keys(chartData).length!==0 && chartData.dataSet.length>0)?chartData.dataSet[0].labelsId.map((value) => {
                         return value;

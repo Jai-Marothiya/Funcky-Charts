@@ -5,10 +5,9 @@ export default function Input({
     value,
     labelText,
     labelFor,
-    id,
     name,
     type,
-    isRequired=false,
+    isRequired,
     placeholder,
     customClass
 }){
@@ -20,13 +19,12 @@ export default function Input({
             <input
               onChange={handleChange}
               value={value}
-              id={id}
               name={name}
               type={type}
               required={isRequired}
               className={fixedInputClass+customClass}
               placeholder={placeholder}
             />
-          </div>
+        </div>
     )
 }
