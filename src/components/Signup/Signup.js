@@ -35,6 +35,7 @@ function Signup({userDetails,setUserDetails}) {
 
     const handleSubmission = (e) => {
         e.preventDefault();
+        console.log("onSubmit");
         if (!userData.name || !userData.email || !userData.password || !userData.confirmPassword) {
             setErrorMsg("Fill all fields");
             return;
@@ -48,15 +49,16 @@ function Signup({userDetails,setUserDetails}) {
         setErrorMsg("");
 
         setSubmitButtonDisabled(true);
+        console.log("outside");
         createUserWithEmailAndPassword(auth,userData.email,userData.password)
         .then(async(response)=>{
             setSubmitButtonDisabled(false);
             const user=response.user;
-
+            console.log(user);
             await updateProfile(user, {
                 displayName: userData.name,
             });
-            await setUserDetails({userName:user.displayName,userId:user.uid});
+            await setUserDetails({userName:user.displayName,userId:user.uid,email:user.email});
             navigate("/login");
         })
         .catch((err)=>{

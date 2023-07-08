@@ -150,10 +150,10 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     return (
         <div className="AddDataSet" style={{margin:"2rem 0"}}>
                 <div className='dataSet-dropDown'>
-                    <button className='cursor-default'  style={{transition: "1.4s"}}>DataSets</button>
+                    <button className='cursor-default'  >DataSets</button>
                     <div onClick={handleDropDown} className='w-[10%]'>
                         <img className='cursor-pointer' src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s",width:"90%"}}/> 
-                    </div>
+                    </div>    
                 </div>
                 <div className="dataSet-wrapper" style={{display:toggleDataset,opacity:{opacityValue}, transition:"opacity 1s"}}>
                     <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)} modifiers={[restrictToVerticalAxis]}>
