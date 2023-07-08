@@ -4,6 +4,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 function BarChart({ chartType,chartData,settings,chartProps }) {
   
+  console.log(chartProps);
   const options= {
     responsive: true,
     animations: {

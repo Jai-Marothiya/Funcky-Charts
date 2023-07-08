@@ -26,6 +26,8 @@ function App() {
       }
 
       if(Object.keys(chartData).length!==0){
+        setChartProps({indexAxis:chartData.indexAxis,stacked: chartData.stacked,});
+      
         const dataToUpdate = doc(database,chartData.UID,chartData.id);
         updateDoc(dataToUpdate,{
           settings:chartData.settings,
@@ -151,7 +153,7 @@ function App() {
   /* Different Bar charts Input like indexAxis, stacked */
   const [chartProps,setChartProps] = useState({
     indexAxis:'x',
-    stacked: false,
+    stacked: 'false',
   })
 
   const saveCanvas=()=> {

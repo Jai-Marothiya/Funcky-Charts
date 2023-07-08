@@ -21,7 +21,10 @@ const AdminDashboard = () => {
     const [newChart,setNewChart]=useState({
         UID: "",
         projectName:"",
+        indexAxis:'x',
+        stacked: false,
         chartType:"",
+        actualValue:"",
         settings:{
             xText:"x-axis",
             yText:"y-axis", 
@@ -49,10 +52,20 @@ const AdminDashboard = () => {
     }
     const dbInstance = collection(database,userId.current);
 
-    const handleInputs = (event) => {
-        let inputs = { [event.target.name]: event.target.value }
-    
-        setNewChart({ ...newChart, ...inputs })
+    const handleInputs = (e) => {
+        let target = e.target.value;
+        let temp = JSON.parse(JSON.stringify(newChart));
+
+        temp[e.target.name]= e.target.value ;
+        // console.log(e.target.options[e.target.selectedIndex].getAttribute('direction'));
+        // console.log(e.target.options[e.target.selectedIndex].getAttribute('stacked'));
+        if(e.target.name==="chartType" && (target==="line" || target==="bar")){
+            temp.indexAxis=e.target.options[e.target.selectedIndex].getAttribute('direction');
+            temp.stacked = e.target.options[e.target.selectedIndex].getAttribute('stacked');
+            temp.actualValue = e.target.options[e.target.selectedIndex].getAttribute('actualValue');
+        }
+
+        setNewChart(temp);
     }
 
     const handleCreate=()=>{
@@ -98,10 +111,11 @@ const AdminDashboard = () => {
     
     return (
             <div className='h-full flex flex-col justify-center items-center bg-dashboard'>
-                <button onClick={handlemodal}>click me</button>
+                <button className='px-[25px] py-[15px] shadow-button  bg-white' onClick={handlemodal} >Create Project</button>
                 <div className=" w-full h-full z-4 pt-1/20  bg-modalO fixed top-0 left-0" style={{display: modal}}>
-                    <div className=" animate-[modal_0.5s_ease-in-out]  w-2/5 h-2/5 bg-white p-16  shadow-modal relative top-[33%] left-[33%] " >
-                        <span onClick={handlemodal}>remove</span>
+                    <div className=" animate-[modal_0.5s_ease-in-out]  w-2/5 h-1/3 bg-white  shadow-modal relative top-[33%] left-[33%] flex flex-col pt-0 pb-6  pl-8 " >
+                        <img className='self-end mt-2 mr-2 mb-8 w-3%  hover:rotate-[90deg] duration-500' onClick={handlemodal} src='../images/close.png' alt='close' />
+                        
                         <InputControl
                             label="Project Name"
                             name="projectName"
@@ -109,14 +123,29 @@ const AdminDashboard = () => {
                             type="text"
                             onChange={event => handleInputs(event)}
                         />
-                        <InputControl
+
+                        <select onChange={event => handleInputs(event)} name="chartType" placeholder='Select Chart Type' id="point_style" className='border border-solid border-cardinput rounded-[5px] py-[10px] px-[15px] mr-[30px] mb-[20px] outline-none' >
+                            <option value="" disabled selected hidden  >Select Chart Type</option>
+                            <option value="bar" direction="x" stacked="false" actualValue="Vertical Bar" >Vertical Bar</option>
+                            <option value="bar" direction="x" stacked="true" actualValue="Vertical Stacked Bar" >Vertical Stacked Bar</option>
+                            <option value="bar" direction="y" stacked="false" actualValue="Horizontal Bar">Horizontal Bar</option>
+                            <option value="bar" direction="y" stacked="true" actualValue="Horizontal Stacked Bar">Horizontal Stacked Bar</option>
+                            <option value="line" direction="x" stacked="false" actualValue="Line">Line</option>
+                            <option value="line" direction="y" stacked="false" actualValue="Horizontal Line">Horizontal Line</option>
+                            <option value="scatter" actualValue="Scatter">Scatter</option>
+                            <option value="pie" actualValue="Pie">Pie</option>
+                            <option value="doughnut" actualValue="Doughnut">Doughnut</option>
+                            <option value="radar" actualValue="Radar">Radar</option>
+                            <option value="polar" actualValue="Polar">Polar</option>             
+                        </select>
+                        {/* <InputControl
                             label="Chart Type"
                             name="chartType"
                             placeholder="Enter chart Type"
                             type="text"
                             onChange={event => handleInputs(event)}
-                        />
-                        <button onClick={handleCreate}>Create</button>
+                        /> */}
+                        <p className='mr-5'><img className='mx-auto w-6%' onClick={handleCreate} src='../images/add.png'  /></p>
                     </div>
                 </div>
                 <AdminTable userProject={userProject} handleDelete={handleDelete} />

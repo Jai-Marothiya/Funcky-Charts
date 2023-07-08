@@ -16,12 +16,13 @@
   outline: none;
   padding: 10px 15px;
   color: #000;
+  margin: 0px 30px 20px 0px;
 }
 
-.container input:hover {
+/* .container input:hover {
   border-color: #ccc;
 }
 
 .container input:focus {
   border-color: #9900ff;
-}
+} */

@@ -9,13 +9,16 @@ const AdminTable = ({userProject,handleDelete}) => {
     const navigate = useNavigate();
     // console.log("AdminTable",dbInstance);
 
-    const handleView =(id,UID,projectName,chartType,settings,dataSet)=>{
+    const handleView =(id,UID,projectName,chartType,settings,dataSet,indexAxis,stacked,actualValue)=>{
         // const data = JSON.parse(JSON.stringify(chartData));
         const data = {
             UID:UID,
             id:id,
             projectName:projectName,
             chartType:chartType,
+            actualValue:actualValue ,
+            indexAxis:indexAxis,
+            stacked:stacked,
             settings:settings,
             dataSet:dataSet,
         };
@@ -50,10 +53,10 @@ const AdminTable = ({userProject,handleDelete}) => {
                                 {project.projectName}
                             </td>
                             <td>
-                                {project.chartType}
+                                {project.actualValue}
                             </td>
                             <td>
-                                <button onClick={()=>handleView(project.id,project.UID,project.projectName,project.chartType,project.settings,project.dataSet)}>View</button>
+                                <button onClick={()=>handleView(project.id,project.UID,project.projectName,project.chartType,project.settings,project.dataSet,project.indexAxis,project.stacked,project.actualValue)}>View</button>
                             </td>
                             <td>
                                 <button onClick={()=>handleDelete(project.id,project.UID)}>Delete</button>                    

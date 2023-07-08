@@ -11,15 +11,15 @@ const AdminNavbar = ({userDetails,setUserDetails,handleSignOut}) => {
             </li>
             <li className='w-4/5 text-end '><h2 className='capitalize'>{userDetails.userName}</h2></li>
             <li className='w-1/10 flex justify-center items-center gap-3'>
-              {/* {
+              {
                 userDetails.userName ?
-                <Gravatar email="tanishkmarothiya1212@gmail.com" className='rounded-full w-1/4' />
+                <Gravatar email={userDetails.email} className='rounded-full w-1/4' />
                 :
                 <img src='../images/Dummy_admin_image.png' alt='admin image' className='w-1/4'/>
               
-              } */}
-              <img src='../images/Dummy_admin_image.png' alt='admin image' className='w-1/4'/>
-              <button onClick={handleSignOut}>SIGN-OUT</button>
+              }
+              {/* <img src='../images/Dummy_admin_image.png' alt='admin image' className='w-1/4'/> */}
+              <button className='shadow-button px-[10px] py-[5px]' onClick={handleSignOut}>Sign Out</button>
             </li>
         </ul>
 
