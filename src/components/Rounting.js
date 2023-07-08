@@ -7,6 +7,7 @@ import Signup from "./Signup/Signup";
 import App from "../App";
 
 import "../App.css";
+import ResetPassword from "./Login/ResetPassword";
 
 const Routing=()=>{
   const auth = getAuth();
@@ -31,10 +32,11 @@ const Routing=()=>{
       <BrowserRouter>
           <Routes>
             <Route exact path="/" element={userDetails.userName!==""?<Home userDetails={userDetails} setUserDetails={setUserDetails} />:<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
-            <Route exact path="/home" element={<Home  userDetails={userDetails} setUserDetails={setUserDetails}  />  }/>
             <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
+            <Route exact path="/reset-password" element={<ResetPassword userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
             <Route exact path="/signup"element={<Signup  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
-            <Route exact path="/app" element={<App  userDetails={userDetails} setUserDetails={setUserDetails} style={{height:"100vh"}}/> }/>
+            {userDetails.userName!=="" ?<Route exact path="/home" element={<Home  userDetails={userDetails} setUserDetails={setUserDetails}  />  }/> : <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>}
+            {userDetails.userName!=="" ?<Route exact path="/app" element={<App  userDetails={userDetails} setUserDetails={setUserDetails} style={{height:"100vh"}}/> }/> : <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>}
           </Routes>
       </BrowserRouter>
     </div>

@@ -3,7 +3,10 @@ import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSe
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import SortableItem from './SortableItem';
 import { v4 as uuidv4 } from 'uuid';
-
+import {
+    restrictToVerticalAxis,
+    restrictToWindowEdges,
+  } from '@dnd-kit/modifiers';
 
 const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     const index=Object.keys(chartData).length!==0?chartData.dataSet.length:0;
@@ -145,7 +148,7 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
                     </div>
                 </div>
                 <div className="dataSet-wrapper" style={{display:toggleDataset}}>
-                    <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)}>
+                    <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)} modifiers={[restrictToVerticalAxis]}>
                         <SortableContext 
                         items={Object.keys(chartData).length!==0 ? chartData.dataSet.map((value) => {
                             return value.id;

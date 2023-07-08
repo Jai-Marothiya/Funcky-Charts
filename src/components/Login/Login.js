@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider,FacebookAuthProvider,signInWithPopup, TwitterAuthProvider} from "firebase/auth";
 import {app} from '../../firebaseConfig';
 import InputControl from "../InputControl/InputControl";
 import styles from "./Login.module.css";
@@ -18,6 +18,9 @@ const fields=loginFields;
 
 function Login({userDetails,setUserDetails}) {
     const auth = getAuth();
+    const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
+    const twitterProvider = new TwitterAuthProvider();
     const navigate = useNavigate();
     const [userData, setuserData] = useState({
         userId:"",
@@ -36,6 +39,7 @@ function Login({userDetails,setUserDetails}) {
 
     const handleSubmission = (e) => {
         e.preventDefault();
+        // let checked = e.target.form[2].checked;
         if (!userData.email || !userData.password) {
             setErrorMsg("Fill all fields");
             return;
@@ -56,9 +60,39 @@ function Login({userDetails,setUserDetails}) {
         .catch((err)=>{
             setSubmitButtonDisabled(false);
             setErrorMsg(err.message);
-            // alert(err.message);
         })
     };
+
+    const handleAuth=(e)=>{
+        const authType = e.target.id;
+        let provider;
+        if(authType==="google"){
+            provider=googleProvider;
+        }else if(authType==="facebook"){
+            provider=facebookProvider;
+        }else if(authType==="twitter"){
+            provider=twitterProvider;
+        }
+        signInWithPopup(auth, provider)
+        .then(async (result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = (authType==="google" ? GoogleAuthProvider.credentialFromResult(result):(authType==="facebook"?FacebookAuthProvider.credentialFromResult(result):TwitterAuthProvider.credentialFromResult(result)));
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            await setUserDetails({userName:user.displayName,userId:user.uid});
+            await setuserData({...userData,name:user.displayName,userId:user.uid});
+            navigate("/home");
+            // IdP data available using getAdditionalUserInfo(result)
+
+
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            const accessToken = credential.accessToken;
+        }).catch((err) => {
+            setSubmitButtonDisabled(false);
+            setErrorMsg(err.message);
+        });
+    }
     return (
     // <div className={styles.container}>
     //     <div className={styles.innerBox}>
@@ -126,6 +160,21 @@ function Login({userDetails,setUserDetails}) {
                     <FormExtra/>
                     <p className='mt-4 text-red-500 text-center'>{errorMsg}</p>
                     <FormAction disabled={submitButtonDisabled} handleSubmit={handleSubmission } text="Login"/>
+                    <div className="flex flex-col mt-4">
+                        <div className="flex justify-center items-center ">
+                            <div className="bg-slate-400 h-px grow"></div>
+                            <div className="mx-3 text-gray-500"> or sign in with </div>
+                            <div className="bg-slate-400 h-px grow"></div>
+                        </div>
+                        <div>
+                            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700  mt-6"
+                                onClick={handleAuth} id="google">Continue with Google</button>
+                            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700  mt-6"
+                                onClick={handleAuth} id="facebook">Continue with Facebook</button>
+                            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700  mt-6"
+                                onClick={handleAuth} id="twitter" >Continue with Twitter</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

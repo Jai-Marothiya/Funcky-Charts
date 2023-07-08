@@ -11,7 +11,7 @@ import {
 import { saveAs } from 'file-saver'; 
 function App() {
   const [chartData,setChartData]=useState({});
-
+  const [disabled,setDisabled] = useState(true);
   /* Stored chartData data in localStorage */
   useEffect(() => {
     const storedData = localStorage.getItem('myChartData');
@@ -24,22 +24,23 @@ function App() {
       if(Object.keys(chartData).length!==0){
         localStorage.setItem('myChartData', JSON.stringify(chartData));
       }
+      setDisabled(false);
 
-      if(Object.keys(chartData).length!==0){
-        setChartProps({indexAxis:chartData.indexAxis,stacked: chartData.stacked,});
+      // if(Object.keys(chartData).length!==0){
+      //   setChartProps({indexAxis:chartData.indexAxis,stacked: chartData.stacked,});
       
-        const dataToUpdate = doc(database,chartData.UID,chartData.id);
-        updateDoc(dataToUpdate,{
-          settings:chartData.settings,
-          dataSet:chartData.dataSet,
-        })
-        .then(()=>{
-          console.log("update succesfully");
-        })
-        .catch((err)=>{
-            alert(err.message);
-        })
-      }
+      //   const dataToUpdate = doc(database,chartData.UID,chartData.id);
+      //   updateDoc(dataToUpdate,{
+      //     settings:chartData.settings,
+      //     dataSet:chartData.dataSet,
+      //   })
+      //   .then(()=>{
+      //     console.log("update succesfully");
+      //   })
+      //   .catch((err)=>{
+      //       alert(err.message);
+      //   })
+      // }
   }, [chartData]);
 
   /********************* Chart Data End  *******************/
@@ -156,12 +157,28 @@ function App() {
     stacked: 'false',
   })
 
-  const saveCanvas=()=> {
+  const downloadChart=()=> {
     //save to png
     const canvasSave = document.getElementById('stackD');
     canvasSave.toBlob(function (blob) {
         saveAs(blob, "chart.png")
     })
+  }
+
+  const SaveData=()=>{
+    if(Object.keys(chartData).length!==0){
+      const dataToUpdate = doc(database,chartData.UID,chartData.id);
+      updateDoc(dataToUpdate,{
+        settings:chartData.settings,
+        dataSet:chartData.dataSet,
+      })
+      .then(()=>{
+        console.log("update succesfully");
+      })
+      .catch((err)=>{
+          alert(err.message);
+      })
+    }
   }
 
   return (
@@ -171,7 +188,8 @@ function App() {
       <div className="barBackground">
         <div>
           <button onClick={handleEdit}>Charts</button>
-          <button id="download" onClick={saveCanvas}>Download</button>
+          <button id="download" onClick={downloadChart}>Download</button>
+          <button id="save" disabled={disabled} onClick={SaveData}>Save</button>
         </div>
         <div className="graphBackground">
           <div className="barChartWrapper">
