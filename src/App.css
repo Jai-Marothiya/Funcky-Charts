@@ -298,10 +298,24 @@ border-color: transparent;
   transition: all 0.5s;
 }
 
+.setting::-webkit-scrollbar {
+  width: 1em;
+}
+
+.setting::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.setting::-webkit-scrollbar-thumb {
+  background-color: rgb(173, 24, 165);
+  outline: 1px solid slategrey;
+}
+
 /****  Data Table Part (toggleSetting==data)  ****/
 .setting .data-section {
   display: flex;
   flex-direction: column;
+  padding: 0px;
 }
 
 .setting .data-section form {
@@ -325,18 +339,33 @@ border-color: transparent;
   border-radius: 4px;
   border: none;
   color: #fff;
-  cursor: pointer;
+  /* cursor: pointer; */
   margin: 4px;
   font-size: 16px;
   background: rgb(186, 203, 237);
   color: black;
 }
 
-.setting .data-section .table {
-  overflow-x: scroll;
+.setting .data-section .tables {
+  overflow: scroll;
+  height: 60vh;
+  background: rgb(186, 203, 237);
 }
 
-.setting .data-section .table table {
+.setting .data-section .tables::-webkit-scrollbar {
+  width: 1em;
+}
+
+.setting .data-section .tables::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.setting .data-section .tables::-webkit-scrollbar-thumb {
+  background-color: rgb(91, 93, 96);
+  outline: 1px solid slategrey;
+}
+
+.setting .data-section .tables table {
   background: rgb(186, 203, 237);
   width: 95%;
   margin: 0 auto;
@@ -540,27 +569,31 @@ td {
   width: 70%;
   /* border: 2px solid black; */
   height: 100%;
-  background-color: rgb(186, 203, 237);
+  background-color: rgb(245, 245, 245);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .barBackground .graphBackground {
   width: 90%;
   height: 90%;
   background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+  border-radius: 5px;
 }
 
-.barBackground .graphBackground:hover {
+/* .barBackground .graphBackground:hover {
   border: 2px solid blue;
   border-radius: 4px;
-}
+} */
 
 .barBackground .graphBackground .barChartWrapper {
   width: 100%;
@@ -576,9 +609,6 @@ td {
   background-color: rgb(31, 42, 64);
   color: white;
   padding: 6px 16px;
-  position: absolute;
-  top: 0;
-  left: -2.5rem;
   font-size: 18px;
   margin: 5px;
   border-radius: 5px;
@@ -668,7 +698,7 @@ td {
   content: "";
   height: 10px;
   width: 10px;
-  left: 0px;
+  left: 2px;
   bottom: 5px;
   background-color: white;
   -webkit-transition: 0.4s;

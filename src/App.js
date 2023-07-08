@@ -25,6 +25,7 @@ function App() {
         localStorage.setItem('myChartData', JSON.stringify(chartData));
       }
       setDisabled(false);
+      console.log("appjnasjnjdkn",disabled);
 
       // if(Object.keys(chartData).length!==0){
       //   setChartProps({indexAxis:chartData.indexAxis,stacked: chartData.stacked,});
@@ -186,12 +187,12 @@ function App() {
       <Sidebar settings={chartData.settings} legends={legends} setLegends={setLegends} toggle={toggle} setToggle={setToggle} handleSettingChange={handleSettingChange} chartProps={chartProps} setChartProps={setChartProps} chartData={chartData} setChartData={setChartData} />
       
       <div className="barBackground">
-        <div>
-          <button onClick={handleEdit}>Charts</button>
-          <button id="download" onClick={downloadChart}>Download</button>
-          <button id="save" disabled={disabled} onClick={SaveData}>Save</button>
-        </div>
+          {/* <button onClick={handleEdit}>Charts</button> */}
+        <p className='self-center'>
+          <button id="save" disabled={disabled} onClick={SaveData} style={{opacity: disabled==="true" ? "100% ": "25% "}}>Save</button>
+        </p>
         <div className="graphBackground">
+          <p className=' self-end contents'><img className='w-[4%] ml-auto' onClick={downloadChart} src='./images/download.jpg' alt='download'/></p>
           <div className="barChartWrapper">
            {Object.keys(chartData).length!==0?<BarChart chartType={chartData.chartType} chartData={userData} settings={chartData.settings} chartProps={chartProps}/>:null}
           </div>
