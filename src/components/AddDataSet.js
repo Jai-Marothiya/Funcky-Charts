@@ -132,7 +132,8 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
 
     const [toggleDataset,setToggleDataset]=useState("none");
     const handleDropDown=(e)=>{
-        toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");
+        toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");  
+     
         console.log(e.currentTarget.children[0].style.transform);
         console.log(e);
         let rot=e.currentTarget.children[0].style.transform;
@@ -142,7 +143,7 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     return (
         <div className="AddDataSet" style={{margin:"2rem 0"}}>
                 <div className='dataSet-dropDown'>
-                    <button  style={{transition: "1.4s"}}>DataSets</button>
+                    <button >DataSets</button>
                     <div onClick={handleDropDown}>
                         <img src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s"}}/> 
                     </div>

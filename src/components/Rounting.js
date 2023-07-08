@@ -21,7 +21,8 @@ const Routing=()=>{
     onAuthStateChanged(auth,async (user) => {
       if (user) {
         const uid = user.uid;
-        await setUserDetails({...userDetails,userName:user.displayName,userId:uid,email:user.email});
+        console.log("mai user hoon",user);
+        await setUserDetails({userName:user.displayName,userId:uid,email:user.email});
         // You can use the UID here or set it to the component's state
       }
     });

@@ -5,6 +5,7 @@ import AddDataSet from './AddDataSet';
 import SortableTableRow from './SortableTableRow';
 import { v4 as uuidv4 } from 'uuid';
 import * as xlsx from 'xlsx';
+import { read, utils, writeFile } from 'xlsx';
 import {
   restrictToVerticalAxis,
 } from '@dnd-kit/modifiers';
@@ -101,6 +102,44 @@ const Item = (
       }
     }
     /**** Excel Data fetch END */
+
+
+    const handleExport = () => {
+      const headings = [[
+          'Index',
+          'Bar',
+      ]];
+      chartData.dataSet.map((data)=>{
+        headings[0].push(data.legend);
+      })
+
+      let newChartData = JSON.parse(JSON.stringify(chartData));
+      let newChartDataSet = newChartData.dataSet;
+      let exportData=[];
+
+      if(Object.keys(chartData).length!==0 && newChartDataSet.length>0){
+        newChartDataSet[0].labels.map((label,index)=>{
+              exportData.push({Index:index+1, Bar: label});
+        })
+      }
+        
+      exportData.map((row,index)=>{
+        newChartDataSet.map((dataSet)=>{
+          // console.log(dataSet);
+          exportData[index]={...exportData[index], [dataSet.legend]: dataSet.data[index]}
+        })
+      })
+        console.log(exportData);
+
+      const wb = utils.book_new();
+      const ws = utils.json_to_sheet([]);
+      utils.sheet_add_aoa(ws, headings);
+      utils.sheet_add_json(ws, exportData, { origin: 'A2', skipHeader: true });
+      utils.book_append_sheet(wb, ws, 'Report');
+      writeFile(wb, `${chartData.projectName}-file.xlsx`);
+  }
+
+  
     if (toggleSetting === "data") {
         return (
           <div className="data-section">
@@ -140,13 +179,10 @@ const Item = (
             </div>
             
             <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
-            <label htmlFor="upload">Upload File</label>
-            <input
-                type="file"
-                name="upload"
-                id="upload"
-                onChange={readUploadFile}
-            />
+            <label htmlFor="upload">Export File</label>
+            <button onClick={handleExport} className="btn btn-primary float-right">
+                                Export <i className="fa fa-download"></i>
+            </button>
           </div>
         );
       }
