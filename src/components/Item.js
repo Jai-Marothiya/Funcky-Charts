@@ -146,7 +146,7 @@ const Item = (
             {/* <h2>Bar Chart Data Input</h2> */}
             <AddDataSet  legends={legends} setLegends={setLegends} chartData={chartData} setChartData={setChartData}/>
     
-            <div className='table'>
+            <div className='tables'>
               <table>
                 <thead>
                   <tr>
@@ -212,7 +212,7 @@ const Item = (
                     </div>
                     <div className="customs">
                         <label htmlFor="point_style" >Point style </label>
-                        <select id="point_style" className="rounded-s-md"  value={settings.pointStyle}  name="pointStyle" onChange={handleSettingChange} style={{width: "55%",background:"#BACBED",outline:"none",border:"none",borderRadius:"5px"}}>
+                        <select id="point_style" className="rounded-s-md"  value={settings.pointStyle}  name="pointStyle" onChange={handleSettingChange} style={{width: "55%",background:"#BACBED",outline:"none",border:"none",borderRadius:"5px",color:"black"}}>
                             <option>circle</option>
                             <option>triangle</option>
                             <option>cross</option>

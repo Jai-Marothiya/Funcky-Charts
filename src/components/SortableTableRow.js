@@ -27,7 +27,7 @@ const SortableTableRow = ({
                 
     return (
     <tr ref={setNodeRef} key={id} style={style} {...attributes} {...listeners}>
-        <td><img src='../images/dragging_icon.svg' alt='icons'/></td>
+        <td><img className='cursor-grab' src='../images/dragging_icon.svg' alt='icons'/></td>
         <td>
         <input
             type="string"

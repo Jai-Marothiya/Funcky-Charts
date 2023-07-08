@@ -131,9 +131,16 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     /** End ******/
 
     const [toggleDataset,setToggleDataset]=useState("none");
+    const [opacityValue,setOpacityValue]=useState(0);
     const handleDropDown=(e)=>{
-        toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");  
-     
+
+        toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");
+        setTimeout(() => {
+            opacityValue===0 ? setOpacityValue(1) : setOpacityValue(0);
+        },0.0000001);
+
+        console.log(opacityValue);
+        
         console.log(e.currentTarget.children[0].style.transform);
         console.log(e);
         let rot=e.currentTarget.children[0].style.transform;
@@ -143,12 +150,12 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     return (
         <div className="AddDataSet" style={{margin:"2rem 0"}}>
                 <div className='dataSet-dropDown'>
-                    <button  style={{transition: "1.4s"}}>DataSets</button>
-                    <div onClick={handleDropDown}>
-                        <img src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s"}}/> 
-                    </div>
+                    <button className='cursor-default'  >DataSets</button>
+                    <div onClick={handleDropDown} className='w-[10%]'>
+                        <img className='cursor-pointer' src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s",width:"90%"}}/> 
+                    </div>    
                 </div>
-                <div className="dataSet-wrapper" style={{display:toggleDataset}}>
+                <div className="dataSet-wrapper" style={{display:toggleDataset,opacity:{opacityValue}, transition:"opacity 1s"}}>
                     <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)} modifiers={[restrictToVerticalAxis]}>
                         <SortableContext 
                         items={Object.keys(chartData).length!==0 ? chartData.dataSet.map((value) => {
@@ -164,7 +171,7 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
                             }):null}
                         </SortableContext>
                     </DndContext>
-                    <button onClick={handleAddDataset} >Add DataSet</button>
+                    <p className='p-[10px]'><img className='mx-auto w-1/10 cursor-cell' onClick={handleAddDataset} src='./images/add.png'  /></p>
                 </div>
         </div>
     )

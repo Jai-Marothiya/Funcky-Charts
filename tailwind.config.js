@@ -28,7 +28,8 @@ module.exports = {
       backgroundColor:{
         'modal' : "#bacbed",
         'modalO' : "rgb(0 0 0 / 40%)",
-        'dashboard' : "#f5f5f5"
+        'dashboard' : "#f5f5f5",
+        'chart' : 'rgb(186, 203, 237)',
       },
       colors:{
         'cardinput' : '#dddddd',
