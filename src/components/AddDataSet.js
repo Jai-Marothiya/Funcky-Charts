@@ -143,7 +143,7 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     return (
         <div className="AddDataSet" style={{margin:"2rem 0"}}>
                 <div className='dataSet-dropDown'>
-                    <button >DataSets</button>
+                    <button  style={{transition: "1.4s"}}>DataSets</button>
                     <div onClick={handleDropDown}>
                         <img src='./images/slider.svg' alt="drop-drown" style={{filter:'invert(0)',width:"2.5rem", transform:"rotate(-90deg)",transition: "all 0.5s ease 0s"}}/> 
                     </div>
