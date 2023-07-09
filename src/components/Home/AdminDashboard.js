@@ -62,7 +62,7 @@ const AdminDashboard = () => {
         if(e.target.name==="chartType" && (target==="line" || target==="bar")){
             temp.indexAxis=e.target.options[e.target.selectedIndex].getAttribute('direction');
             temp.stacked = e.target.options[e.target.selectedIndex].getAttribute('stacked');
-            temp.actualValue = e.target.options[e.target.selectedIndex].getAttribute('actualValue');
+            temp.actualValue = e.target.options[e.target.selectedIndex].getAttribute('actualvalue');
         }
 
         setNewChart(temp);
@@ -126,17 +126,17 @@ const AdminDashboard = () => {
 
                         <select onChange={event => handleInputs(event)} name="chartType" placeholder='Select Chart Type' id="point_style" className='border border-solid border-cardinput rounded-[5px] py-[10px] px-[15px] mr-[30px] mb-[20px] outline-none' >
                             <option value="" disabled selected hidden  >Select Chart Type</option>
-                            <option value="bar" direction="x" stacked="false" actualValue="Vertical Bar" >Vertical Bar</option>
-                            <option value="bar" direction="x" stacked="true" actualValue="Vertical Stacked Bar" >Vertical Stacked Bar</option>
-                            <option value="bar" direction="y" stacked="false" actualValue="Horizontal Bar">Horizontal Bar</option>
-                            <option value="bar" direction="y" stacked="true" actualValue="Horizontal Stacked Bar">Horizontal Stacked Bar</option>
-                            <option value="line" direction="x" stacked="false" actualValue="Line">Line</option>
-                            <option value="line" direction="y" stacked="false" actualValue="Horizontal Line">Horizontal Line</option>
-                            <option value="scatter" actualValue="Scatter">Scatter</option>
-                            <option value="pie" actualValue="Pie">Pie</option>
-                            <option value="doughnut" actualValue="Doughnut">Doughnut</option>
-                            <option value="radar" actualValue="Radar">Radar</option>
-                            <option value="polar" actualValue="Polar">Polar</option>             
+                            <option value="bar" direction="x" stacked="false" actualvalue="Vertical Bar" >Vertical Bar</option>
+                            <option value="bar" direction="x" stacked="true" actualvalue="Vertical Stacked Bar" >Vertical Stacked Bar</option>
+                            <option value="bar" direction="y" stacked="false" actualvalue="Horizontal Bar">Horizontal Bar</option>
+                            <option value="bar" direction="y" stacked="true" actualvalue="Horizontal Stacked Bar">Horizontal Stacked Bar</option>
+                            <option value="line" direction="x" stacked="false" actualvalue="Line">Line</option>
+                            <option value="line" direction="y" stacked="false" actualvalue="Horizontal Line">Horizontal Line</option>
+                            <option value="scatter" actualvalue="Scatter">Scatter</option>
+                            <option value="pie" actualvalue="Pie">Pie</option>
+                            <option value="doughnut" actualvalue="Doughnut">Doughnut</option>
+                            <option value="radar" actualvalue="Radar">Radar</option>
+                            <option value="polar" actualvalue="Polar">Polar</option>             
                         </select>
                         {/* <InputControl
                             label="Chart Type"

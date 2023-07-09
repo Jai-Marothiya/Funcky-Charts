@@ -103,7 +103,69 @@ const Item = (
     }
     /**** Excel Data fetch END */
 
+    const handleImport = (event) => {
+      if (event.target.files) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const data = event.target.result;
+            const workbook = xlsx.read(data, { type: "array" });
+            const sheetName = workbook.SheetNames[0];
+            // console.log("workbook ->", workbook);
+            // console.log("worksheet->", sheetName);
+            const worksheet = workbook.Sheets[sheetName];
+            const excel = xlsx.utils.sheet_to_json(worksheet);
+            console.log(excel);
 
+            let labels=[];
+            let labelsId=[];
+
+            excel.map((row)=>{
+              labels.push(row.Bar);
+              labelsId.push(uuidv4());
+            })
+
+            console.log(labels);
+            console.log(labelsId);
+
+            let dataSets=[];
+
+            if(excel.length>0){
+              Object.keys(excel[0]).map((key)=> {
+                if(key!=='Index' && key!=='Bar'){
+                  console.log(key, " ",excel[0][key]);
+                  const defaultValue = {
+                    id: uuidv4(),
+                    legend: key,
+                    backgroundColor:"#2a71d0",
+                    borderColor: "#2a71d0",
+                    hoverBackgroundColor: "#2a71d0",
+                    hoverBorderColor:"#2a71d0",
+                    display: "none",
+                    data:[],
+                    labels:labels,
+                    labelsId:labelsId,
+                  }
+                  dataSets.push(defaultValue);
+                }
+              });
+
+              excel.map((row)=>{
+                dataSets.map((dataset,index)=>{
+                  if(row[dataset.legend]){
+                    dataSets[index].data.push(row[dataset.legend]);
+                  }else{
+                    dataSets[index].data.push(0);
+                  }
+                })
+              })
+              let newChartData = JSON.parse(JSON.stringify(chartData));
+              newChartData.dataSet=dataSets;
+              setChartData(newChartData);
+            }
+          }
+          reader.readAsArrayBuffer(event.target.files[0]);
+      }
+    }
     const handleExport = () => {
       const headings = [[
           'Index',
@@ -179,10 +241,12 @@ const Item = (
             </div>
             
             <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
+            <input type="file" name="file" className="custom-file-input" id="inputGroupFile" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+            <label className="custom-file-label" htmlFor="inputGroupFile">Choose file</label>
             <label htmlFor="upload">Export File</label>
-            <button onClick={handleExport} className="btn btn-primary float-right">
-                                Export <i className="fa fa-download"></i>
-            </button>
+              <button onClick={handleExport} className="btn btn-primary float-right">
+                                  Export <i className="fa fa-download"></i>
+              </button>
           </div>
         );
       }
