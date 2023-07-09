@@ -30,6 +30,7 @@ module.exports = {
         'modalO' : "rgb(0 0 0 / 40%)",
         'dashboard' : "#f5f5f5",
         'chart' : 'rgb(186, 203, 237)',
+        'sidebarlight':'rgb(186, 203, 237)',
       },
       colors:{
         'cardinput' : '#dddddd',

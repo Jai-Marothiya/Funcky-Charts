@@ -133,7 +133,6 @@ const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {
     const [toggleDataset,setToggleDataset]=useState("none");
     const [opacityValue,setOpacityValue]=useState(0);
     const handleDropDown=(e)=>{
-
         toggleDataset==="none"?setToggleDataset("flex"):setToggleDataset("none");
         setTimeout(() => {
             opacityValue===0 ? setOpacityValue(1) : setOpacityValue(0);

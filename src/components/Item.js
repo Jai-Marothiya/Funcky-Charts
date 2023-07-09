@@ -1,4 +1,4 @@
-import React , {useRef} from 'react';
+import React , {useState,useRef} from 'react';
 import { DndContext, closestCenter,KeyboardSensor, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import AddDataSet from './AddDataSet';
@@ -201,6 +201,11 @@ const Item = (
       writeFile(wb, `${chartData.projectName}-file.xlsx`);
   }
 
+  //*************************** */ modal*************************
+  const [modal,setModal] = useState("none");
+  const handlemodal= () => {
+    modal==='none' ? setModal("block") : setModal("none");
+  }
   
     if (toggleSetting === "data") {
         return (
@@ -208,7 +213,7 @@ const Item = (
             {/* <h2>Bar Chart Data Input</h2> */}
             <AddDataSet  legends={legends} setLegends={setLegends} chartData={chartData} setChartData={setChartData}/>
     
-            <div className='tables'>
+            <div className='tables h-[50vh]'>
               <table>
                 <thead>
                   <tr>
@@ -230,7 +235,7 @@ const Item = (
                       }):[]}
                     strategy={verticalListSortingStrategy}
                     >   {(Object.keys(chartData).length!==0 && chartData.dataSet.length>0)?(chartData.dataSet[0].labels).map((label, index) => {
-                       const temp=chartData.dataSet[0].labelsId[index];
+                      const temp=chartData.dataSet[0].labelsId[index];
                       return (
                             <SortableTableRow ref={ref} key={temp} id={temp} dataSet={chartData.dataSet} handleDataLabel={handleDataLabel} handleRemoveField={handleRemoveField} handleDataValue={handleDataValue} index={index} label={label} />)
                           }):null}
@@ -239,14 +244,62 @@ const Item = (
                 </tbody>
               </table>
             </div>
+
+            <div className=" z-10 w-full h-full z-4 pt-1/20   fixed top-0 left-0" style={{display: modal}}>
+              <div className=" w-full h-full   bg-white  shadow-modal relative  flex flex-col" >
+                <p className='h-[4vh] bg-sidebarlight flex justify-end items-center  '>
+                  <h2 className='w-[98%] text-center '>Table</h2>
+                  <img className='w-[2%] h-[95%] self-end mr-[20px]' onClick={handlemodal} src='../images/switch-to-full-screen-button.png' alt='close' />
+                </p>
+                <div className='tables w-full h-[90vh]'>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Index</th>
+                        <th>Bar</th>
+                        {Object.keys(chartData).length!==0?chartData.dataSet.map((data)=>{
+                          return(
+                            <th key={data.id}>{data.legend}</th>
+                          )
+                        }):null}
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>  
+                      <DndContext sensors={sensors} ref={ref} collisionDetection={closestCenter} onDragEnd={(e)=>handleDragEnd(e)} modifiers={[restrictToVerticalAxis]}>
+                        <SortableContext 
+                        items={(Object.keys(chartData).length!==0 && chartData.dataSet.length>0)?chartData.dataSet[0].labelsId.map((value) => {
+                            return value;
+                          }):[]}
+                        strategy={verticalListSortingStrategy}
+                        >   {(Object.keys(chartData).length!==0 && chartData.dataSet.length>0)?(chartData.dataSet[0].labels).map((label, index) => {
+                          const temp=chartData.dataSet[0].labelsId[index];
+                          return (
+                                <SortableTableRow ref={ref} key={temp} id={temp} dataSet={chartData.dataSet} handleDataLabel={handleDataLabel} handleRemoveField={handleRemoveField} handleDataValue={handleDataValue} index={index} label={label} />)
+                              }):null}
+                        </SortableContext>
+                      </DndContext>
+                    </tbody>
+                  </table>
+                </div>
+                <p className=' h-[7vh] flex justify-center'><img className='mx-auto my-auto w-3%' onClick={handleAddField} src='../images/add.png'  /></p>
+                {/* <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button> */}
+              </div>
+            </div> 
+
+            <p><img className=' w-[10%] bg-white' onClick={handlemodal} src='./images/eye.png' alt='eye'/></p>
+
             
             <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
-            <input type="file" name="file" className="custom-file-input" id="inputGroupFile" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
-            <label className="custom-file-label" htmlFor="inputGroupFile">Choose file</label>
-            <label htmlFor="upload">Export File</label>
+            <div>
+              <input type="file" name="file" className="custom-file-input" id="inputGroupFile" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+              <label className="custom-file-label" htmlFor="inputGroupFile">Choose file</label>
+
+              <label htmlFor="upload">Export File</label>
               <button onClick={handleExport} className="btn btn-primary float-right">
-                                  Export <i className="fa fa-download"></i>
+                Export <i className="fa fa-download"></i>
               </button>
+            </div>
           </div>
         );
       }

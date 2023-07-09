@@ -348,7 +348,6 @@ border-color: transparent;
 
 .setting .data-section .tables {
   overflow: scroll;
-  height: 60vh;
   background: rgb(186, 203, 237);
 }
 
@@ -367,7 +366,7 @@ border-color: transparent;
 
 .setting .data-section .tables table {
   background: rgb(186, 203, 237);
-  width: 95%;
+  width: min-content;
   margin: 0 auto;
   /* background-color: #fff1ee; */
   padding: 5px;
@@ -388,6 +387,7 @@ td {
 .setting .data-section td img {
   filter: invert(0);
   width: 34%;
+  margin: 0px auto;
 }
 
 .setting .data-section th {
@@ -596,8 +596,8 @@ td {
 } */
 
 .barBackground .graphBackground .barChartWrapper {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
   display: flex;
   justify-content: center;
   align-items: center;

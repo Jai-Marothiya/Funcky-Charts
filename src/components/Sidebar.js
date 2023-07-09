@@ -218,9 +218,6 @@ const Sidebar = ({
           setChartData={setChartData}
         />
       </div>
-      <div style={{display:'flex', justifyContent:'center', alignItems:"center", background:"rgb(186, 203, 237)"}}>
-          <img src='./images/slider.svg' alt='slider' style={{filter:'invert(0)',width:"2.5rem",height:"8rem",transition: "all 0.5s ease 0s"}} onClick={handleSlider}/>
-      </div>
   </div>
     );
   }
