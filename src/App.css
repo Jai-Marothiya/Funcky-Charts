@@ -299,16 +299,18 @@ border-color: transparent;
 }
 
 .setting::-webkit-scrollbar {
-  width: 1em;
+  width: 10px;
 }
 
 .setting::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(245, 245, 245, 0.3);
+  background-color: rgb(245, 245, 245);
 }
 
 .setting::-webkit-scrollbar-thumb {
-  background-color: rgb(173, 24, 165);
+  background-color: slategrey;
   outline: 1px solid slategrey;
+  border-radius: 10px;
 }
 
 /****  Data Table Part (toggleSetting==data)  ****/
@@ -352,7 +354,8 @@ border-color: transparent;
 }
 
 .setting .data-section .tables::-webkit-scrollbar {
-  width: 1em;
+  width: 10px;
+  height: 10px;
 }
 
 .setting .data-section .tables::-webkit-scrollbar-track {
@@ -362,6 +365,8 @@ border-color: transparent;
 .setting .data-section .tables::-webkit-scrollbar-thumb {
   background-color: rgb(91, 93, 96);
   outline: 1px solid slategrey;
+  border-radius: 10px;
+  /* width: 50%; */
 }
 
 .setting .data-section .tables table {
@@ -375,6 +380,7 @@ border-color: transparent;
   border-spacing: 5px;
   border-collapse: separate;
   table-layout: auto;
+  border-top: 1px solid white;
 }
 
 .setting .data-section th,

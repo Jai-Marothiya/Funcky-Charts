@@ -20,7 +20,7 @@ const SortableItem = ({id,dataSet,index,handleInputChange,handleDataSetToggle,ha
     return (
         <div key={id} className="dataSetSection" ref={setNodeRef}  style={style} {...attributes}>
             <div className='dataSetButton'>
-                <div className='Image_wrapper' {...listeners}><img className='cursor-grab' src='../images/dragging_icon.svg' alt='icons'/></div>
+                <div className='Image_wrapper' {...listeners}><img className='cursor-grab mx-auto' src='../images/draggable.svg' alt='icons'/></div>
                 <button style={{width:'70%'}} onClick={()=>{ handleDataSetToggle(index)}}>{dataSet.legend}</button>
                 {/* <svg path='../images/copy_icon.svg'/>
                 <svg src='../images/delete_icon.svg' onClick={handleRemoveDataset}/> */}

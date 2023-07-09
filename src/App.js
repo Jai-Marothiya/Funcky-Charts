@@ -186,9 +186,9 @@ function App() {
           <button id="save" disabled={disabled} onClick={SaveData} style={{opacity: (disabled===true ? 0.25 : 1)}}>Save</button>
         </p>
         <div className="graphBackground">
-          <p className='h-[5%] bg flex justify-end items-center gap-[20px] '>
-            <img className='w-fit h-[90%]' onClick={handlemodal} src='./images/eye.png' alt='eye'/>
-            <img className='w-fit h-[90%] mr-[10px]' onClick={downloadChart} src='./images/downloading.png' alt='download'/>
+          <p className='h-[4%] bg flex justify-end items-center gap-[20px] mt-[5px]'>
+            <img className='w-fit h-[90%] ' onClick={downloadChart} src='./images/download.svg' alt='download'/>
+            <img className='w-fit h-[90%] mr-[10px]' onClick={handlemodal} src='./images/eye.svg' alt='eye'/>
           </p>
           <div className="barChartWrapper">
             {Object.keys(chartData).length!==0?<BarChart chartType={chartData.chartType} chartData={userData} settings={chartData.settings} chartProps={chartProps}/>:null}
@@ -197,9 +197,9 @@ function App() {
 
         <div className="  w-full h-full z-4 pt-1/20   fixed top-0 left-0" style={{display: modal}}>
           <div className=" w-full h-full   bg-white  shadow-modal relative  flex flex-col" >
-            <p className='h-[5%]  flex justify-end items-center gap-[20px] '>
-              <img className='w-fit h-[90%]' onClick={downloadChart} src='./images/downloading.png' alt='download'/>
-              <img className='w-fit h-[90%] self-end mr-[10px]    hover:rotate-[90deg] duration-500' onClick={handlemodal} src='../images/close.png' alt='close' />
+            <p className='h-[3%]  flex justify-end items-center gap-[20px] mt-[5px] '>
+              <img className='w-fit h-[90%]' onClick={downloadChart} src='./images/download.svg' alt='download'/>
+              <img className='w-fit h-[90%] self-end mr-[10px]    hover:rotate-[90deg] duration-500' onClick={handlemodal} src='../images/close.svg' alt='close' />
             </p>
             <div className="w-full h-full flex justify-center items-center">
               {Object.keys(chartData).length!==0?<BarChart chartType={chartData.chartType} width="100%" height="90%"  chartData={userData} settings={chartData.settings} chartProps={chartProps} options={{ maintainAspectRatio: false }}/>:null}

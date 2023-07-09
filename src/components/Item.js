@@ -220,7 +220,7 @@ const Item = (
               <div className=" w-full h-full   bg-white  shadow-modal relative  flex flex-col" >
                 <p className='h-[4vh] bg-sidebarlight flex justify-end items-center  '>
                   <h2 className='w-[98%] text-center '>Table</h2>
-                  <img className='w-[2%] h-[95%] self-end mr-[20px]' onClick={handlemodal} src='../images/switch-to-full-screen-button.png' alt='close' />
+                  <img className=' h-[60%]  mr-[20px]' onClick={handlemodal} src='../images/close.svg' alt='close' />
                 </p>
                 <div className='tables w-full h-[90vh]'>
                   <table>
@@ -258,18 +258,22 @@ const Item = (
               </div>
             </div> 
 
-            <p><img className=' w-[10%] bg-white' onClick={handlemodal} src='./images/eye.png' alt='eye'/></p>
+            <p className='flex justify-between mb-[10px]'>
+              <button onClick={handlemodal}>Destruction Free Mode</button>
+              {/* <img className=' w-[10%] bg-white' onClick={handlemodal} src='./images/eye.svg' alt='eye'/> */}
+              <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
+            </p>
 
-            
-            <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
             <div>
-              <input type="file" name="file" className="custom-file-input" id="inputGroupFile" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
-              <label className="custom-file-label" htmlFor="inputGroupFile">Choose file</label>
+              <span className='text-white mr-[15px]'>Export Excel file : </span><img className='w-[10%] invert-[1] inline-block' onClick={handleExport} src='./images/import.svg' alt='import'/>
 
-              <label htmlFor="upload">Export File</label>
-              <button onClick={handleExport} className="btn btn-primary float-right">
+              <input type="file" name="file" className="custom-file-input text-white" style={{padding:"0px"}} id="inputGroupFile" required onChange={handleImport} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+              {/* <label className="custom-file-label" htmlFor="inputGroupFile">Choose file</label> */}
+
+              {/* <label htmlFor="upload">Export File</label> */}
+              {/* <button onClick={handleExport} className="btn btn-primary float-right">
                 Export <i className="fa fa-download"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         );
@@ -294,10 +298,10 @@ const Item = (
                         <label htmlFor="hit_radius"  >Hit Radius </label>
                         <input className='setting-input'  value={settings.hitRadius} type="number" id="hit_radius" name="hitRadius" onChange={handleSettingChange}  />
                     </div>
-                    <div className="customs">
+                    {/* <div className="customs">
                         <label htmlFor="bar_thickness" >Bar Thickness </label>
                         <input className='setting-input' value={settings.barThickness} type="number" id="bar_thickness" name="barThickness"  onChange={handleSettingChange} />
-                    </div>
+                    </div> */}
                     <div className="customs">
                         <label htmlFor="point_style" >Point style </label>
                         <select id="point_style" className="rounded-s-md"  value={settings.pointStyle}  name="pointStyle" onChange={handleSettingChange} style={{width: "55%",background:"#BACBED",outline:"none",border:"none",borderRadius:"5px",color:"black"}}>
@@ -317,7 +321,7 @@ const Item = (
                         <label   >Show Legend </label>
                         <div style={{width:"55%", textAlign: "end",padding:"8px"}}>
                           <label className="switch">
-                            <input type="checkbox" name="legend" onClick={handleSettingChange} />
+                            <input type="checkbox" name="legend" onClick={handleSettingChange} defaultChecked/>
                             <span className="slider round"></span>
                           </label>
                         </div>

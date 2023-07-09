@@ -34,7 +34,18 @@ const AdminDashboard = () => {
             barThickness: 30,
             pointStyle:"rect",
         },
-        dataSet : []
+        dataSet : [{
+            id: uuidv4(),
+            legend: `New-DataSet-1`,
+            backgroundColor:"#2a71d0",
+            borderColor: "#2a71d0",
+            hoverBackgroundColor: "#2a71d0",
+            hoverBorderColor:"#2a71d0",
+            display: "none",
+            data:[0,0,0],
+            labels:['label-1','label-2','label-3'],
+            labelsId:[1,2,3],
+        }]
     });
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
