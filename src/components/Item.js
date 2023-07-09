@@ -71,37 +71,6 @@ const Item = (
     /** End ******/
 
     /**** Excel Data fetch start */
-    const readUploadFile = (e) => {
-      if (e.target.files) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-              const data = e.target.result;
-              const workbook = xlsx.read(data, { type: "array" });
-              const sheetName = workbook.SheetNames[0];
-              // console.log("workbook ->", workbook);
-              // console.log("worksheet->", sheetName);
-              const worksheet = workbook.Sheets[sheetName];
-              const json = xlsx.utils.sheet_to_json(worksheet);
-              console.log(json);
-
-              let data1=[];
-              let data2=[];
-              let labels=[];
-
-              json.map((label)=>{
-                labels.push(label.Label);
-                data1.push(label["Data-1"]);
-                data2.push(label["Date-2"]);
-              });
-              console.log(labels);
-              console.log(data1);
-              console.log(data2);
-
-          };
-          reader.readAsArrayBuffer(e.target.files[0]);
-      }
-    }
-    /**** Excel Data fetch END */
 
     const handleImport = (event) => {
       if (event.target.files) {
@@ -200,6 +169,8 @@ const Item = (
       utils.book_append_sheet(wb, ws, 'Report');
       writeFile(wb, `${chartData.projectName}-file.xlsx`);
   }
+
+  /**** Excel Data fetch END */
 
   //*************************** */ modal*************************
   const [modal,setModal] = useState("none");

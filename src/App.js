@@ -6,12 +6,12 @@ import BarChart from './components/BarChart';
 import Sidebar from './components/Sidebar';
 import { app ,database} from './firebaseConfig';
 import {
-  collection,addDoc,getDocs,doc,updateDoc,deleteDoc
+  collection,addDoc,getDocs,doc,updateDoc,deleteDoc,onSnapshot
 } from 'firebase/firestore';
 import { saveAs } from 'file-saver'; 
 function App() {
   const [chartData,setChartData]=useState({});
-  const [disabled,setDisabled] = useState(true);
+  const [disabled,setDisabled] = useState(false);
   /* Stored chartData data in localStorage */
   useEffect(() => {
     const storedData = localStorage.getItem('myChartData');
@@ -19,29 +19,16 @@ function App() {
       setChartData(JSON.parse(storedData));
     }
   }, []);
-
+  const [userProject,setUserProject]=useState([]);
   useEffect(() => {
+      
+      // if(chartData!==JSON.parse(localStorage.getItem('myChartData')))
+      
       if(Object.keys(chartData).length!==0){
+        
         localStorage.setItem('myChartData', JSON.stringify(chartData));
       }
-      setDisabled(false);
-      console.log("appjnasjnjdkn",disabled);
 
-      // if(Object.keys(chartData).length!==0){
-      //   setChartProps({indexAxis:chartData.indexAxis,stacked: chartData.stacked,});
-      
-      //   const dataToUpdate = doc(database,chartData.UID,chartData.id);
-      //   updateDoc(dataToUpdate,{
-      //     settings:chartData.settings,
-      //     dataSet:chartData.dataSet,
-      //   })
-      //   .then(()=>{
-      //     console.log("update succesfully");
-      //   })
-      //   .catch((err)=>{
-      //       alert(err.message);
-      //   })
-      // }
   }, [chartData]);
 
   /********************* Chart Data End  *******************/
@@ -86,8 +73,8 @@ function App() {
         borderWidth: 2,
         responsive:true,
         hitRadius:0,
-        barPercentage: 0.9,
-        categoryPercentage: 1,
+        barPercentage: 0.8,
+        categoryPercentage: 0.9,
         fill:false,
         pointHoverRadius: 20,
         hoverBackgroundColor: data.hoverBackgroundColor,
@@ -124,16 +111,17 @@ function App() {
           hoverBorderWidth:4,
           color:"yellow",
           borderWidth: chartData.settings.borderWidth,
-          responsive:true,
+          responsive:false,
           hitRadius:chartData.settings.hitRadius,
           pointHoverRadius: 5,
-          barPercentage: 0.9,
-          categoryPercentage: 1,
-          barThickness: chartData.settings.barThickness,
+          // barThickness: chartData.settings.barThickness,
           // borderSkipped: "bottom",
           borderRadius: 2,
           fill:false,
-          maxBarThickness: 60,
+          grouped:true,
+          skipNull:true,
+          // clip: {left: 20, top: false, right: 5, bottom: 0},
+          // maxBarThickness: 60,
           pointStyle: chartData.settings.pointStyle,
         }
         tempDataSets.push(set);
@@ -154,8 +142,8 @@ function App() {
 
   /* Different Bar charts Input like indexAxis, stacked */
   const [chartProps,setChartProps] = useState({
-    indexAxis:'x',
-    stacked: 'false',
+    indexAxis:chartData.indexAxis,
+    stacked: chartData.stacked,
   })
 
   const downloadChart=()=> {
@@ -195,7 +183,7 @@ function App() {
       <div className="barBackground">
           {/* <button onClick={handleEdit}>Charts</button> */}
         <p className='self-center'>
-          <button id="save" disabled={disabled} onClick={SaveData} style={{opacity: disabled==="true" ? "100% ": "25% "}}>Save</button>
+          <button id="save" disabled={disabled} onClick={SaveData} style={{opacity: (disabled===true ? 0.25 : 1)}}>Save</button>
         </p>
         <div className="graphBackground">
           <p className='h-[5%] bg flex justify-end items-center gap-[20px] '>

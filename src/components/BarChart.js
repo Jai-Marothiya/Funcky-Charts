@@ -4,8 +4,10 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 function BarChart({ chartType,chartData,settings,chartProps }) {
   
-  console.log(chartProps);
+  // console.log(chartProps);
   const options= {
+    barPercentage: 0.8,
+    categoryPercentage:0.8,
     responsive: true,
     animations: {
         duration: 1000,
@@ -36,12 +38,12 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
       title: {
         display: true,
       },
-      beforeEvent(chart, args, pluginOptions) {
-        const event = args.event;
-        if (event.type === 'mouseout') {
-          // process the event
-        }
-      },
+      // beforeEvent(chart, args, pluginOptions) {
+      //   const event = args.event;
+      //   if (event.type === 'mouseout') {
+      //     // process the event
+      //   }
+      // },
     },
     aspectRatio:1,
     hover: {
@@ -56,6 +58,12 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
           text: settings.xText
         },
         stacked: chartProps.stacked,
+        ticks: {
+          beginAtZero: true,
+        },
+        // barPercentage: 1,
+        // categoryPercentage:0.5 
+        
       },
       y: {
         title: {
@@ -70,8 +78,8 @@ function BarChart({ chartType,chartData,settings,chartProps }) {
       }
     }
   };
-  console.log("bar chart setting" , settings);
-  console.log("bar chart prop" , settings.xText);
+  // console.log("bar chart setting" , settings);
+  // console.log("bar chart prop" , settings.xText);
   // console.log(chartData);
   // console.log(chartType);
   

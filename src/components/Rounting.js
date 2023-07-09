@@ -36,8 +36,8 @@ const Routing=()=>{
             <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
             <Route exact path="/reset-password" element={<ResetPassword userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
             <Route exact path="/signup"element={<Signup  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>
-            {userDetails.userName!=="" ?<Route exact path="/home" element={<Home  userDetails={userDetails} setUserDetails={setUserDetails}  />  }/> : <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>}
-            {userDetails.userName!=="" ?<Route exact path="/app" element={<App  userDetails={userDetails} setUserDetails={setUserDetails} style={{height:"100vh"}}/> }/> : <Route exact path="/login" element={<Login  userDetails={userDetails} setUserDetails={setUserDetails}/>}/>}
+            <Route exact path="/home" element={userDetails.userName!=="" ?<Home  userDetails={userDetails} setUserDetails={setUserDetails}  /> : <Login  userDetails={userDetails} setUserDetails={setUserDetails}/> }/> 
+            <Route exact path="/app" element={userDetails.userName!=="" ?<App  userDetails={userDetails} setUserDetails={setUserDetails} style={{height:"100vh"}}/>: <Login  userDetails={userDetails} setUserDetails={setUserDetails}/> }/> 
           </Routes>
       </BrowserRouter>
     </div>

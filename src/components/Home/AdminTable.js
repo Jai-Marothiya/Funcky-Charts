@@ -5,6 +5,8 @@ import { app ,database} from '../../firebaseConfig';
 import {
   collection,addDoc,getDocs,doc,updateDoc,deleteDoc, onSnapshot
 } from 'firebase/firestore';
+import Loader from '../Loader';
+
 const AdminTable = ({userProject,handleDelete}) => {
     const navigate = useNavigate();
     // console.log("AdminTable",dbInstance);
@@ -32,6 +34,7 @@ const AdminTable = ({userProject,handleDelete}) => {
     
     return (
         <div style={{margin:"2rem", width:"60%" , height:"fit-content"}}>
+            {userProject.length>0?
             <table className='Dashboardtable'>
                 <thead>
                   <tr>
@@ -65,7 +68,9 @@ const AdminTable = ({userProject,handleDelete}) => {
                       );
                    })}
                 </tbody>
-            </table>
+            </table>: 
+            <Loader />
+            }
         </div>
     )
 }
