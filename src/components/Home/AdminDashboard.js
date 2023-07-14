@@ -22,9 +22,10 @@ const AdminDashboard = () => {
         UID: "",
         projectName:"",
         indexAxis:'x',
+        id:"",
         stacked: false,
         chartType:"",
-        actualValue:"",
+        actualvalue:"",
         settings:{
             xText:"x-axis",
             yText:"y-axis", 
@@ -70,18 +71,21 @@ const AdminDashboard = () => {
         temp[e.target.name]= e.target.value ;
         // console.log(e.target.options[e.target.selectedIndex].getAttribute('direction'));
         // console.log(e.target.options[e.target.selectedIndex].getAttribute('stacked'));
-        if(e.target.name==="chartType" && (target==="line" || target==="bar")){
-            temp.indexAxis=e.target.options[e.target.selectedIndex].getAttribute('direction');
-            temp.stacked = e.target.options[e.target.selectedIndex].getAttribute('stacked');
-            temp.actualValue = e.target.options[e.target.selectedIndex].getAttribute('actualvalue');
+        if(e.target.name==="chartType"){
+            temp.actualvalue = e.target.options[e.target.selectedIndex].getAttribute('actualvalue');
+            if((target==="line" || target==="bar")){
+                temp.indexAxis=e.target.options[e.target.selectedIndex].getAttribute('direction');
+                temp.stacked = e.target.options[e.target.selectedIndex].getAttribute('stacked');
+            }
         }
-
+        console.log(temp);
         setNewChart(temp);
     }
 
     const handleCreate=()=>{
         addDoc(dbInstance,newChart)
         .then((response)=>{
+            console.log(response.id);
             modal==='none' ? setModal("block") : setModal("none");
             alert("Data Saved");
         })

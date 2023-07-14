@@ -56,7 +56,7 @@ const AdminTable = ({userProject,handleDelete}) => {
                                 {project.projectName}
                             </td>
                             <td>
-                                {project.actualValue}
+                                {project.actualvalue}
                             </td>
                             <td>
                                 <button onClick={()=>handleView(project.id,project.UID,project.projectName,project.chartType,project.settings,project.dataSet,project.indexAxis,project.stacked,project.actualValue)}>View</button>
