@@ -5,7 +5,7 @@ import AddDataSet from './AddDataSet';
 import SortableTableRow from './SortableTableRow';
 import { v4 as uuidv4 } from 'uuid';
 import * as xlsx from 'xlsx';
-import { read, utils, writeFile } from 'xlsx';
+import { utils, writeFile } from 'xlsx';
 import {
   restrictToVerticalAxis,
 } from '@dnd-kit/modifiers';
@@ -115,6 +115,7 @@ const Item = (
                     labelsId:labelsId,
                   }
                   dataSets.push(defaultValue);
+                  return true;
                 }
               });
 
@@ -259,7 +260,7 @@ const Item = (
             </div> 
 
             <p className='flex justify-between mb-[10px]'>
-              <button onClick={handlemodal}>Destruction Free Mode</button>
+              <button onClick={handlemodal}>Distraction Free Mode</button>
               {/* <img className=' w-[10%] bg-white' onClick={handlemodal} src='./images/eye.svg' alt='eye'/> */}
               <button onClick={handleAddField} style={{alignSelf:"flex-end",width:"30%"}}>Add Data</button>
             </p>

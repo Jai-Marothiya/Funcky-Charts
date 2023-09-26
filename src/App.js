@@ -1,12 +1,12 @@
 // Command use: npm add chart.js react-chartjs-2
 // npm i file-saver(for download image from canva)
-import { useState, useEffect } from 'react';
+import {React, useState, useEffect } from 'react';
 import './App.css';
 import BarChart from './components/BarChart';
 import Sidebar from './components/Sidebar';
-import { app ,database} from './firebaseConfig';
+import { app,database} from './firebaseConfig';
 import {
-  collection,addDoc,getDocs,doc,updateDoc,deleteDoc,onSnapshot
+  doc,updateDoc
 } from 'firebase/firestore';
 import { saveAs } from 'file-saver'; 
 function App() {

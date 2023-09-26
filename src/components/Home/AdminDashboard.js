@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef} from 'react'
 import InputControl from '../InputControl/InputControl';
 import { app ,database} from '../../firebaseConfig';
+// import {auth} from 'firebase/auth';
 import {
   collection,addDoc,getDocs,doc,updateDoc,deleteDoc,onSnapshot
 } from 'firebase/firestore';
@@ -11,12 +12,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
     // ***********************modal*************************
+    // const user=auth.currentUser;
+    // console.log("Yeh log in user hai: ",user);
     const [modal,setModal] = useState("none");
     const handlemodal= () => {
         modal==='none' ? setModal("block") : setModal("none");
     }
 
     const auth = getAuth();
+    
     const userId = useRef(null);
     const [newChart,setNewChart]=useState({
         UID: "",
@@ -52,6 +56,7 @@ const AdminDashboard = () => {
         onAuthStateChanged(auth, async (user) => {
           if (user) {
             const uid = user.uid;
+            console.log("AdminDashboard Ka user: ",uid);
             userId.current=uid;
             setNewChart({...newChart,UID:uid})
             // You can use the UID here or set it to the component's state
@@ -78,7 +83,7 @@ const AdminDashboard = () => {
                 temp.stacked = e.target.options[e.target.selectedIndex].getAttribute('stacked');
             }
         }
-        console.log(temp);
+        // console.log(temp);
         setNewChart(temp);
     }
 
@@ -140,7 +145,7 @@ const AdminDashboard = () => {
                         />
 
                         <select onChange={event => handleInputs(event)} name="chartType" placeholder='Select Chart Type' id="point_style" className='border border-solid border-cardinput rounded-[5px] py-[10px] px-[15px] mr-[30px] mb-[20px] outline-none' >
-                            <option value="" disabled selected hidden  >Select Chart Type</option>
+                            <option value="Select Chart" >Select Chart Type</option>
                             <option value="bar" direction="x" stacked="false" actualvalue="Vertical Bar" >Vertical Bar</option>
                             <option value="bar" direction="x" stacked="true" actualvalue="Vertical Stacked Bar" >Vertical Stacked Bar</option>
                             <option value="bar" direction="y" stacked="false" actualvalue="Horizontal Bar">Horizontal Bar</option>

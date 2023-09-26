@@ -1,7 +1,4 @@
-
-
-/** Side Bar CSS *****/
-body,
+* Side Bar CSS **** body,
 html {
   margin: 0px;
   padding: 0px;
@@ -32,7 +29,6 @@ html {
   background-color: rgb(31, 42, 64);
   overflow-x: scroll;
 }
-
 
 * {
   margin: 0;
@@ -588,7 +584,8 @@ td {
   width: 90%;
   height: 90%;
   background-color: white;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
   flex-direction: column;
   /* justify-content: center;
@@ -607,7 +604,6 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .barBackground button {
@@ -620,7 +616,7 @@ td {
   border-radius: 5px;
 }
 
-.barBackground #download{
+.barBackground #download {
   border: none;
   background-color: rgb(31, 42, 64);
   color: white;
@@ -894,7 +890,6 @@ td {
 
 /******************************* dashboard ****************************/
 
-
 .Dashboardtable {
   background: white;
   width: 95%;
@@ -910,25 +905,24 @@ td {
 
 .Dashboardtable th,
 td {
-  /* padding: 8px; */
   width: fit-content;
   text-align: center;
 }
-
-
 
 .Dashboardtable th {
   background-color: #fff;
   padding: 8px;
   border-radius: 5px;
   font-size: 14px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .Dashboardtable td {
   background-color: #fff;
   border-radius: 5px;
   font-size: 14px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
   padding: 4px;
 }

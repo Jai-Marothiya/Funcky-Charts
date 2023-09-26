@@ -5,7 +5,6 @@ import SortableItem from './SortableItem';
 import { v4 as uuidv4 } from 'uuid';
 import {
     restrictToVerticalAxis,
-    restrictToWindowEdges,
   } from '@dnd-kit/modifiers';
 
 const AddDataSet = ({legends,setLegends,chartData,setChartData}) => {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider,FacebookAuthProvider,signInWithPopup, TwitterAuthProvider} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup} from "firebase/auth";
 import {app} from '../../firebaseConfig';
-import InputControl from "../InputControl/InputControl";
-import styles from "./Login.module.css";
+// import InputControl from "../InputControl/InputControl";
+// import styles from "./Login.module.css";
 
 
 import { loginFields } from "../formFields";
@@ -19,8 +19,8 @@ const fields=loginFields;
 function Login({userDetails,setUserDetails}) {
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider();
-    const twitterProvider = new TwitterAuthProvider();
+    // const facebookProvider = new FacebookAuthProvider();
+    // const twitterProvider = new TwitterAuthProvider();
     const navigate = useNavigate();
     const [userData, setuserData] = useState({
         userId:"",
@@ -68,15 +68,17 @@ function Login({userDetails,setUserDetails}) {
         let provider;
         if(authType==="google"){
             provider=googleProvider;
-        }else if(authType==="facebook"){
-            provider=facebookProvider;
-        }else if(authType==="twitter"){
-            provider=twitterProvider;
         }
+        // else if(authType==="facebook"){
+        //     provider=facebookProvider;
+        // }else if(authType==="twitter"){
+        //     provider=twitterProvider;
+        // }
         signInWithPopup(auth, provider)
         .then(async (result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = (authType==="google" ? GoogleAuthProvider.credentialFromResult(result):(authType==="facebook"?FacebookAuthProvider.credentialFromResult(result):TwitterAuthProvider.credentialFromResult(result)));
+            // const credential = (authType==="google" ? GoogleAuthProvider.credentialFromResult(result):(authType==="facebook"?FacebookAuthProvider.credentialFromResult(result):TwitterAuthProvider.credentialFromResult(result)));
+            const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
@@ -140,17 +142,17 @@ function Login({userDetails,setUserDetails}) {
                     <div className="">
                         {
                             fields.map(field=>
-                                    <Input
-                                        key={field.id}
-                                        handleChange={handleInputs}
-                                        value={userData[field.id]}
-                                        labelText={field.labelText}
-                                        labelFor={field.labelFor}
-                                        id={field.id}
-                                        name={field.name}
-                                        type={field.type}
-                                        isRequired={field.isRequired}
-                                        placeholder={field.placeholder}
+                                <Input
+                                    key={field.id}
+                                    handleChange={handleInputs}
+                                    value={userData[field.id]}
+                                    labelText={field.labelText}
+                                    labelFor={field.labelFor}
+                                    id={field.id}
+                                    name={field.name}
+                                    type={field.type}
+                                    isRequired={field.isRequired}
+                                    placeholder={field.placeholder}
                                 />
                             
                             )
@@ -169,10 +171,10 @@ function Login({userDetails,setUserDetails}) {
                         <div>
                             <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700  mt-6"
                                 onClick={handleAuth} id="google">Continue with Google</button>
-                            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700  mt-6"
+                            {/* <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700  mt-6"
                                 onClick={handleAuth} id="facebook">Continue with Facebook</button>
                             <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700  mt-6"
-                                onClick={handleAuth} id="twitter" >Continue with Twitter</button>
+                                onClick={handleAuth} id="twitter" >Continue with Twitter</button> */}
                         </div>
                     </div>
                 </form>
